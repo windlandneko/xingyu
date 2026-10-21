@@ -55,13 +55,14 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .brand { display: flex; align-items: center; gap: 12px; }
 .brand-mark {
   display: grid; place-items: center; width: 52px; height: 52px; font-size: 48px; line-height: 1;
+  padding: 0; border: 0; background: none; color: inherit; cursor: context-menu;
 }
 h1 { margin: 0; font-size: 18px; letter-spacing: .02em; }
 .sub { margin: 0; color: var(--muted); font-size: 12px; }
 .top-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
 .top-actions .pill { height: 28px; }
 .top-actions .help-trigger { width: 28px; height: 28px; border-radius: 50%; }
-.top-actions .help-trigger svg { width: 30px; height: 30px; }
+.top-actions .help-trigger svg { width: 26px; height: 26px; }
 
 main { max-width: 1200px; margin: 0 auto; padding: 20px 16px 80px; display: flex; flex-direction: column; gap: 28px; }
 
@@ -144,7 +145,6 @@ button.cell:hover { background: var(--accent-soft); }
 .dnav { display: grid; grid-template-columns: repeat(3, 32px); gap: 2px; flex: none; }
 .dnav .tool { width: 32px; height: 32px; color: inherit; }
 .dnav .xy { font-size: 32px; line-height: 1; }
-.dnav .tool svg { width: 28px; height: 28px; }
 .dnav .tool:disabled { visibility: hidden; pointer-events: none; }
 .dtop { display: flex; align-items: center; gap: 12px; }
 .big {

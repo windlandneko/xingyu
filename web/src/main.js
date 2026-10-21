@@ -161,7 +161,7 @@ function renderBlock(b) {
     const cells = [...Array(16)].map((_, c) => ed.byCp.get(hex(r + c)))
     rows.push(`<div class="crow"><span class="rlabel">${hex(r).slice(0, -1)}x</span>${cells.map(cell).join('')}</div>`)
   }
-  const head = () => (b.head === '?' ? '?' : `<span class="xy">${chr(b.head)}</span> ${b.name ?? ''}`)
+  const head = () => (b.head === '?' ? '?' : `${ref(b.head)} ${b.name ?? ''}`)
   const [title, note] = KIND[b.kind] ?? [head()]
   const n = ed.entries.filter((e) => e.cp >= b.start && e.cp <= b.end).length
   return `<div class="block"><div class="bhead"><b>${title}</b><span>U+${b.start}–${b.end} · ${n}</span>` +
@@ -196,13 +196,10 @@ let selected = null
 // The game's dictionary sentences, followed by a blank line and the definition.
 const word = (x) => (x[0] === '~' ? `<span class="raw">${esc(x.slice(1).replace('div', '/'))}</span>` : ref(x))
 const line = (xs, title = '') => `<p${title && ` title="${title}"`}>${xs.map(word).join('')}</p>`
-const historyIcon = (forward) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${forward
-  ? 'M23 1H12L1 12L12 23L23 12L12 1'
-  : 'M1 23H12L23 12L12 1L1 12L12 23'}"/></svg>`
 function showDetail(e) {
   selected = e
   document.querySelector('.cell.sel')?.classList.remove('sel')
-  if (!e) { $('detail').innerHTML = '<p class="hint">左键插入兴语，右键查看字典。</p>'; return }
+  if (!e) { $('detail').innerHTML = '<p class="hint">左键插入，右键查阅。</p>'; return }
   const cell = document.querySelector(`.cell[data-cp="${e.cp}"]`)
   cell?.classList.add('sel')
   const row = (k, v) => (v ? `<dt>${k}</dt><dd>${v}</dd>` : '')
@@ -215,11 +212,11 @@ function showDetail(e) {
     ? [line([...be, ...e.wt], '词性'), line(roots, '词根'),
       e.def?.length && '<p></p>', ...(e.def ?? []).map((l) => line(l))].filter(Boolean)
     : [line([e.cp, cp('benot'), cp('word')], '不是字')]
-  const nav = (id, forward, title, ok) => `<button type="button" class="tool" id="${id}" title="${title}" aria-label="${title}"${ok ? '' : ' disabled'}>${historyIcon(forward)}</button>`
+  const nav = (id, cp, title, ok) => `<button type="button" class="tool xy" id="${id}" data-cp="${cp}" title="${title}" aria-label="${title}"${ok ? '' : ' disabled'}>${chr(cp)}</button>`
   $('detail').innerHTML = `<div class="dhead"><span class="dcode">U+${e.cp}</span>` +
-    `<div class="dnav"><button type="button" class="tool xy" id="d-copy" title="复制" aria-label="复制 U+${e.cp}">${chr('F740E')}</button>` +
-    `${nav('d-back', false, '上一个', hist.i > 0)}${nav('d-fwd', true, '下一个', hist.i < hist.list.length - 1)}</div>` +
-    `</div><div class="dtop"><button type="button" class="big xy" data-cp="${e.cp}" title="左键插入，右键查字典" aria-label="插入 U+${e.cp}">${e.char}</button>` +
+    `<div class="dnav"><button type="button" class="tool xy" id="d-copy" data-cp="F740E" title="复制" aria-label="复制 U+${e.cp}">${chr('F740E')}</button>` +
+    `${nav('d-back', 'F72D7', '上一个', hist.i > 0)}${nav('d-fwd', 'F72D8', '下一个', hist.i < hist.list.length - 1)}</div>` +
+    `</div><div class="dtop"><button type="button" class="big xy" data-cp="${e.cp}" title="插入" aria-label="插入 U+${e.cp}">${e.char}</button>` +
     `<div class="dmeta">${e.name ? `<b class="word-name">${esc(e.name)}</b>` : ''}${e.demo === false ? '<small>仅完整版</small>' : ''}` +
     `<dl>${row('结构', STRUCT[e.struct])}${row('部件', !e.roots && e.parts?.map(ref).join(''))}` +
     `${row('类别', e.cats?.map(ref).join(''))}</dl></div></div>` +
@@ -240,22 +237,22 @@ function go(e, auto = false) {
   showDetail(e)
 }
 
-for (const area of [$('chart-body'), $('detail')]) {
-  area.addEventListener('click', (ev) => {
-    const e = ed.byCp.get(ev.target.closest('button[data-cp]')?.dataset.cp)
-    if (!e) return
-    const start = pad.selectionStart
-    pad.setRangeText(e.char, start, pad.selectionEnd, 'end')
-    updatePad()
-    toast('已加入打字区')
-  })
-  area.addEventListener('contextmenu', (ev) => {
-    const e = ed.byCp.get(ev.target.closest('button[data-cp]')?.dataset.cp)
-    if (!e) return
-    ev.preventDefault()
-    go(e)
-  })
-}
+document.addEventListener('click', (ev) => {
+  const target = ev.target.closest('[data-cp]')
+  if (!target || target.closest('.dnav, #brand')) return
+  const e = ed.byCp.get(target.dataset.cp)
+  if (!e) return
+  const start = pad.selectionStart
+  pad.setRangeText(e.char, start, pad.selectionEnd, 'end')
+  updatePad()
+  toast('已加入打字区')
+})
+document.addEventListener('contextmenu', (ev) => {
+  const e = ed.byCp.get(ev.target.closest('[data-cp]')?.dataset.cp)
+  if (!e) return
+  ev.preventDefault()
+  go(e)
+})
 $('q').value = new URLSearchParams(location.search).get('q') ?? ''
 let qTimer
 $('q').addEventListener('input', () => { clearTimeout(qTimer); qTimer = setTimeout(renderChart, 120) })
