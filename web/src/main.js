@@ -54,7 +54,7 @@ for (const trigger of document.querySelectorAll('.help-trigger')) {
 async function loadEdition(family, font, table) {
   let face
   try {
-    const [res, fontRes] = await Promise.all([fetch(import.meta.env.BASE_URL + table), fetch(import.meta.env.BASE_URL + font)])
+    const [res, fontRes] = await Promise.all([fetch(import.meta.env.BASE_URL + table), fetch(import.meta.env.BASE_URL + font.replace('.ttf', '.woff2'))])
     if (!res.ok || !fontRes.ok) throw new Error('Edition unavailable')
     const [data, buffer] = await Promise.all([res.json(), fontRes.arrayBuffer()])
     face = new FontFace(family, buffer, { weight: '100 900', display: 'block' })
@@ -62,7 +62,7 @@ async function loadEdition(family, font, table) {
     await face.load()
     const entries = data.entries.map((e) => ({ ...e, char: chr(e.cp) }))
     const byCp = new Map(entries.map((e) => [e.cp, e]))
-    const byToken = new Map([...fontTokens(buffer)].map(([token, cp]) => [token, byCp.get(cp)]).filter(([, e]) => e))
+    const byToken = new Map([...await fontTokens(buffer)].map(([token, cp]) => [token, byCp.get(cp)]).filter(([, e]) => e))
     return { ...data, font, entries, byCp, byToken }
   } catch {
     if (face) document.fonts.delete(face)

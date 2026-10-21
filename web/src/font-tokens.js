@@ -1,5 +1,12 @@
-// Read tokens from this font's post 2.0 and cmap 12 tables; no separate word list.
-export function fontTokens(buffer) {
+// Read the font's original post/cmap tables, also embedded in our WOFF2 private block.
+export async function fontTokens(buffer) {
+  const header = new DataView(buffer)
+  if (header.getUint32(0) === 0x774f4632) {
+    const offset = header.getUint32(40), length = header.getUint32(44)
+    if (!offset || offset + length > buffer.byteLength) throw new Error('Missing font index')
+    const stream = new Blob([buffer.slice(offset, offset + length)]).stream().pipeThrough(new DecompressionStream('deflate'))
+    buffer = await new Response(stream).arrayBuffer()
+  }
   const view = new DataView(buffer)
   const u16 = (p) => view.getUint16(p)
   const u32 = (p) => view.getUint32(p)

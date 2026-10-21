@@ -15,13 +15,22 @@
 ## 构建
 
 ```sh
-pip install -r requirements.txt
-python3 build_font.py                         # 读取 private/，写入 data/
-python3 test_font.py data/XingyuDemo-VF.ttf
-cd web && npm ci && npm run dev
+uv run --with-requirements requirements.txt python build_font.py  # 读取 private/，生成 TTF、WOFF2 和码表
+cd web && pnpm install && pnpm dev
 ```
 
-发布：在 `web/` 执行 `pnpm build`，自动复制并检查 Demo 字体和码表。完整版仅供本地开发使用。网页搜索和 PUA 转换读取字体中的对应关系；公开 JSON 不含词名、词名哈希或英文释义。
+已有 TTF 可原地优化并生成 WOFF2，不需要 `private/`：
+
+```sh
+uv run --with-requirements requirements.txt python optimize_font.py
+# 也可以在命令末尾指定一个或多个 TTF 路径
+```
+
+优化只合并轮廓、指令、字宽及全部字重变化数据均相同的字形，保留码位、字形编号和 OpenType 特性。Demo TTF 从 1,582,116 字节降至 1,112,512 字节（减少 29.7%）。可重复执行。
+
+网页加载 WOFF2，下载按钮提供 TTF。为继续从字体内部读取搜索与 PUA 转换所需的对应关系，WOFF2 的[标准附加数据区](https://www.w3.org/TR/WOFF2/#Private)内保存 Deflate 压缩的原始 `cmap`、`post` 表，使用浏览器原生解压；内容均来自公开 TTF。
+
+发布：在 `web/` 执行 `pnpm build`，自动复制并检查 Demo TTF、WOFF2 和码表，并核对两种字体的对应关系。完整版仅供本地开发使用。公开 JSON 不含词名、词名哈希或英文释义。
 
 | 目录 | 内容 |
 | --- | --- |

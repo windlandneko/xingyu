@@ -8,4 +8,5 @@ release/
 private/
 data/*
 !data/XingyuDemo-VF.ttf
+!data/XingyuDemo-VF.woff2
 !data/demo.json

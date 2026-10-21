@@ -1,2 +1,2 @@
-fonttools>=4.67
+fonttools[woff]>=4.67
 uharfbuzz>=0.56    # test_font.py only

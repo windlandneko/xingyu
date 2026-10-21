@@ -9,7 +9,7 @@ F7A00 overflow. The registry only ever grows, so a character keeps its code poin
 
 Inputs (private/, not published): words.csv, glyphs.json, units.json, demo.txt, categories.txt, registry.csv,
 blocks.csv.
-Outputs (data/): XingyuDemo-VF.ttf and demo.json are published; Xingyu-VF.ttf and full.json stay local.
+Outputs (data/): XingyuDemo-VF.ttf, XingyuDemo-VF.woff2 and demo.json are published; the full edition stays local.
 
   python3 build_font.py'''
 import csv
@@ -29,6 +29,8 @@ from fontTools.pens.ttGlyphPen import TTGlyphPen
 from fontTools.ttLib import newTable
 from fontTools.ttLib.tables import ttProgram
 from fontTools.ttLib.tables._g_l_y_f import flagOverlapSimple
+
+from optimize_font import save_font
 
 HERE = Path(__file__).resolve().parent
 PRIVATE = Path(os.environ.get('XINGYU_PRIVATE', HERE / 'private'))
@@ -715,7 +717,7 @@ def build_vf(family, zh, *master_args):
     values = [{'value': v, 'name': n} | ({'flags': 2} if v == 400 else {}) for n, v in INSTANCES.items()]
     buildStatTable(vf, [{'tag': 'wght', 'name': 'Weight', 'values': values}], macNames=False)
     vf['OS/2'].recalcUnicodeRanges(vf)
-    vf.save(DATA / f'{ps}-VF.ttf')
+    save_font(vf, DATA / f'{ps}-VF.ttf')
 
 
 def main():

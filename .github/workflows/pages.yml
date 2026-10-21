@@ -23,7 +23,7 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - name: Only the Demo edition is published
-        run: test ! -e ../data/full.json && test ! -e ../data/Xingyu-VF.ttf
+        run: test ! -e ../data/full.json && test ! -e ../data/Xingyu-VF.ttf && test ! -e ../data/Xingyu-VF.woff2
       - uses: actions/setup-node@v5
         with:
           node-version: 22

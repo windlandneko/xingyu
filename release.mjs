@@ -4,8 +4,7 @@ import { fontTokens } from './web/src/font-tokens.js'
 
 const file = (path) => new URL(path, import.meta.url)
 const read = (path) => readFileSync(file(path))
-rmSync(file('./web/dist/.DS_Store'), { force: true })
-for (const name of ['demo.json', 'XingyuDemo-VF.ttf']) {
+for (const name of ['demo.json', 'XingyuDemo-VF.ttf', 'XingyuDemo-VF.woff2']) {
   copyFileSync(file(`./data/${name}`), file(`./web/dist/${name}`))
 }
 
@@ -34,14 +33,20 @@ for (const b of data.blocks) {
   assert.equal(parseInt(b.start, 16), parseInt(used[0].cp, 16) & ~15)
   assert.equal(parseInt(b.end, 16), parseInt(used.at(-1).cp, 16) | 15)
 }
-assert.deepEqual(readdirSync(file('./web/dist/')).sort(), ['XingyuDemo-VF.ttf', 'assets', 'demo.json', 'index.html'])
+rmSync(file('./web/dist/.DS_Store'), { force: true })
+assert.deepEqual(readdirSync(file('./web/dist/')).sort(), ['XingyuDemo-VF.ttf', 'XingyuDemo-VF.woff2', 'assets', 'demo.json', 'index.html'])
 const assets = readdirSync(file('./web/dist/assets/'))
 assert.equal(assets.length, 2)
 for (const name of assets) {
   assert(/^index-[\w-]+\.(js|css)$/.test(name), 'Unexpected build asset')
-  assert(!/full\.json|Xingyu-VF\.ttf|sourceMappingURL/.test(read(`./web/dist/assets/${name}`).toString()), 'Private asset reference')
+  assert(!/full\.json|Xingyu-VF\.(ttf|woff2)|sourceMappingURL/.test(read(`./web/dist/assets/${name}`).toString()), 'Private asset reference')
 }
-const bytes = read('./web/dist/XingyuDemo-VF.ttf')
-const tokens = fontTokens(bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength))
-assert.deepEqual(new Set(tokens.values()), points)
+let ttfTokens
+for (const ext of ['ttf', 'woff2']) {
+  const bytes = read(`./web/dist/XingyuDemo-VF.${ext}`)
+  const tokens = await fontTokens(bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength))
+  assert.deepEqual(new Set(tokens.values()), points)
+  if (ttfTokens) assert.deepEqual(tokens, ttfTokens, 'Font index mismatch')
+  else ttfTokens = tokens
+}
 console.log(`Release verified: ${points.size} Demo characters; no word hashes, names, meanings or full-edition files`)
