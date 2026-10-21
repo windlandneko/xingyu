@@ -32,6 +32,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.6 var(-
 .xy { font-family: var(--xy); }
 code { font-family: var(--mono); background: var(--accent-soft); padding: 0 .3em; border-radius: 3px; }
 button, input, select, textarea { font: inherit; color: inherit; }
+button > *, a.pill > svg, .search > svg { pointer-events: none; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .pill {
   display: inline-flex; align-items: center; gap: 5px;
@@ -73,6 +74,7 @@ main { max-width: 1200px; margin: 0 auto; padding: 20px 16px 80px; display: flex
 .chk, .range { display: flex; align-items: center; gap: 8px; font-size: 14px; white-space: nowrap; }
 .chk { font-family: var(--mono); }
 .chk input { margin: 0; accent-color: var(--accent); }
+.chk, .chk input, .range input { cursor: pointer; }
 .pad-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; }
 .range input { width: 130px; accent-color: var(--accent); }
 .range output { font-family: var(--mono); font-size: 13px; color: var(--muted); min-width: 3ch; font-variant-numeric: tabular-nums; }
@@ -104,7 +106,7 @@ main { max-width: 1200px; margin: 0 auto; padding: 20px 16px 80px; display: flex
   border: 0; border-radius: 6px; background: none; color: var(--muted); cursor: pointer;
 }
 .clear:hover, .tool:hover { background: var(--accent-soft); color: var(--accent); }
-.clear:disabled { visibility: hidden; }
+.clear:disabled, .dnav .tool:disabled { visibility: hidden; pointer-events: none; }
 .clear svg, .tool svg { width: 16px; height: 16px; }
 .count { min-width: 5ch; text-align: right; color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .chart-body { grid-area: body; min-width: 0; padding: 2px; container: code-chart / inline-size; }
@@ -130,7 +132,7 @@ main { max-width: 1200px; margin: 0 auto; padding: 20px 16px 80px; display: flex
 .cell small { color: var(--muted); font-size: 9px; line-height: 1; }
 button.cell:hover { background: var(--accent-soft); }
 .cell.sel { background: var(--accent-soft); outline: 2px solid var(--accent); outline-offset: -2px; position: relative; }
-.cell.empty { background: repeating-linear-gradient(45deg, transparent 0 4px, var(--line) 4px 5px); cursor: default; }
+.cell.empty { background: repeating-linear-gradient(45deg, transparent 0 4px, var(--line) 4px 5px); pointer-events: none; }
 .cell.hid { color: var(--muted); cursor: default; font-family: var(--mono); }
 .hits { display: grid; grid-template-columns: repeat(auto-fill, minmax(52px, 1fr)); padding: 1px 0 0 1px; }
 .none { color: var(--muted); }
@@ -145,7 +147,6 @@ button.cell:hover { background: var(--accent-soft); }
 .dnav { display: grid; grid-template-columns: repeat(3, 32px); gap: 2px; flex: none; }
 .dnav .tool { width: 32px; height: 32px; color: inherit; }
 .dnav .xy { font-size: 32px; line-height: 1; }
-.dnav .tool:disabled { visibility: hidden; pointer-events: none; }
 .dtop { display: flex; align-items: center; gap: 12px; }
 .big {
   display: grid; place-items: center; flex: none; width: 128px; aspect-ratio: 1; font-size: 96px; line-height: 1;
