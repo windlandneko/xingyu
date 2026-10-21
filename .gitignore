@@ -1,0 +1,11 @@
+.DS_Store
+__pycache__/
+node_modules/
+web/dist/
+release/
+
+# unpacked inputs, the full registry and the full edition stay local
+private/
+data/*
+!data/XingyuDemo-VF.ttf
+!data/demo.json
