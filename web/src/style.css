@@ -60,12 +60,16 @@ button, input, select, textarea { font: inherit; color: inherit; }
 h1 { margin: 0; font-size: 18px; letter-spacing: .02em; }
 .sub { margin: 0; color: var(--muted); font-size: 12px; }
 .top-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.top-actions .pill { height: 28px; }
+.top-actions .help-trigger { width: 28px; height: 28px; border-radius: 50%; }
+.top-actions .help-trigger svg { width: 30px; height: 30px; }
 
 main { max-width: 1200px; margin: 0 auto; padding: 20px 16px 80px; display: flex; flex-direction: column; gap: 28px; }
 
 /* ---------- pad ---------- */
 #pad { display: flex; flex-direction: column; gap: 10px; }
 .controls { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 20px; }
+.feature { display: inline-flex; align-items: center; gap: 4px; }
 .chk, .range { display: flex; align-items: center; gap: 8px; font-size: 14px; white-space: nowrap; }
 .chk { font-family: var(--mono); }
 .chk input { margin: 0; accent-color: var(--accent); }
@@ -138,8 +142,9 @@ button.cell:hover { background: var(--accent-soft); }
 .detail .hint { margin: 0; color: var(--muted); font-size: 13px; }
 .dhead { display: flex; align-items: center; gap: 2px; margin: -6px -8px 8px 0; }
 .dcode { flex: 1; min-width: 0; font-family: var(--mono); font-size: 13px; color: var(--muted); }
-.dnav { display: grid; grid-template-columns: repeat(2, 32px); gap: 2px; flex: none; }
+.dnav { display: grid; grid-template-columns: repeat(3, 32px); gap: 2px; flex: none; }
 .dnav .tool { width: 32px; height: 32px; color: inherit; }
+.dnav .xy { font-size: 32px; line-height: 1; }
 .dnav .tool svg { width: 28px; height: 28px; }
 .dnav .tool:disabled { visibility: hidden; pointer-events: none; }
 .dtop { display: flex; align-items: center; gap: 12px; }
@@ -167,15 +172,20 @@ button.part:hover { background: var(--accent-soft); }
 .meaning { margin: 10px 0 0; font-size: 13px; color: var(--muted); }
 
 .notes {
-  inset: 76px max(16px, calc((100vw - 1168px) / 2)) auto auto; margin: 0;
+  inset: auto; position: fixed; margin: 0;
   width: min(420px, calc(100vw - 32px)); max-height: calc(100dvh - 100px); overflow: auto;
   padding: 16px 20px; border: 1px solid var(--line); border-radius: 10px;
   background: var(--surface); color: var(--ink); box-shadow: 0 12px 40px #0003;
 }
 .help-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
-.help-head h2 { margin: 0; font-size: 16px; }
-.notes ul { margin: 12px 0 0; padding-left: 1.2em; color: var(--muted); font-size: 13px; }
-.notes li + li { margin-top: 8px; }
+.notes h2 { margin: 0; font-size: 15px; }
+.notes p { margin: 10px 0 0; font-size: 13px; color: var(--muted); }
+.notes dl { display: grid; grid-template-columns: auto 1fr; gap: 12px; margin: 14px 0; font-size: 13px; }
+.notes dt { font-weight: 600; }
+.notes dd { margin: 0; color: var(--muted); }
+.notes .help-footer { padding-top: 12px; border-top: 1px solid var(--line); font-size: 12px; }
+.feature-note { width: min(320px, calc(100vw - 32px)); }
+.help-example code { white-space: nowrap; }
 
 @media (max-width: 860px) {
   #chart {

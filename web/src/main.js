@@ -1,4 +1,4 @@
-import { createElement, createIcons, Copy, Download, Eye, Info, Search, X } from 'lucide'
+import { createIcons, Copy, Download, Eye, CircleQuestionMark, Search, X } from 'lucide'
 import { joinWords, toPieces } from './convert.js'
 import { fontTokens } from './font-tokens.js'
 import { PRESETS } from './presets.js'
@@ -7,7 +7,6 @@ const $ = (id) => document.getElementById(id)
 const esc = (s) => s.replace(/[&<>"]/g, (c) => `&#${c.charCodeAt(0)};`)
 const hex = (n) => n.toString(16).toUpperCase()
 const chr = (h) => String.fromCodePoint(parseInt(h, 16))
-const icon = (node) => createElement(node, { 'aria-hidden': 'true' }).outerHTML
 const store = {
   get(k, d) { try { return JSON.parse(localStorage.getItem('xingyu.' + k)) ?? d } catch { return d } },
   set(k, v) { try { localStorage.setItem('xingyu.' + k, JSON.stringify(v)) } catch {} },
@@ -20,7 +19,35 @@ function toast(msg) {
   toastTimer = setTimeout(() => $('toast').classList.remove('on'), 1600)
 }
 const copy = (text, what) => navigator.clipboard.writeText(text).then(() => toast(`已复制${what}`), () => toast('复制失败'))
-createIcons({ icons: { Copy, Download, Eye, Info, Search, X }, attrs: { 'aria-hidden': 'true' } })
+createIcons({ icons: { Copy, Download, Eye, CircleQuestionMark, Search, X }, attrs: { 'aria-hidden': 'true' } })
+
+for (const trigger of document.querySelectorAll('.help-trigger')) {
+  const panel = $(trigger.getAttribute('popovertarget'))
+  let pinned = false
+  const show = () => {
+    panel.showPopover()
+    const rect = trigger.getBoundingClientRect()
+    panel.style.left = Math.max(16, Math.min(rect.left, innerWidth - panel.offsetWidth - 16)) + 'px'
+    panel.style.top = Math.max(16, Math.min(rect.bottom + 8, innerHeight - panel.offsetHeight - 16)) + 'px'
+  }
+  const hide = () => setTimeout(() => {
+    if (!pinned && !trigger.matches(':hover') && !panel.matches(':hover')) panel.hidePopover()
+  }, 100)
+  trigger.addEventListener('pointerenter', (ev) => { if (ev.pointerType === 'mouse') show() })
+  trigger.addEventListener('pointerleave', hide)
+  panel.addEventListener('pointerleave', hide)
+  trigger.addEventListener('click', (ev) => {
+    ev.preventDefault()
+    pinned = !pinned
+    if (pinned) show()
+    else panel.hidePopover()
+  })
+  panel.addEventListener('toggle', () => {
+    const open = panel.matches(':popover-open')
+    trigger.setAttribute('aria-expanded', String(open))
+    if (!open) pinned = false
+  })
+}
 
 // ---------- data: data/ holds each edition's font and table; the full edition is optional ----------
 
@@ -159,7 +186,7 @@ function renderChart() {
   const q = $('q').value.trim()
   const hits = q && search(q)
   $('q-clear').disabled = !q
-  $('q-count').textContent = q ? `${hits.length} 个` : ''
+  $('q-count').textContent = q ? `${hits.length} 个结果` : ''
   $('chart-body').innerHTML = !q ? ed.blocks.map(renderBlock).join('')
     : hits.length ? `<div class="hits">${hits.map(cell).join('')}</div>` : '<p class="none">没有找到。</p>'
   if (hits?.length && !hits.includes(selected)) go(hits[0], true)
@@ -190,8 +217,8 @@ function showDetail(e) {
     : [line([e.cp, cp('benot'), cp('word')], '不是字')]
   const nav = (id, forward, title, ok) => `<button type="button" class="tool" id="${id}" title="${title}" aria-label="${title}"${ok ? '' : ' disabled'}>${historyIcon(forward)}</button>`
   $('detail').innerHTML = `<div class="dhead"><span class="dcode">U+${e.cp}</span>` +
-    `<button type="button" class="pill" id="d-copy" aria-label="复制 U+${e.cp}">${icon(Copy)}复制</button>` +
-    `<div class="dnav">${nav('d-back', false, '上一个', hist.i > 0)}${nav('d-fwd', true, '下一个', hist.i < hist.list.length - 1)}</div>` +
+    `<div class="dnav"><button type="button" class="tool xy" id="d-copy" title="复制" aria-label="复制 U+${e.cp}">${chr('F740E')}</button>` +
+    `${nav('d-back', false, '上一个', hist.i > 0)}${nav('d-fwd', true, '下一个', hist.i < hist.list.length - 1)}</div>` +
     `</div><div class="dtop"><button type="button" class="big xy" data-cp="${e.cp}" title="左键插入，右键查字典" aria-label="插入 U+${e.cp}">${e.char}</button>` +
     `<div class="dmeta">${e.name ? `<b class="word-name">${esc(e.name)}</b>` : ''}${e.demo === false ? '<small>仅完整版</small>' : ''}` +
     `<dl>${row('结构', STRUCT[e.struct])}${row('部件', !e.roots && e.parts?.map(ref).join(''))}` +
