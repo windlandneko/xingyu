@@ -130,16 +130,10 @@ function cell(e) {
 function renderBlock(b) {
   const lo = parseInt(b.start, 16), hi = parseInt(b.end, 16)
   const rows = []
-  let gap = 0
-  const flush = (r) => { if (gap) rows.push(`<div class="gap">U+${hex(r - gap * 16)}–${hex(r - 1)} 空</div>`); gap = 0 }
-  let r = lo
-  for (; r <= hi; r += 16) {
+  for (let r = lo; r <= hi; r += 16) {
     const cells = [...Array(16)].map((_, c) => ed.byCp.get(hex(r + c)))
-    if (!cells.some(Boolean)) { gap++; continue }
-    flush(r)
     rows.push(`<div class="crow"><span class="rlabel">${hex(r).slice(0, -1)}x</span>${cells.map(cell).join('')}</div>`)
   }
-  flush(r)
   const head = () => (b.head === '?' ? '?' : `<span class="xy">${chr(b.head)}</span> ${b.name ?? ''}`)
   const [title, note] = KIND[b.kind] ?? [head()]
   const n = ed.entries.filter((e) => e.cp >= b.start && e.cp <= b.end).length
