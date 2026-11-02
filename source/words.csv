@@ -1,0 +1,1419 @@
+word,category,struct,component1,component2,rename,wordtype,meaning
+air,air,s,0 0 -1 1 0 2 1 1 0 0;0 0 -1 -1 0 -2 1 -1 0 0,,,noun,sky de transparent part
+bubble,symbol loop air,lr,circle,air,,noun,gas circle object in water
+vacuum,yes air,oi,no,air,,noun,space without air
+H,1 air,lr,1,air,,noun,first element
+H2,2 air,lr,2,air,,noun,H de 1 neutron isotope 
+H3,3 air,lr,3,air,,noun,H de 2 neutron isotope 
+O,water air,lr,water,air,,noun,8 th element
+N,yes same air,lr,normal,air,,noun,7 th element
+Cl,weed air,lr,weed,air,,noun,17 th element
+He,sky god air,lr,sun,air,,noun,second element
+Rn,light air,lr,light,air,,noun,86 th element
+gas,de air,ud,det,air,,adj,object type;air de similar object
+gasness,air ness,ud,air,nesst,,noun,gas object
+alien,alien person,fud,person,,,noun,person de image by watersurface;or civilization out homeplanet
+telescope,alien eye,lr,alien,eye,,noun,help person see faraway object de item
+glass,alien object,lr,alien,object,,noun,can transfer light de transparent object
+obsidian,fire earth ice,lr,volcano,ice,,noun,volcano squirt de glass rock
+mirrored,alien person,ud,alien,person,,adj,shape equal self de mirror shape
+terran,terran,s,1 4 -1 2 1 0;-1 4 1 2 -1 0;0.5 0.5 0.5 -0.5;-0.5 0.5 -0.5 -0.5,,,noun,terranplanet de alien
+terranplanet,place terran,oi,place,terran,,noun,terran de homeplanet
+mirror,alien water,lr,alien,watersurface,,noun,can reflect light de smooth object
+amount,amount,s,1 -1 1 1;1 0 -1 0; -1 -1 -1 1,,,noun,object de number
+unit,amount 1,lr,amount,1,,noun,basic amount;mankind write amount by unit de mult
+size,group amount,ud,group,amount,,noun,space in threed closeshape de amount
+area,place amount,ud,place,amount,,noun,space in closeshape de amount
+length,amount,ud,ht,amount,,noun,line de amount
+meter,amount 1,lr,length,1,,noun,length de unit
+meter2,amount 2,lr,length,2,,noun,area de unit
+meter3,amount 3,lr,length,3,,noun,size de unit
+angle,amount,ud,ct,amount,,noun,corner de amount
+pi,symbol loop amount,ud,circle,amount,,noun,circle de outline length de half divide radius;pi be irrational and constant
+speed,move amount,ud,move,amount,,noun,move de strength;speed equal distance divide dt
+mps,move amount 1,lr,speed,1,,noun,speed de unit
+momentum,nose place amount,ud,dash,amount,,noun,move de object de strength;momentum equal mass multiply speed
+kgn,amount 1,lr,momentum,1,,noun,momentum de unit
+mass,object amount,ud,object,amount,,noun,object inertia de amount
+kg,object amount 1,lr,mass,1,,noun,mass de unit
+force,move amount,ud,hand,amount,,noun,hand or machine de strength;object modify other object de speed by force;force equal mass multiply acceleration
+newton,move amount 1,lr,force,1,,noun,force de unit
+energy,do amount,ud,do,amount,,noun,action de strength;kinetic and potential be energy
+joul,do amount 1,lr,energy,1,,noun,energy de unit
+acceleration,change move amount,ud,accelerate,amount,,noun,each sec de delta speed
+power,fish amount,ud,fish,amount,,noun,give or take in each sec de energy
+watt,fish amount 1,lr,power,1,,noun,power de unit
+constant,change amount,ud,unchange,amount,,noun,unchange de number
+variable,change amount,ud,change,amount,,noun,change de number or unknow de number
+gravity,direction move amount,lr,down,force,,noun,down force from homeplanet;attract force from object with mass
+pressure,surface hand amount,ud,touch,amount,,noun,each unit de surface area de touch force
+pa,amount 1,lr,pressure,1,,noun,pressure de unit
+data,amount,q,amount,,,noun,plural number . amount or idea
+signal,amount 1,lr,data,1,,noun,bandwidth de unit
+bandwidth,amount,ud,data,amount,,noun,data de amount
+temperature,hot amount,ud,warm,amount,,noun,amount for measure hot or cold;more temperature mean more hot;less temperature mean more cold
+cel,hot amount 1,lr,temperature,1,,noun,temperature de unit;freshwater de meltpoint be 0 cel;freshwater de boilpoint be 49 cel
+k,hot amount 0,lr,temperature,0,,noun,temperature de unit;universe de least temperature be 0 k;1 delta cel equal 1 delta k
+heat,fire amount,ud,fire,amount,,noun,object store by temperature de energy;heat be atom de kinetic
+kinetic,do amount to,lr,energy,to,,noun,move de object de energy
+potential,do amount to,lr,energy,from,,noun,object store by position de energy;object can give de energy
+distance,road amount,ud,road,amount,,noun,from startpoint to endpoint de length
+dt,time amount,ud,time,amount,,noun,between 2 time de amount
+prevent,anti,ud,anti,anti,,verb,anti other person de action;or anti future action
+fill,place yes anti,ud,space,anti,,verb,modify empty into full
+kill,person anti,ud,person,anti,,verb,destroy person into dead person
+anti,anti hand changeword,fb,hand,,,changeword,anti modify nextword de verb;anti verb mean verb de result change into verb de beginning
+destroy,object anti,ud,object,anti,,verb,modify object into inexist
+victim,object anti to,lr,destroy,to,,noun,reverse destroy de person or object
+monster,object anti to,lr,destroy,from,,noun,can kill person de big animal
+cure,fish head anti,ud,ill,anti,,verb,modify ill into healthy
+doctor,anti person,lr,cure,person,,noun,cure ill person de person
+reflect,light anti,ud,light,anti,,verb,light change into backward direction by mirror or watersurface
+but,anti think linkword,ud,anti,think,,linkword,but connect 2 clause;nextword disagree prevword
+unmark,this anti,ud,this,anti,,verb,erase early mark de symbol
+big,big,s,1 -1 1 1;1 0 -1 0 -1 -1,,,adj,more amount;sea be big;homeplanet be big;sun be big
+small,big,fb,big,,,adj,less amount;scale be small;algae be small;atom be small;electron be small
+more,big,d,big,,,adj,morethan common amount;or morethan nextword de number
+less,big,d,small,,,adj,lessthan common amount;or lessthan nextword de number
+most,big,t,big,,,adj,morethan all other
+least,big,t,small,,,adj,lessthan all other
+infbig,big,q,big,,,adj,morethan all positive number
+infsmall,big,q,small,,,adj,morethan 0 and lessthan all positive number
+polar,place big,oi,place,most,,noun,direction de most or least place
+strong,big amount,lr,big,strength,,adj,have big strength
+weak,big amount,lr,small,strength,,adj,have small strength
+save,big to hand,lr,small,give,,verb,shrink payment
+waste,big to hand,lr,big,give,,verb,enlarge payment
+bignumber,big symbol amount,lr,big,number,,noun,big number;mankind write no lessthan 2401F0 de bignumber by exp7
+smallnumber,big symbol amount,lr,small,number,,noun,lessthan 1 and morethan 0 de number;mankind write lessthan 1div343 de smallnumber by exp7
+airplane,sky boat,lr,sky,boat,,noun,can fly de boat
+rocket,sky boat,lr,universe,boat,,noun,can fly in universe de boat
+submarine,water boat,lr,water,boat,,noun,can swim de boat
+car,place earth boat,lr,land,boat,,noun,can landing de boat
+boat,boat,s,0 0 0 1 1 1 1 0 0 0;0 1 -1 2;1 1 2 2,,,noun,on water de machine;person use boat for big distance de sail
+oar,fin boat,ud,fin,boat,,noun,boat de part for push water
+sailor,boat person,lr,boat,person,,noun,drive boat de person
+drive,move boat,ud,hand,boat,,verb,use boat for move
+tent,place person boat,lr,home,boat,,noun,nomad de home boat
+brain,brain,s,-2 -1 2 -1 0 1 -2 -1;0 -1 0 1,,,noun,head de front part for think
+realize,brain to,lr,brain,from,,verb,know new idea by see . read or learn
+forget,brain to,lr,brain,to,,verb,unknow early know de idea after timeperiod
+understand,yes brain,oi,yes,brain,,verb,have correct idea
+misunderstand,yes brain,oi,no,brain,,verb,have wrong idea
+smart,big brain,lr,big,brain,,adj,can good think
+stupid,big brain,lr,small,brain,,adj,cannot good think
+nerve,brain symbol,ud,brain,line,,noun,brain command organ and handbrain by nerve current
+handbrain,hand brain,lr,hand,brain,,noun,hand de brain;handbrain can command self hand
+know,in brain,lr,in,brain,,verb,early realize nextword de science or object
+unknow,in yes brain,lr,out,brain,,verb,no realize nextword de science or object
+branch,branch,s,0 -0.5 0 1;-0.5 1 0 0.5 0.5 1,,,noun,start by single line and split into plural line de shape
+coral,branch,lr,branch,branch,,noun,up from seabed de plural branch;coral be animal but coral common no move
+coralreef,branch,t,branch,,,noun,place with join de plural coral;many animal live and hide in coralreef
+greatcoral,branch,q,branch,,,noun,most size de coralreef;origin mankind start in greatcoral
+unlock,branch hand,ud,reveal,hand,,verb,reveal object
+tohide,in branch hand,ud,hide,hand,,verb,hide object
+grow,branch big hand,lr,branch,enlarge,,verb,person . animal or plants enlarge
+reveal,in yes branch,lr,out,branch,,verb,cannot reverse see de object change into can reverse see
+hide,in branch,lr,in,branch,,verb,can reverse see de object change into cannot reverse see
+skill,yes hand ness,ud,can,nesst,,noun,person can de action
+can,yes hand,ud,yes,hand,,verb,have skill for nextword
+cannot,yes hand,ud,no,hand,,verb,no have skill for nextword
+try,1 hand,ud,1,hand,,verb,do unknow de action
+again,2 hand,ud,2,hand,,verb,do repeat de action
+continue,direction 1 hand,ud,prev,hand,,verb,again early action
+support,1 earth hand,ud,pillar,hand,,verb,maintain building de pillar be support pillar;support also mean help other person
+strength,yes hand amount,ud,can,amount,,noun,skill de amount
+choose,de 1 hand,ud,major,hand,,verb,take single object and no take other
+option,hand object,lr,choose,object,,noun,object for choose
+calculator,hand person,lr,calculate,person,,noun,calculate de person
+leader,direction person,lr,up,person,,noun,command de person
+follower,direction person,lr,down,person,,noun,reverse command de person
+career,person do,lr,person,do,,noun,person de major action;person do career for income
+employed,yes person do,oi,yes,career,,noun,person with career
+unemployed,yes person do,oi,no,career,,noun,person without career
+hire,to hand person do,lr,give,career,,verb,give person career
+endhire,to hand person do,lr,take,career,,verb,end hire person
+engineer,yes person item,lr,machine,person,,noun,can good use machine and repair machine de person
+explainer,hand person,lr,explain,person,,noun,explain de person
+guild,person do group,ud,career,group,,noun,same career de community
+sage,fire person,lr,fire,person,,noun,most early scientist de name;more smart person;in now era . sage be superior school graduate de name
+teacher,to hand person,lr,give,person,,noun,teach de person
+student,to hand person,lr,take,person,,noun,learn de person
+class,person group,ud,student,group,,noun,plural student;same class de student learn in same classroom
+graduate,to hand person,lr,student,to,,noun,end learn in school de student
+fishfarmer,fish hand person,lr,fishfarming,person,,noun,fishfarming animal de person
+hunter,fish hand person,lr,hunt,person,,noun,hunt animal de person
+pilot,sky person,lr,sky,person,,noun,drive airplane de person
+astronaut,sky person,lr,universe,person,,noun,drive rocket de person
+barbarian,hot person,lr,cold,person,,noun,no like art de race
+hero,yes hand person,lr,can,person,,noun,warrior with big strength;or novel or show de major person
+creator,object hand person,lr,create,person,,noun,create de person
+officer,direction hand person,lr,direct,person,,noun,government de person;officer command people by law
+player,game hand person,lr,play,person,,noun,play de person
+opponent,person 2,lr,player,2,,noun,second player;game common be player vs opponent
+warrior,weapon person,lr,weapon,person,,noun,fight by weapon de person
+worker,item person,lr,item,person,,noun,create production de person
+smith,metal person,lr,metal,person,,noun,smithing de person
+cooker,hand person,lr,cook,person,,noun,cook de person
+explorer,direction person,lr,downsea,person,,noun,explore de person
+de,de changeword,s,-1 0 0 1 1 0,,,changeword,<de> modify prevword into adj
+ness,ness changeword,s,-1 0 0 -1 1 0,,,changeword,<ness> modify prevword into noun
+changeword,changeword change word,lr,change,word,,noun,modify prevword or nextword de word;changeword be wordtype
+concept,object hand to,lr,create,from,,noun,idea for create
+creation,object hand to,lr,create,to,,noun,reverse create de object
+copy,same hand,ud,same,hand,,verb,create example de same object
+invent,same hand,ud,different,hand,,verb,create object without example
+studio,place object hand,oi,place,create,,noun,creator create art or invent de place
+clonefrom,same hand to,lr,copy,from,,noun,copy from de object
+clone,same hand to,lr,copy,to,,noun,copy to de object
+erase,word anti,ud,word,anti,,verb,destroy symbol or word
+writer,word hand person,lr,write,person,,noun,write book de person
+create,object hand,ud,object,hand,,verb,modify concept into creation
+work,object hand,ud,plural,hand,,verb,create big amount de same object
+massivecreate,object hand,ud,many,hand,,verb,many person create major creation
+mark,this hand,ud,this,hand,,verb,draw symbol for help see object
+write,word hand,ud,word,hand,,verb,draw word
+major,de 1,ud,det,1,,adj,object de most attribute
+also,de 2,ud,det,2,,adj,object de no most attribute
+depth,direction amount,ud,down,amount,,noun,distance down from watersurface
+height,direction amount,ud,up,amount,,noun,distance up from watersurface
+width,direction amount,ud,side,amount,,noun,distance between pair side
+prev,direction 1,lr,left,1,,adj,left by 1 in sequence
+next,direction 1,lr,right,1,,adj,right by 1 in sequence
+direction,direction,s,-1 -1 -1 1 1 1 1 -1 -1 -1;0 -2 0 2;2 0 -2 0,,,noun,from startpoint to endpoint de line
+center,direction,s,-1 -1 -1 1 1 1 1 -1 -1 -1;0 2 0 -2,,,adj,be in place or shape and no near surface
+nocenter,yes direction,oi,no,center,,adj,be in place or shape and no near center
+front,direction,s,-1 -1 -1 1 1 1 1 -1 -1 -1;0 0 -2 2,,,adj,backward back
+back,direction,fb,front,,,adj,backward front
+left,direction,s,-1 -1 -1 1 1 1 1 -1 -1 -1;0 0 -2 0,,,adj,backward right
+right,direction,fb,left,,,adj,backward left
+horizontal,direction,ud,ht,direction,,adj,left and right
+vertical,1 direction,ud,1,direction,,adj,up and down
+side,direction,s,-1 -1 -1 1 1 1 1 -1 -1 -1;2 0 -2 0,,,adj,no vertical direction
+orthogonal,4 direction,ud,4,direction,,adj,horizontal and vertical
+diagonal,direction,ud,ct,direction,,adj,between orthogonal direction de direction
+threed,6 direction,ud,6,direction,,adj,horizontal . vertical and frontback;we de universe similar be threed
+up,direction,s,-1 -1 -1 1 1 1 1 -1 -1 -1;0 0 0 2,,,adj,backward down
+down,direction,fb,up,,,adj,backward up
+frontback,direction,ud,dr,direction,,adj,front and back
+forward,yes direction,ud,yes,direction,,adj,face de direction
+backward,yes direction,ud,no,direction,,adj,headback de direction
+basic,direction place,lr,down,place,,adj,be common or normal
+advanced,direction place,lr,up,place,,adj,be rare or unique
+superior,direction,d,up,,,adj,more up;more good;more advanced
+inferior,direction,d,down,,,adj,more down;more bad;more basic
+parrellel,same direction,ud,same,direction,,noun,without same dot de 2 infbig straightline in same plane
+north,positive direction,ud,positive,direction,,noun,homeplanet de positive magnet polar de direction
+south,positive direction,ud,negative,direction,,noun,homeplanet de negative magnet polar de direction
+hotdir,hot direction,ud,hot,direction,,noun,hot halfplanet de direction;direction with sun
+colddir,hot direction,ud,cold,direction,,noun,cold halfplanet de direction;direction without sun
+west,to direction,ud,to,direction,,noun,halfplanet without greatcoral de direction;homeplanet movearound sun from east to west
+east,to direction,ud,from,direction,,noun,halfplanet with greatcoral de direction;homeplanet movearound sun from east to west
+rule,direction hand game,lr,direct,game,,noun,game de law
+direct,direction hand,ud,direction,hand,,verb,mark direction;or modify direction;or talk other person by do action de method
+surgery,anti time,lr,cure,time,,noun,doctor cure ill organ de event
+action,do ness,ud,do,nesst,,noun,all verb be action
+start,do to,lr,do,from,,verb,without action change into with action
+end,do to,lr,do,to,,verb,with action change into without action
+event,do time,lr,do,time,,noun,action in timeperiod
+important,do 1,lr,do,1,,adj,person common do important action before do optional action
+optional,do 2,lr,do,2,,adj,person common do optional action after do important action
+do,do changeword,s,1 2 -1 2 -1 -2 1 -2 1 0,,,changeword,do modify nextword into verb
+reverse,do changeword,fb,do,,,changeword,reverse swap verb de prevword and nextword
+law,direction hand do,lr,direct,do,,noun,country de all person must do some action and must no do some action
+method,do to,lr,do,by,,noun,person do action by method
+purpose,do to,lr,do,for,,noun,person do action for purpose
+let,change do,lr,change,do,,verb,modify or start other person de action
+earth,earth,s,-2 -1 2 -1 2 1 -2 1 -2 -1,,,noun,land surface de soft part
+cave,spike earth,ud,pit,earth,,noun,down from seabed de empty space
+mountain,spike earth,ud,spike,earth,,noun,up from seabed de big rock
+rock,big earth,ud,big,earth,,noun,lava freeze into rock;rock split into earth and sand by wind and storm
+sand,big earth,ud,small,earth,,noun,sand with plants and water change into earth after timeperiod;earth without plants and water change into sand after timeperiod
+desert,place big earth,oi,place,sand,,noun,land with sand surface
+marble,symbol loop earth,ud,circle,earth,,noun,rock de circle object
+pillar,1 earth,ud,1,earth,,noun,vertical rock;pillar can support building
+coal,fire big earth,lr,fire,rock,,noun,major part be C de rock;coal be fuel
+cover,place direction hand,ud,vault,hand,,verb,tohide object in surface de down
+beton,join earth,ud,join,earth,,noun,build building de resource;beton change by join water into hard rock
+magnet,direction earth,ud,direction,earth,,noun,can attract other magnet de rock;magnet have positive magnet polar and negative magnet polar
+magnetn,direction earth amount,ud,magnet,amount,,noun,magnetline de density
+t,direction earth 1,lr,magnet,1,,noun,magnet field strength de unit
+wb,surface 1,lr,flux,1,,noun,flux de unit
+magnetline,direction earth symbol,ud,magnet,line,,noun,magnetline be magnet field de inexist closeshape curveline
+vent,air earth,ud,air,earth,,noun,squirt hot air de cave
+solid,de earth,ud,det,earth,,adj,object type;rock de similar object
+solidness,earth ness,ud,earth,nesst,,noun,solid object
+volcano,fire earth,ud,fire,earth,,noun,squirt hot lava de mountain
+lava,fire earth water,lr,volcano,water,,noun,hot liquid rock from volcano
+trap,earth weapon,ud,earth,weapon,,noun,hide in earth de weapon;trap nohuman attack near animal
+detrap,earth weapon anti,ud,trap,anti,,verb,destroy trap for prevent attack
+settrap,earth weapon hand,ud,trap,hand,,verb,create trap for hunt . fight or assassinate
+landing,move place earth,ud,hand,land,,verb,move on land
+flux,direction earth surface,ud,magnet,surface,,noun,magnet line de amount through surface
+elec,elec,s,-1 0 0 1 1 0 0 -1 -1 0;0 1 0 -2,,,noun,eel de skill for shock;energy for elecitem
+current,elec,ud,ht,elec,,noun,electron move by single direction
+currentn,elec amount,ud,current,amount,,noun,current de amount
+a,amount 1,lr,currentn,1,,noun,currentn de unit
+resistor,elec anti,ud,elec,anti,,noun,elecitem;move through resistor de current give heat
+resistance,elec anti amount,ud,resistor,amount,,noun,resistor de strength
+bulb,elec light,lr,elec,light,,noun,elecitem;move through bulb de current give light
+switch,elec join,lr,elec,split,,noun,elecitem;click switch for modify circuit de join ness
+om,amount 1,lr,resistance,1,,noun,resistance de unit
+recharge,big hand elec,lr,enlarge,elec,,verb,enlarge battery de eenergy
+elecitem,elec to,lr,elec,to,,noun,circuit de part;elecitem modify eenergy into other energy
+circuit,elec loop,lr,elec,loop,,noun,loop de currentline with battery and elecitem
+currentline,elec symbol,ud,elec,line,,noun,metal string for transfer current
+voltage,elec amount,ud,elec,amount,,noun,battery de strength
+v,elec amount 1,lr,voltage,1,,noun,voltage de unit
+capacitor,elec group,ud,elec,group,,noun,circuit de part;capacitor have charge;capacitor give or take charge by current
+f,elec group 1,lr,capacitor,1,,noun,capacitor strength de unit
+inductor,elec change,lr,elec,unchange,,noun,circuit de part;inductor maintain current
+henry,elec change 1,lr,inductor,1,,noun,inductor strength de unit
+charge,elec object,lr,elec,object,,noun,charge be positive or negative;object with same charge repel;object with different charge attract
+chargen,elec object amount,ud,charge,amount,,noun,charge de amount
+coulumb,amount 1,lr,chargen,1,,noun,charge de unit
+eenergy,elec do amount,lr,elec,energy,,noun,current de energy
+elecmedium,elec road,lr,elec,road,,noun,can transfer elec de object
+elecsnake,elec snake,lr,elec,snake,,noun,give current de snake
+tv,elec surface,lr,elec,surface,,noun,elecitem for see video
+computer,elec brain,lr,elec,brain,,noun,elecitem for more difficult calculate and more difficult think;mankind also use computer for see video and play game
+em,elec direction earth,lr,elec,magnet,,noun,create current by magnet field or magnet by current field
+stove,elec place fire,lr,elec,fireplace,,noun,elecitem for heating food without fire
+eel,elec fish,lr,elec,fish,,noun,give current de fish
+battery,elec to,lr,elec,from,,noun,circuit de part;battery give voltage;battery give eenergy;current out battery move from battery de positive polar to negative polar
+shock,elec head,lr,elec,head,,verb,eel attack victim by current;or small chance event modify person de emotion
+phone,elec head loop,lr,elec,communicate,,noun,elecitem for communicate other person
+fridge,elec ice,lr,elec,ice,,noun,elecitem for maintain food by cooling
+motor,elec move,lr,elec,move,,noun,elecitem;move through motor de current give kinetic
+eye,eye,s,0 1 -2 -1 2 -1 0 1;-1 0 -2 0;1 0 2 0,,,noun,head de part for see
+see,eye object,lr,eye,object,,verb,realize object by eye take light
+ignore,yes eye object,oi,no,see,,verb,no realize object in eyesight;or no realize group de also part
+eyesight,place eye,oi,place,eye,,noun,person can see de field
+read,eye word,lr,eye,word,,verb,see word
+find,eye branch,lr,eye,branch,,verb,see hide de object
+seer,eye person,lr,eye,person,,noun,see de person
+sleep,eye yes place,lr,eye,close,,verb,no move and no think
+wake,eye yes place,lr,eye,open,,verb,end sleep
+dream,eye place think,lr,eye,fiction,,verb,fake think while sleep
+fire,fire,s,-1 -1 0 0 1 -1;0 0 0 1,,,noun,burn de fuel;fire be hot and bright
+ash,fire to,lr,fire,to,,noun,after burn de object
+heatvalue,fire to amount,ud,fuel,amount,,noun,each unit fuel de energy
+burn,fire hand,ud,fire,hand,,verb,start fire
+explosion,fire wave,lr,fire,wave,,noun,strong and small dt de burn;some weapon destroy by explosion
+hot,hot,s,-1 -1 0 0 1 -1;0 0 0 1;-1 0 0 1 1 0,,,adj,big temperature
+cold,hot,fud,hot,,,adj,small temperature
+warm,hot,s,-1 -1 0 0 1 -1;0 0 0 1;-1 2 0 1 1 2,,,adj,no hot and no cold
+heating,hot change,ud,hot,change,,verb,change into hot
+cooling,hot change,ud,cold,change,,verb,change into cold
+warming,hot change,ud,warm,change,,verb,change into warm;or change into more good for mankind
+boilpoint,air hot amount,lr,air,temperature,,noun,boil or unboil de temperature
+meltpoint,earth hot amount,lr,earth,temperature,,noun,freeze or unfreeze de temperature
+burnpoint,fire hand hot amount,lr,burn,temperature,,noun,start burn de temperature
+fuel,fire to,lr,fire,from,,noun,can burn de object
+heatmedium,fire road,lr,fire,road,,noun,can transfer heat de object
+thermology,fire science,lr,fire,science,,noun,explain heat de change and transfer de science;thermology be physics
+boil,hot water,lr,hot,water,,verb,heating liquidness into gasness
+unboil,hot sky water,lr,cold,steam,,verb,cooling gasness into liquidness
+smallboil,big hot water,lr,small,boil,,verb,liquidness small change into gasness in lessthan boilpoint de temperature
+freeze,hot water,lr,cold,water,,verb,cooling liquidness into solidness
+unfreeze,hot ice,lr,hot,ice,,verb,heating solidness into liquidness
+upfreeze,direction hot ice,lr,up,unfreeze,,verb,heating solidness into gasness
+downfreeze,direction hot,lr,down,unboil,,verb,cooling gasness into solidness
+octopus,person fish,lr,person,fish,,noun,water de animal;octopus have hand for move;octopus be mankind de most similar animal
+meat,in fish,lr,in,fish,,noun,soft part in animal;meat be food
+egg,fish symbol loop,lr,fish,circle,,noun,animal givebirth egg;egg future be parent de similar animal
+deadfish,fish,fud,fish,,,noun,dead fish
+flyfish,move sky fish,lr,jump,fish,,noun,can jump from watersurface de fish
+cat,branch fish,lr,coral,fish,,noun,coralreef de colorful small fish;cat be pet
+pet,place person fish,lr,home,fish,,noun,small animal in home;person fishfarming pet for happy ness
+pig,weed fish,lr,weed,fish,,noun,eat weed de big fish;pig meat be food
+sheep,water road fish,lr,watercurrent,fish,,noun,move through watercurrent de fish;now person fishfarming sheep by cage with watercurrent machine;sheep meat be food
+horse,yes direction fish,lr,forward,fish,,noun,can pull boat or reverse ride de fish
+butcher,fish anti person,lr,butch,person,,noun,butch animal de person
+alive,de fish,ud,det,fish,,adj,can do action
+dead,de fish,ud,det,deadfish,,adj,reverse kill and cannot do action
+butch,fish anti,ud,fish,anti,,verb,kill animal for food
+hunt,fish hand,ud,deadfish,hand,,verb,find and kill nature animal for food
+fishfarming,fish hand,ud,fish,hand,,verb,let animal enlarge
+fishfarm,place fish,oi,place,fish,,noun,fishfarming de place
+gift,anti hand object,lr,welcome,object,,noun,give to friend or guest de item . fish or other object;person give gift to other person for welcome or for thank
+dog,this hand fish,lr,mark,fish,,noun,help hunt de fish;dog be pet
+first,to 1,lr,from,1,,adj,object without prev object;1 th
+second,to 2,lr,from,2,,adj,2 th
+third,to 3,lr,from,3,,adj,3 th
+last,to 1,lr,to,1,,adj,object without next object;backward 1 th
+last2,to 2,lr,to,2,,adj,backward 2 th
+last3,to 3,lr,to,3,,adj,backward 3 th
+th,to symbol amount,lr,from,number,,adj,object de position in sequence de number
+backth,to symbol amount,lr,to,number,,adj,object de position in sequence de number by backward direction
+beginning,to ness,ud,from,nesst,,noun,before action de object
+result,to ness,ud,to,nesst,,noun,after action de object
+from,to linkword,fb,to,,,linkword,prevword de startpoint be nextword;backward to
+to,to linkword,s,-1 -1 1 -1 -1 1,,,linkword,prevword de endpoint be nextword;backward from
+by,to linkword,d,from,,,linkword,prevword de method be nextword;reverse for
+for,to linkword,d,to,,,linkword,prevword de purpose be nextword;reverse by
+between,to linkword,lr,to,from,,linkword,line or space from nextword de first place to second place
+fromto,to linkword,lr,from,to,,linkword,from prevword to nextword and from nextword to prevword
+into,to change linkword,ud,to,change,,linkword,after change de prevword object be nextword
+outof,to change linkword,ud,from,change,,linkword,before change de prevword object be nextword
+ifall,to object linkword,ud,from,all,,linkword,ifall first clause thenall second clause mean first clause de result always be second clause
+thenall,to object linkword,ud,to,all,,linkword,ifall first clause thenall second clause mean first clause de result always be second clause
+logic,science,lr,ifthen,science,,noun,think with if and then de science;logic be philosophy
+relation,to think,lr,udfromto,think,,noun,object and object de join ness or similar ness
+if,to think linkword,ud,from,think,,linkword,if first clause then second clause mean yes first clause de result be second clause;if word de nextword clause de whether ness be unknow de
+then,to think linkword,ud,to,think,,linkword,if first clause then second clause mean yes first clause de result be second clause;if word de nextword clause de whether ness be unknow de
+otherwise,yes to think linkword,oi,no,then,,linkword,if first clause otherwise second clause mean no first clause de result be second clause
+ifthen,to think linkword,lr,if,then,,linkword,if prevword then nextword and if nextword then prevword
+because,to time linkword,ud,from,time,,linkword,because first clause so second clause mean first clause start second clause;because de nextword clause always be yes . or be early event
+so,to time linkword,ud,to,time,,linkword,because first clause so second clause mean first clause start second clause;because de nextword clause always be yes . or be early event
+game,game,s,0 1 3 1;0 2 3 2;1 0 1 3;2 0 2 3,,,noun,creation for play
+gameplay,game time,lr,game,time,,noun,play game de timeperiod
+score,game amount,ud,game,amount,,noun,game give score for measure player de skill
+scoreup,game amount big,lr,score,big,,verb,score enlarge
+scoredown,game amount big,lr,score,small,,verb,score shrink
+win,yes game,oi,yes,game,,verb,take more score or solve puzzle or destroy enemy in game;good game end
+winner,yes game person,lr,win,person,,noun,win game de person
+fail,yes game,oi,no,game,,verb,take less score or no solve puzzle or reverse destroy by enemy in game;bad game end
+loser,yes game person,lr,fail,person,,noun,fail game de person
+tie,same game,lr,same,game,,verb,no win and no fail de game end
+riddle,whether game,lr,whether,game,,noun,puzzle with question
+stage,place game,oi,place,game,,noun,single place in game
+round,game hand time,lr,play,time,,noun,player de single action in no time de game
+chess,4 direction game,lr,orthogonal,game,,noun,player locate chesspiece on orthogonal chessboard by loop round de game
+chesspiece,game symbol loop,lr,game,circle,,noun,object for play chess
+chessboard,game surface,lr,game,surface,,noun,game plane with chesspiece or card
+prize,yes fish game,lr,good,game,,noun,give winner de gift
+solve,think game hand,ud,puzzle,hand,,verb,good answer puzzle
+fun,head game,lr,head,game,,adj,player de emotion from play game
+gameconsole,game item,lr,game,item,,noun,machine for play
+puzzle,think game,lr,think,game,,noun,win by think de game
+demo,time game,lr,early,game,,noun,halfscreen game;game creator give no price de demo for attract player
+dlc,time game,lr,late,game,,noun,game de bonus part;if game more sell . then game creator create dlc
+male,gender,s,0 2 0 0;1 1 -1 -1;1 -1 -1 1;1 0 -1 0;0.5 1.5 0 2 -0.5 1.5,,,noun,person de gender type
+female,gender,s,0 2 0 0;1 1 -1 -1;1 -1 -1 1;1 0 -1 0;0.5 2.5 0 2 -0.5 2.5,,,noun,person de gender type
+virgin,gender,s,0 2 0 0;1 1 -1 -1;1 -1 -1 1;1 0 -1 0;0.5 1.5 0.5 2 -0.5 2 -0.5 1.5,,,noun,person de gender type
+gender,gender,s,0 2 0 0;1 1 -1 -1;1 -1 -1 1;1 0 -1 0;0.5 2 -0.5 2,,,noun,male . female and virgin
+couple,gender,lr,gender,gender,,noun,after wedding de lover
+father,big gender,lr,big,male,,noun,male parent
+mother,big gender,lr,big,female,,noun,female parent
+protector,big gender,lr,big,virgin,,noun,virgin parent
+parent,big gender,lr,big,gender,,noun,father . mother and protector
+brother,same gender,lr,same,male,,noun,same parent de other son
+sister,same gender,lr,same,female,,noun,same parent de other daughter
+son,big gender,lr,small,male,,noun,male children
+daughter,big gender,lr,small,female,,noun,female children
+kid,big gender,lr,small,gender,,noun,son and daughter
+wedding,gender change,ud,couple,change,,noun,lover change into couple de event
+family,place gender,oi,place,couple,,noun,parent and kid
+shape,symbol object,our,symbol,object,,noun,object de symbol
+concrete,yes symbol object,oi,yes,shape,,noun,similar real object de shape de picture
+abstract,yes symbol object,oi,no,shape,,noun,no similar real object de shape de picture
+line,symbol,our,symbol,ht,,noun,join 2 dot de symbol
+straightline,yes wave symbol,lr,straight,line,,noun,straight line
+axis,symbol direction,ud,line,direction,,noun,coordinate de basic line
+dimension,place direction,oi,place,axis,,noun,space de axis
+curveline,yes wave symbol,lr,bending,line,,noun,bending line
+edge,symbol 1,lr,line,1,,noun,single outline
+corner,symbol,our,symbol,ct,,noun,corner be 2 half straightline with same startpoint
+flatplane,yes wave symbol surface,lr,straight,plane,,noun,straight plane
+curveplane,yes wave symbol surface,lr,bending,plane,,noun,bending plane
+circle,symbol loop,our,symbol,loop,,noun,loop curveline de closeshape;circle de all dot to center de length be same
+triangle,symbol 3,lr,line,3,,noun,3 join straightline de closeshape
+square,symbol 4,lr,line,4,,noun,4 join straightline de closeshape
+pentagon,symbol 5,lr,line,5,,noun,5 join straightline de closeshape
+hexagon,symbol 6,lr,line,6,,noun,6 join straightline de closeshape
+radius,symbol loop,ud,ht,circle,,noun,straightline from dot on circle to center
+dot,symbol 1,our,symbol,1,,noun,most small symbol;dot de size be infsmall
+geometry,symbol object science,lr,shape,science,,noun,calculate shape de science;geometry be math
+halfscreen,symbol yes,our,symbol,no,,adj,half full and half empty
+crate,4 group,ud,square,group,,noun,square object for have object in this
+jar,1 earth group,ud,pillar,group,,noun,pillar object for have object in this
+plate,symbol loop group,ud,circle,group,,noun,circle plane object for have object on this
+empty,symbol 0,our,symbol,0,,adj,without symbol
+full,symbol yes,our,symbol,yes,,adj,without empty;all paper be symbol
+outline,in yes symbol,ud,out,line,,noun,on closeshape de line
+inline,in symbol,ud,in,line,,noun,join closeshape de 2 corner dot de no edge straightline
+closeshape,symbol yes place,our,symbol,close,,noun,loop connect de line;or out space and in space no join de threed shape
+openshape,symbol yes place,our,symbol,open,,noun,no connect self de line;or out space and in space join de threed shape
+plane,symbol surface,our,symbol,surface,,noun,unlimit surface
+give,to hand,ud,to,hand,,verb,locate object to
+take,to hand,ud,from,hand,,verb,locate object from
+transfer,to hand,ud,fromto,hand,,verb,give and take
+hold,in hand,ud,in,hand,,verb,take object in hand
+drop,in yes hand,ud,out,hand,,verb,end hold object
+locate,place hand,ud,place,hand,,verb,transfer object from place to other place;let object move
+fix,place anti,ud,place,anti,,verb,prevent object move
+push,direction hand,ud,front,hand,,verb,forward locate object
+pull,direction hand,ud,back,hand,,verb,backward locate object
+share,to hand amount 2,lr,give,half,,verb,give object de part to other person for pair person have object
+oxidant,to hand positive scale,lr,take,electron,,noun,can take electron de element
+god,god,s,0 1 0 -1;1 1 -1 -1;1 -1 -1 1;1 0 -1 0,,,noun,universe de creator
+multigod,god,q,god,,,noun,worship all god de religion
+dualgod,god,vd,god,,,noun,worship hot god and cold god de religion
+antigod,god anti,ud,god,anti,,verb,no worship god;think god inexist
+priest,god hand person,lr,worship,person,,noun,direct worship de person
+religion,god person,lr,believer,believer,,noun,worship god de community
+mercy,god light,lr,god,light,,noun,god de good idea . warm light and defend
+believer,god person,ud,god,person,,noun,religion de follower
+prophet,god person,lr,god,person,,noun,person with god de skill
+church,place god hand,oi,place,worship,,noun,worship god de place
+heaven,place god,oi,place,god,,noun,god de field
+group,group shell,fud,shell,,,noun,join de plural object
+part,object group,ud,object,group,,noun,object in group
+piece,scale group,ud,scale,group,,noun,part de part
+each,yes group,ud,yes,group,,adj,all single part in group
+some,1 group,ud,1,group,,adj,single or plural part in group
+none,yes group,ud,no,group,,adj,0 part in group
+percent,1e-2 group,ud,:1e-2,group,,verb,1e-2 group
+limit,spike group,ud,spike,group,,noun,group de most number or group de least number;object cannot morethan big limit or lessthan small limit
+average,yes spike group,ud,smooth,group,,noun,group de plusness divide group de object amount
+community,person group,ud,person,group,,noun,person de group
+common,big group,ud,big,group,,adj,group de big amount part
+rare,big group,ud,small,group,,adj,group de small amount part
+type,de group,ud,det,group,,noun,group de attribute
+example,de 1 group,ud,major,group,,noun,example be group de part;group de major part similar be example
+army,weapon person group,ud,warrior,group,,noun,warrior de community
+warehouse,place group,oi,place,group,,noun,have and maintain object de place
+other,same group,ud,different,group,,noun,different object in group
+halfplanet,sky place 2,ud,world,2,,noun,half planet
+hand,hand,s,-2 1 -2 -1 2 -1 2 1 0 1,,,noun,person de part for action
+help,hand,ud,hand,hand,,verb,support other person de action
+unite,hand 2,lr,help,2,,verb,person help fromto person
+count,amount hand,ud,amount,hand,,verb,measure group de object amount
+measure,amount hand,ud,length,hand,,verb,realize object de length or other amount by item
+calculate,symbol amount hand,ud,number,hand,,verb,modify number by number;calculate be basic math
+compare,big hand,ud,bigsmall,hand,,verb,calculate 2 number de relation be morethan . lessthan or equal
+command,do hand,ud,do,hand,,verb,talk other person for they must do action
+forbid,do anti,ud,do,anti,,verb,talk other person for they must no do action
+store,place group hand,ud,warehouse,hand,,verb,give object to warehouse;or have and maintain object in timeperiod
+build,place hand,ud,building,hand,,verb,create building
+hug,loop hand,ud,loop,hand,,verb,enwind object by plural hand
+protect,person hand,ud,person,hand,,verb,defend person;or help children grow
+complete,symbol yes hand,ud,full,hand,,verb,paint all space on paper;solve all puzzle
+goodbye,anti hand 2,lr,welcome,2,,verb,again friend de touch;communicate common end by goodbye
+welcome,anti hand,ud,anti,hand,,verb,friend de touch;communicate common start by welcome
+unwelcome,move anti,ud,hand,anti,,verb,no welcome
+have,de hand,ud,det,hand,,verb,be with object
+respect,hot hand,ud,warm,hand,,verb,good do for other person
+norespect,hot anti,ud,warm,anti,,verb,bad do for other person
+play,game hand,ud,game,hand,,verb,start game for fun ness
+worship,god hand,ud,god,hand,,verb,event for god
+sex,nose hand,ud,nose,hand,,verb,male give sperm to female de womb for reproduce
+rest,place person hand,ud,home,hand,,verb,play . eat or sleep in home
+touch,surface hand,ud,surface,hand,,verb,hand join object de surface
+magic,place think hand,ud,fiction,hand,,verb,do fiction skill;or do fiction show by hide de item
+express,think hand,ud,think,hand,,verb,talk self de idea
+born,change time hand,lr,change,live,,verb,baby change into children
+head,head,s,-2 -1 2 -1 0 1 -2 -1,,,noun,person de up part
+headback,head direction,lr,head,back,,noun,head de back
+face,head direction,lr,head,front,,noun,head de front
+emotion,head de surface,lr,head,color,,noun,face de color;or person de opinion
+happy,head branch,lr,head,branch,,adj,emotion from good event
+sad,head fire,lr,head,fire,,adj,emotion from bad event
+angry,head weed,lr,head,weed,,adj,want destroy or attack de emotion
+lovely,head sky god,lr,head,sun,,adj,love de emotion
+exciting,head,lr,head,colorful,,adj,with more emotion
+calm,head ice,lr,head,ice,,adj,without emotion
+scared,head yes light,lr,head,dark,,adj,emotion from tragedy or reverse attack
+funny,head yes light,lr,head,bright,,adj,emotion from comedy
+makelaugh,head hand,ud,funny,hand,,verb,good comedy modify audience into funny
+confused,head water,lr,head,water,,adj,emotion from unknow ness;emotion from difficult puzzle or question
+jealous,head air earth,lr,head,vent,,adj,bad emotion from other person de good event
+intrigue,yes head,oi,no,head,,adj,no honest;tohide self;prevent other person understand self
+honest,yes head,oi,yes,head,,adj,talk real idea;unlock self;help other person understand self
+apologize,head anti,ud,head,anti,,verb,realize self be bad and talk for self de bad action
+beautiful,yes symbol head,lr,art,head,,adj,more people like de body;or art picture
+ugly,yes symbol head,lr,artless,head,,adj,less people like de body;or artless picture
+healthy,fish head,lr,fish,head,,adj,more alive;no ill
+ill,fish head,lr,deadfish,head,,adj,less alive;no healthy
+thank,head hand,ud,head,hand,,verb,like other person de help
+liar,yes head person,lr,intrigue,person,,noun,intrigue talk de person
+honestperson,yes head person,lr,honest,person,,noun,honest talk de person
+helmet,shell head,ud,shell,head,,noun,defend head de circle object
+ice,ice,s,-1 -2 -1 2 1 2 1 -2 -1 -2;0.5 1.5 -0.5 0.5;0.5 -0.5 -0.5 -1.5;-1 0 1 0,,,noun,ice heating into freshwater;freshwater cooling into ice
+icefall,sky ice,ud,sky,ice,,noun,ice fall from sky
+iceland,ice,d,ice,,,noun,land or sea reverse cover by ice
+iceberg,ice,t,ice,,,noun,ice de mountain
+iceworld,ice,q,ice,,,noun,homeplanet de colddir polar
+icewater,water ice,lr,water,ice,,noun,half ice half water
+snow,yes shell ice,lr,soft,ice,,noun,soft ice
+snowfall,sky ice,ud,sky,snow,,noun,snow fall from sky
+hardice,yes shell ice,lr,hard,ice,,noun,hard ice;colddir polar de pressure and cold ness modify ice into hardice;hardice fall in water
+unlimit,in yes big,lr,without,most,,adj,without most or without least
+limited,in big,lr,with,most,,adj,with most and least
+in,in linkword,s,0 0 1 0 2 1 1 2 0 2,,,linkword,nextword place have prevword;or prevword be nextword de part
+out,in yes linkword,ol,in,no,,linkword,nextword place no have prevword;or prevword benot nextword de part
+on,in surface linkword,ol,in,surface,,linkword,prevword be in nextword place de surface
+with,in linkword,flr,in,,,linkword,prevword place have nextword;or nextword be prevword de part
+without,in yes linkword,or,with,no,,linkword,prevword place no have nextword;or nextword benot prevword de part
+through,road in linkword,lr,road,in,,linkword,from forward outskin to backward outskin
+sharp,de weapon,ud,det,weapon,,adj,object with small front part and big back part;sharp object can be weapon
+item,item,s,0 0 2 2;2 1 1 1 1 2,,,noun,creation for help work
+machine,yes person item,lr,nohuman,item,,noun,can nohuman work de creation
+resource,item to,lr,item,from,,noun,worker or machine take resource for create production
+production,item to,lr,item,to,,noun,worker or machine create de object
+byproduct,item de 2,lr,item,also,,noun,no want de production
+itemlife,item time,lr,item,time,,noun,item or machine de dt from reverse create to break
+window,item in yes,lr,item,out,,noun,machine de part for reverse see
+backend,item in,lr,item,in,,noun,machine de part for nohuman command function
+weapon,weapon,s,0 0 2 2;2 1 2 2 1 2,,,noun,item for fight and kill
+outside,place in yes,oi,place,out,,noun,out place de space
+inside,place in,oi,place,in,,noun,in place de space
+parry,weapon anti move,lr,defend,move,,verb,defend by move
+fight,weapon,lr,weapon,fweapon,,verb,plural warrior attack other
+peace,weapon,lr,fweapon,weapon,,verb,no fight
+war,weapon,vd,fight,,,noun,plural army fight
+advantage,big weapon,lr,big,weapon,,noun,more good de weapon;more chance for win
+disadvantage,big weapon,lr,small,weapon,,noun,less good de weapon;less chance for win
+vs,eq weapon,oi,eq,fight,,verb,be enemy in fight or game
+break,item anti,ud,item,anti,,verb,item change into cannot do function de trash
+defend,weapon anti,ud,weapon,anti,,verb,anti attack
+function,item yes hand,lr,item,can,,noun,machine de skill
+repair,fish item hand,ud,trash,hand,,verb,anti break;modify trash into can do function de item
+clean,fish item anti,ud,trash,anti,,verb,destroy trash
+general,symbol weapon person,lr,flag,person,,noun,army de leader
+attack,weapon hand,ud,weapon,hand,,verb,action for destroy and kill
+use,item hand,ud,item,hand,,verb,command machine;or work by item
+beat,symbol weapon hand,ud,flag,hand,,verb,win fight or war
+surrender,symbol weapon anti,ud,flag,anti,,verb,fail fight or war
+trash,fish item,lr,deadfish,item,,noun,break de item
+arena,place weapon,oi,place,fight,,noun,plural warrior fight for fun ness de place
+fort,place weapon anti,oi,place,defend,,noun,defend by army and trap de place
+button,spike item,ud,spike,machine,,noun,machine de spike part;click button for do button de function
+flag,symbol weapon,our,symbol,weapon,,noun,army de big symbol;general shake flag for command
+near,yes join linkword,oi,yes,join,,linkword,small distance from nextword place
+faraway,yes join linkword,oi,no,join,,linkword,big distance from nextword place
+join,join,s,-1 -1 0 -1 0 1 -1 1;0 0 1 0,,,verb,reverse connect
+split,join,flr,join,,,verb,reverse disconnect
+tight,de join,ud,det,join,,adj,more join de;or more amount in each unit size
+loose,de join,ud,det,split,,adj,less join de;or less amount in each unit size
+density,de join amount,ud,tight,amount,,noun,each unit size de mass
+cos,yes join amount,ud,near,amount,,noun,in orthogonal corner triangle . small corner de cos equal near edge de length divide diagonal edge de length
+sin,yes join amount,ud,faraway,amount,,noun,in orthogonal corner triangle . small corner de sin equal faraway edge de length divide diagonal edge de length
+refract,light direction hand,lr,light,direct,,verb,light change direction while light move through lightmedium de surface
+lightcorner,light symbol,lr,light,corner,,noun,corner between lightpath and light move through de surface de orthogonal corner line
+lightspeed,light move amount,lr,light,speed,,noun,light de speed
+lightyear,light,lr,light,year,,noun,astronomy de length de unit;1 lightyear be light move in vacuum de distance in 1 year
+lightpath,light symbol,ud,light,line,,noun,light move de line
+focus,light join,lr,light,join,,noun,refract or reflect de light join de dot
+spectrum,light group,ud,light,group,,noun,light de group;sun spectrum mean all light from sun
+lightwave,light wave,lr,light,wave,,noun,light de wave
+photon,light scale,lr,light,scale,,noun,light de particle;photon be lightparticle
+shadow,yes light alien,lr,dark,alien,,noun,dark shape down from prevent light de object
+image,yes light alien,lr,bright,alien,,noun,person de shape by mirror reflect
+lightmedium,light road,lr,light,road,,noun,can transfer light de object
+and,and linkword,s,-3 -1 -1 1 1 -1 3 1,,,linkword,and word connect plural word into group;each connect de word fit nextword
+or,and linkword,s,-3 -1 -1 1 1 -1 3 1;0 -1 0 1,,,linkword,or word connect plural word into group;some connect de word fit nextword
+linkword,linkword join word,lr,join,word,,noun,connect prevword and nextword de word;linkword be wordtype
+while,eq time linkword,oi,eq,time,,linkword,while connect same time de pair event
+loop,loop,s,-1 -1 1 1 -1 1 1 -1 -1 -1,,,noun,unchange de change and backward change
+loop1,loop,ud,loop,ht,,adj,divide 1e1 from nextword de loop num
+loop2,loop,ud,loop,ht2,,adj,divide 1e2 from nextword de loop num
+loop3,loop,ud,loop,ht3,,adj,divide 1e3 from nextword de loop num
+change,change,s,-1 -1 1 1 -1 1 1 -1,,,verb,now object unequal early object
+unchange,change,fb,change,,,verb,now object equal early object
+replace,change 1,lr,change,1,,verb,nextword object change into prevword object;or nextword object leave while prevword object enter same position
+swap,change 2,lr,change,2,,verb,locate first object to second object de position while locate second object to first object de position
+chemistryenergy,change do amount,lr,change,energy,,noun,energy by chemistry de change
+catalyst,hand change,lr,help,change,,noun,help reaction de chemical
+chemical,change object,lr,change,object,,noun,chemistry change into or outof de object
+inertia,change ness,ud,unchange,nesst,,noun,because inertia . so no take force de object de speed unchange
+price,shell amount,ud,money,amount,,noun,property de cost ness
+evolution,fish change,lr,fish,change,,verb,after many era . animal de successor change into different animal
+trader,change 2 person,lr,swap,person,,noun,trade de person
+buy,hand to,lr,trade,from,,verb,trade money into property
+sell,hand to,lr,trade,to,,verb,trade property into money
+trade,change 2 hand,ud,swap,hand,,verb,buy and sell
+smithing,metal change,lr,metal,change,,verb,modify metal into item or weapon
+market,place hand,oi,place,trade,,noun,trade in de place
+money,shell change 2,ud,shell,swap,,noun,money past be pearl or rare metal;money now be number in bank;mankind trade property into money and money into property
+income,shell to,lr,money,from,,noun,take money
+payment,shell to,lr,money,to,,noun,give money
+cost,eq shell,oi,eq,money,,verb,prevword de price equal nextword de price
+dissolve,change water,lr,change,water,,verb,chemical and water join into unpure water
+vanilla,yes change,oi,no,change,,noun,change outof de object
+variant,yes change,oi,yes,change,,noun,change into de object
+appear,yes object change,lr,exist,change,,verb,change from inexist to exist
+disappear,yes object change,lr,inexist,change,,verb,change from exist to inexist
+rich,yes change 2,oi,yes,swap,,adj,have many money and property
+poor,yes change 2,oi,no,swap,,adj,no have money and property
+e,big change amount,ud,log,amount,,noun,e exponent x de integral be e exponent x plus constant;e be irrational and constant
+fromnumber,direction symbol amount,lr,left,number,,noun,arithmetic verb de prevword
+tonumber,direction symbol amount,lr,right,number,,noun,arithmetic verb de nextword
+mostlyequal,eq same 2,oi,eq,similar,,verb,prevword and nextword de amount be similar
+integral,big join change,lr,infsmall,multiply,,verb,backward differential
+differential,big join change,lr,infsmall,divide,,verb,func amount de delta between variable de infsmall delta divide this delta;backward integral
+realnum,yes object symbol amount,lr,exist,number,,noun,all number from negative infbig to positive infbig;rational and irrational be realnum
+fakenum,yes object symbol amount,lr,inexist,number,,noun,number with fakei part
+fakei,1,lr,fakenum,1,,noun,negative 1 de squareroot
+equation,eq same word,ud,equal,sentence,,noun,arithmetic sentence with equal
+unequation,eq same word,ud,unequal,sentence,,noun,arithmetic sentence with unequal
+coordinate,place symbol amount,lr,place,number,,noun,write dot de position by number on each axis
+morethan,eq big,oi,eq,big,,verb,prevword de amount be more;nextword de amount be less
+lessthan,eq big,oi,eq,small,,verb,prevword de amount be less;nextword de amount be more
+rational,yes hand symbol amount,lr,can,number,,noun,can equal pair integer de divideness de number
+irrational,yes hand symbol amount,lr,cannot,number,,noun,cannot equal pair integer de divideness de number
+startas,time change,lr,early,change,,verb,before change de prevword be nextword
+remain,time change,lr,late,change,,verb,after change de prevword be nextword
+equal,eq same,oi,eq,same,,verb,be same amount
+unequal,eq same,oi,eq,different,,verb,be different amount
+math,hand science,lr,calculate,science,,noun,calculate de science;math be basic science
+arithmetic,symbol amount science,lr,number,science,,noun,calculate number de science;arithmetic be basic math
+calculus,big science,lr,infsmall,science,,noun,calculate infsmall amount de math;integral and differential be calculus;calculus be math
+integer,symbol yes amount,lr,full,number,,noun,number without smallnumber part
+notinteger,symbol yes amount,lr,halfscreen,number,,noun,number with smallnumber part
+metal,metal,s,-2 -1 2 -1 2 1 -2 1 -2 -1;-2 1 0 3 2 1,,,noun,can reflect light and transfer current de hard solid object
+Au,fire metal,lr,fire,metal,,noun,79 th element
+Ag,hand metal,lr,trade,metal,,noun,47 th element
+Cu,sky god metal,lr,sun,metal,,noun,29 th element
+Hg,metal water,lr,metal,water,,noun,80 th element
+Fe,yes shell metal,lr,hard,metal,,noun,26 th element
+Al,yes light metal,lr,bright,metal,,noun,13 th element
+Ra,light metal,lr,light,metal,,noun,88 th element
+U,god light metal,lr,mercy,metal,,noun,92 th element
+Ca,shell group metal,lr,shellfish,metal,,noun,20 th element
+Na,water metal,lr,salt,metal,,noun,11 th element
+connect,join hand,ud,join,hand,,verb,modify plural object into group
+disconnect,join hand,ud,split,hand,,verb,modify group into plural object
+enlarge,big hand,ud,big,hand,,verb,modify number or object into big
+shrink,big hand,ud,small,hand,,verb,modify number or object into small
+dig,place yes hand,ud,space,hand,,verb,modify full into empty;or create space in object by destroy object de part
+upgrade,yes fish hand,ud,good,hand,,verb,modify object into more good
+downgrade,yes fish hand,ud,bad,hand,,verb,modify object into more bad
+modify,change hand,ud,change,hand,,verb,let object change
+maintain,change hand,ud,unchange,hand,,verb,prevent object change
+sharpen,spike hand,ud,spike,hand,,verb,modify spike into more sharp spike
+stomach,mouth,s,1 -1 2 -1 0 1 -2 -1 -1 -1 0 0 1 -1;2 -1 -2 -1,,,noun,head de part for absorb food
+mouth,mouth,s,1 -1 2 -1 0 1 -2 -1 -1 -1,,,noun,head de part for eat food
+hungry,yes mouth,oi,no,stomach,,adj,without food in stomach;want eat
+nothungry,yes mouth,oi,yes,stomach,,adj,stomach be full by food;no want eat
+food,mouth object,lr,mouth,object,,noun,reverse eat de object
+taste,water hand,ud,water,hand,,verb,realize dissolve in water de chemical by hand
+fresh,water hand fish,lr,taste,fish,,adj,fish meat de taste ness
+sweet,water hand tree to,lr,taste,fruit,,adj,fruit de taste ness
+kelptaste,water hand weed,lr,taste,weed,,adj,kelp de taste ness
+bitter,water hand yes snake,lr,taste,poison,,adj,freshwater de taste ness
+notaste,yes water hand,oi,no,taste,,adj,without taste ness
+tasty,yes water hand,oi,yes,taste,,adj,with good taste ness
+eat,to mouth,lr,to,mouth,,verb,take food to stomach by mouth
+eater,to mouth person,lr,eat,person,,noun,eat food de person
+spit,to mouth,lr,from,mouth,,verb,give food from stomach by mouth;ill person sometime spit
+absorb,mouth change,ud,stomach,change,,verb,modify food into energy by stomach
+teeth,mouth spike,lr,mouth,spike,,noun,mouth de sharp hard part for disconnect food 
+pot,mouth object group,ud,food,group,,noun,item for cook food
+soup,water mouth,lr,water,mouth,,noun,liquid food
+salad,join mouth,lr,join,mouth,,noun,join de plural food;salad have plural taste ness
+skewer,fire mouth,lr,fire,mouth,,noun,cook by touch fire de hot food
+fried,hot mouth,lr,warm,mouth,,noun,cook in pot de hot food
+cake,yes shell mouth,lr,soft,mouth,,noun,soft food reverse create by heating join de egg . water and powder
+cook,mouth object hand,ud,food,hand,,verb,modify food into more good taste de
+collide,move to,ud,hand,between,,verb,pair object move and touch
+collider,move object,lr,collide,object,,noun,collide de object
+walk,move earth,ud,hand,earth,,verb,move on seabed
+track,move symbol,ud,move,line,,noun,line from startpoint to endpoint
+orbit,loop symbol,ud,loop,line,,noun,loop move action de closeshape track
+attract,move join,ud,hand,join,,verb,move for join
+repel,move join,ud,hand,split,,verb,move for split
+move,move hand place,ud,hand,place,,verb,position change
+rise,move direction,ud,hand,up,,verb,up move
+fall,move direction,ud,hand,down,,verb,down move
+stand,move yes,ud,hand,no,,verb,no move
+accelerate,change move,lr,change,move,,verb,speed change
+movearound,move loop,ud,hand,loop,,verb,single loop move in orbit
+control,move person,ud,hand,person,,verb,cannot reverse disagree de command
+ride,move fish,ud,hand,fish,,verb,stand on horse de headback and move by horse move
+enter,move in,ud,hand,in,,verb,move to place
+gate,place move in,oi,place,enter,,noun,person enter and leave place through gate
+leave,move in yes,ud,hand,out,,verb,move from place
+guest,move in person,lr,enter,person,,noun,new enter de person
+settle,move place person,ud,hand,home,,verb,new home replace old home
+click,move spike,ud,hand,spike,,verb,touch button for do button de function
+trample,move surface,ud,hand,surface,,verb,fall to object de surface;or touch by big force
+trampled,de move surface,ud,det,trample,,adj,reverse trample;or shrink by vertical length
+sail,move water,ud,hand,watersurface,,verb,move on watersurface
+noble,person,ud,ht,person,,noun,person with privilege;noble can command citizen
+citizen,person,ud,person,ht,,noun,common people
+king,person,ud,ht2,person,,noun,country de single leader;king can command noble
+slave,person,ud,person,ht2,,noun,person with penalty;slave be noble or citizen de property;now mankind free slave and slave inexist
+emperor,person,ud,ht3,person,,noun,single and superior king;emperor control all race
+taizi,time person,lr,late,emperor,,noun,next emperor
+prince,time person,lr,late,king,,noun,next king
+heir,time person,lr,late,noble,,noun,next noble
+enthrone,person hand,ud,king,hand,,verb,prince change into king
+enslave,person hand,ud,slave,hand,,verb,modify citizen into slave
+free,person anti,ud,slave,anti,,verb,modify slave into citizen
+revolt,person anti,ud,king,anti,,verb,fight for prevent emperor . king or government;or fight for free slave
+rebel,person anti,lr,revolt,person,,noun,revolt de army
+privilege,person do,lr,noble,do,,noun,noble de bonus action;now noble have less less privilege
+penalty,person do,lr,slave,do,,noun,slave de negativebonus action;;now mankind free slave and slave inexist
+0,0,s,0 -3 0 3;-2 3 2 3 2 -3 -2 -3,,,num,basic number;0 benot positive number and benot negative number
+1,1,s,0 -3 0 3,,,num,basic number;first positive number
+2,2,s,1 -3 1 3;-1 -3 -1 3,,,num,basic number
+3,3,s,0 -3 0 3;-2 -3 -2 3;2 -3 2 3,,,num,basic number
+4,4,s,0 -3 0 3;3 0 -3 0,,,num,basic number
+5,5,s,1 -3 1 3;-1 -3 -1 3;3 0 -3 0,,,num,basic number
+6,6,s,0 -3 0 3;-2 -3 -2 3;2 -3 2 3;3 0 -3 0,,,num,basic number
+:1e1,1e1,exp,,,,num,number;first no basic number
+:2e1,2e1,exp,,,,num,number
+:3e1,3e1,exp,,,,num,number
+:4e1,4e1,exp,,,,num,number
+:5e1,5e1,exp,,,,num,number
+:6e1,6e1,exp,,,,num,number;42 be reply ness to lifeform and universe and all
+:1e2,1e2,exp,,,,num,number
+:1e3,1e3,exp,,,,num,number
+:1e-1,1e-1,exp,,,,num,smallnumber
+:1e-2,1e-2,exp,,,,num,smallnumber
+:1e-3,1e-3,exp,,,,num,smallnumber
+x,symbol amount 1,lr,number,1,,num,first variable
+y,symbol amount 2,lr,number,2,,num,second variable
+z,symbol amount 3,lr,number,3,,num,third variable
+number,symbol amount,our,symbol,amount,,noun,amount de symbol
+:2e-1,2e-1,exp,,,,num,smallnumber
+:3e-1,3e-1,exp,,,,num,smallnumber
+:4e-1,4e-1,exp,,,,num,smallnumber
+:5e-1,5e-1,exp,,,,num,smallnumber
+:6e-1,6e-1,exp,,,,num,smallnumber
+:2e2,2e2,exp,,,,num,number
+:2e3,2e3,exp,,,,num,number
+:2e-2,2e-2,exp,,,,num,smallnumber
+:2e-3,2e-3,exp,,,,num,smallnumber
+:3e2,3e2,exp,,,,num,number
+:3e3,3e3,exp,,,,num,number
+:3e-2,3e-2,exp,,,,num,smallnumber
+:3e-3,3e-3,exp,,,,num,smallnumber
+:4e2,4e2,exp,,,,num,number
+:4e3,4e3,exp,,,,num,number
+:4e-2,4e-2,exp,,,,num,smallnumber
+:4e-3,4e-3,exp,,,,num,smallnumber
+:5e2,5e2,exp,,,,num,number
+:5e3,5e3,exp,,,,num,number
+:5e-2,5e-2,exp,,,,num,smallnumber
+:5e-3,5e-3,exp,,,,num,smallnumber
+:6e2,6e2,exp,,,,num,number
+:6e3,6e3,exp,,,,num,number
+:6e-2,6e-2,exp,,,,num,smallnumber
+:6e-3,6e-3,exp,,,,num,smallnumber
+object,object,s,-1 -2 -1 2 1 2 1 -2 -1 -2;-1 0 1 0,,,noun,all noun be object
+single,1 object,lr,1,object,,adj,1 object
+pair,2 object,lr,2,object,,adj,2 object
+plural,object,d,object,,,adj,more 1 object
+many,object,t,object,,,adj,more more object
+all,object,q,object,,,adj,join de each object
+property,person object,lr,person,object,,noun,person have de object
+attribute,de object,ud,det,object,,noun,adj for object
+sequence,object symbol,ud,object,line,,noun,locate by direction de object group
+alone,yes 2 object,oi,no,pair,,adj,be single and benot pair
+bonus,positive object,lr,positive,object,,noun,positive delta;morethan basic amount
+negativebonus,positive object,lr,negative,object,,noun,negative delta;lessthan basic amount de amount
+open,yes place,oi,yes,place,,adj,can move from and to de place be open
+close,yes place,oi,no,place,,adj,cannot move from and to de place be close
+lock,yes place object,lr,close,object,,noun,item for prevent enter place
+picklock,yes place anti,ud,close,anti,,verb,modify lock into open
+key,anti metal,lr,picklock,metal,,noun,key and lock be pair de;person picklock lock by fit lock de key
+guard,yes place person,lr,close,person,,noun,prevent other person enter place de person
+setlock,yes place hand,ud,close,hand,,verb,modify lock into prevent enter
+cage,place yes,oi,place,close,,noun,close place with lock
+nose,nose,s,0 1 -2 -1 2 -1 0 1;0 -1 0 -2,,,noun,organ out head for swap water
+squirt,nose in yes,lr,nose,out,,verb,give water from dskin to sea by nose
+drain,nose in,lr,nose,in,,verb,take water from sea to dskin by nose
+dash,nose place,ud,nose,place,,verb,big speed de move by squirt
+gill,gill,s,0 1 -2 -1 2 -1 0 1;-1 0 -1 -1;1 0 1 -1,,,noun,transfer O 2 from water to blood de organ
+elecgill,elec gill,lr,elec,gill,,noun,transfer O 2 from air to water de motor 
+heart,head loop,oi,head,loop,,noun,give blood pressure by enlarge and shrink de organ
+blood,head water,oi,head,water,,noun,green liquidness in body
+penis,head de,oi,head,de,,noun,male de gender organ
+womb,head ness,oi,head,nesst,,noun,female de gender organ
+sperm,head de water,lr,penis,water,,noun,body liquidness with male de gender cell
+ovum,head ness water,lr,womb,water,,noun,body liquidness with female de gender cell
+cell,head scale,oi,head,scale,,noun,lifeform de basic part
+givebirth,nose person,ud,nose,person,,verb,squirt baby
+organ,head object,oi,head,object,,noun,head de part with function
+friend,join person,lr,join,person,,noun,unite de person;like fromto de plural person
+enemy,join person,lr,split,person,,noun,prevent de person;person de enemy attack or argue this person
+person,person,s,0 1 0 0;1 1 -1 -1;1 -1 -1 1;1 0 -1 0,,,noun,can think de animal on homeplanet
+people,person,d,person,,,noun,plural person
+race,person,t,person,,,noun,same country de people de community
+mankind,person,q,person,,,noun,all person de group
+p1,person 1,lr,person,1,,noun,first person
+p2,person 2,lr,person,2,,noun,second person
+p3,person 3,lr,person,3,,noun,third person
+reproduce,person amount loop,lr,population,loop,,verb,parent givebirth kid;kid replace parent
+nohuman,yes person,oi,no,person,,adj,can do action without person;or place without person
+yeshuman,yes person,oi,yes,person,,adj,cannot do action without person;or place with person
+children,big person,lr,small,person,,noun,small person;children future be adult
+adult,big person,lr,big,person,,noun,big person;adult past be children
+ancestor,big person,lr,more,person,,noun,parent de parent and repeat
+successor,big person,lr,less,person,,noun,kid de kid and repeat
+deadman,time person,lr,late,person,,noun,dead person
+baby,time person,lr,early,person,,noun,person de egg
+me,to person,lr,from,person,,noun,talker de self
+you,to person,lr,to,person,,noun,listener de self
+we,to person,lr,udfromto,person,,noun,me and you
+self,same person,lr,same,person,,noun,person do action to self mean person do action to this person
+they,this person,lr,this,person,,noun,prevword de person
+population,person amount,ud,person,amount,,noun,person de amount
+chosen,hand person,lr,choose,person,,noun,reverse choose de person
+body,person ness,ud,person,nesst,,noun,person de exist ness
+soul,de person,ud,det,person,,noun,person de science . method . personality and emotion;soul no have exist ness
+nomad,loop person,lr,loop,person,,noun,live in tent and fishfarming in open water de people
+lifetime,time person,lr,time,person,,noun,person live de dt
+neighbour,yes join place person,lr,near,home,,noun,near home de other person de home
+city,big place person,lr,big,settlement,,noun,settlement with more population
+village,big place person,lr,small,settlement,,noun,settlement with less population
+capital,big place person,lr,most,settlement,,noun,city with country de government
+empire,place person,oi,place,emperor,,noun,past era de country;empire control all race in warm sea
+breedfield,place time person,oi,place,baby,,noun,female givebirth and baby born de place
+grave,place time person,oi,place,deadman,,noun,place for remember deadman
+nature,place yes person,oi,place,nohuman,,noun,no create by person de place
+building,place yes person,oi,place,yeshuman,,noun,create by person de place
+field,place,oi,place,place,,noun,near place de place
+commandcenter,place do hand,oi,place,command,,noun,give command ness de place
+airport,place move sky,oi,place,jump,,noun,airplane or rocket jump de place
+place,place,s,1 1 1 -1 -1 -1 -1 1 1 1,,,noun,sea . land or sky
+position,place object,oi,place,object,,noun,object in or on de place
+land,place earth,oi,place,earth,,noun,up from watersurface de place with many earth
+inland,in place earth,lr,in,land,,noun,faraway sea de land
+beach,in yes place earth,lr,out,land,,noun,near sea de land
+space,place yes,oi,place,no,,noun,empty place
+fullplace,place yes,oi,place,yes,,noun,full place
+ring,place loop,oi,place,loop,,noun,circle with empty center
+startpoint,place to,oi,place,from,,noun,start move de place;or start draw line de dot
+endpoint,place to,oi,place,to,,noun,end move de place;or end draw line de dot
+factory,place item,oi,place,machine,,noun,create production de place
+barrack,place weapon person,oi,place,warrior,,noun,army learn fight de place
+lab,place science,oi,place,science,,noun,place for science de test
+classroom,place group,oi,place,class,,noun,school de place for class learn
+bank,place shell,oi,place,money,,noun,store . give and take money de place
+hospital,place anti,oi,place,cure,,noun,doctor cure ill person de place
+tower,place direction,oi,place,up,,noun,up from watersurface de pillar building with plural platform
+vault,place direction,oi,place,down,,noun,down from seabed de place
+platform,place direction,oi,place,horizontal,,noun,building de horizontal flatplane
+government,place direction hand,oi,place,direct,,noun,create law de place
+powerplant,place elec,oi,place,current,,noun,create elec energy de factory
+homeplanet,place hot,oi,place,warm,,noun,mankind de home planet;sun de 4 th planet
+fireplace,place fire,oi,place,fire,,noun,fuel can more burn de place
+home,place person,oi,place,person,,noun,family rest de place
+settlement,place person,oi,place,people,,noun,near de people de home
+country,place person,oi,place,race,,noun,race de home
+civilization,place person,oi,place,mankind,,noun,mankind de home
+lake,place yes water,oi,place,freshwater,,noun,place with many freshwater
+homework,place person whether,lr,home,whether,,noun,school de question page for student answer in home
+shellfishfarm,place shell group,oi,place,shellfish,,noun,fishfarming shellfish de place
+multiply,join change,ud,join,change,,verb,tonumber amount de fromnumber de plusness;backward divide
+divide,join change,ud,split,change,,verb,disconnect fromnumber into tonumber amount de group;backward multiply
+primenumber,1 object join change,lr,single,divide,,noun,morethan 1 de positive integer without no 1 and no this number de integer divideness
+mult,join change amount,ud,multiply,amount,,noun,after enlarge de amount divide before enlarge de amount
+rate,join change amount,ud,divide,amount,,noun,after shrink de amount divide before shrink de amount;part de amount divide group de amount
+delta,positive change amount,ud,minus,amount,,adj,2 amount de minusness;before and after change de amount de minusness
+plusness,positive change to,lr,plus,to,,noun,plus de result
+minusness,positive change to,lr,minus,to,,noun,minus de result
+multiplyness,join change to,lr,multiply,to,,noun,multiply de result
+divideness,join change to,lr,divide,to,,noun,divide de result
+exponent,big change,ud,big,change,,verb,tonumber amount de fromnumber de multiplyness;backward log
+exp7,1e1 change,ud,:1e1,change,,verb,7 exponent nextword number
+log,big change,ud,small,change,,verb,backward exponent
+exponentness,big change to,lr,exponent,to,,noun,exponent de result
+logness,big change to,lr,log,to,,noun,log de result
+exponent2,big change 2,lr,exponent,2,,noun,prevword number exponent 2
+exponent3,big change 3,lr,exponent,3,,noun,prevword number exponent 3
+half,amount 2,ud,amount,2,,num,1 divide 2;or prevword number divide 2
+onethird,amount 3,ud,amount,3,,num,1 divide 3;or prevword number divide 3
+squareroot,big change amount 2,lr,exponent,half,,noun,prevword number exponent half
+root3,big change amount 3,lr,exponent,onethird,,noun,prevword number exponent onethird
+plus,positive change,ud,positive,change,,verb,fromnumber enlarge by tonumber;backward minus
+minus,positive change,ud,negative,change,,verb,fromnumber shrink by tonumber;backward plus
+positive,positive,s,1 0 -1 0;1 1 1 -1,,,adj,morethan 0 de number
+negative,positive,flr,positive,,,adj,lessthan 0 de number
+road,road place,ud,place,place,,noun,connect 2 place de place
+pipe,place yes road,lr,space,road,,noun,empty pillar;mankind transfer liquidness or gasness by pipe
+exact,same,vd,same,,,adj,be more same and no different
+same,same,s,-1 0 0 0 0 1 1 1,,,adj,plural object with 1 type
+different,same,flr,same,,,adj,no same object
+uniqueobject,same object,lr,different,object,,noun,place de unique object
+similar,same 2,ud,same,2,,adj,be less different
+agree,yes hand,oi,yes,support,,verb,support other person de idea
+disagree,yes hand,oi,no,support,,verb,no support other person de idea
+normal,yes same,oi,no,different,,adj,be common object
+unique,yes same,oi,yes,different,,adj,benot common object
+perfect,yes same,oi,yes,same,,adj,most fit
+noperfect,yes same,oi,no,same,,adj,no fit
+scale,scale,s,0 0 1 0 1 3 0 3 0 0;0 1 1 1;0 2 1 2,,,noun,fish de small surface shell;small object
+molecule,big scale,lr,small,scale,,noun,object de more more small and basic part
+ion,join scale,lr,split,scale,,noun,molecule de part with positive or negative charge
+reaction,big scale change,lr,molecule,change,,noun,molecule split into atom and atom join into different molecule
+atom,big scale,lr,less,scale,,noun,molecule de part
+atomcore,direction scale,lr,center,scale,,noun,atom de center part
+neutron,0 scale,lr,0,scale,,noun,atomcore de part without charge
+element,change scale,lr,unchange,scale,,noun,atom de group;atom with same proton amount be same element
+isotope,change scale,lr,change,scale,,noun,element de variant with same proton amount and different neutron amount
+atomenergy,scale do amount,lr,scale,energy,,noun,energy by nuke
+quark,big scale,lr,least,scale,,noun,proton and neutron de basic part;universe de quark type amount be 6
+S,air earth scale,lr,vent,scale,,noun,16 th element
+C,fire to scale,lr,fuel,scale,,noun,6 th element
+P,fire earth scale,lr,volcano,scale,,noun,15 th element
+particle,scale,lr,scale,scale,,noun,more small de basic object
+heavyparticle,yes scale,oi,yes,scale,,noun,particle with mass
+lightparticle,yes scale,oi,no,scale,,noun,particle without mass
+nuke,object hand scale,lr,create,scale,,noun,element change into different element
+reactor,place scale,oi,place,nuke,,noun,reactor give eenergy by nuke
+electron,positive scale,lr,positive,scale,,noun,atom de part with positive charge;electron be out atomcore
+proton,positive scale,lr,negative,scale,,noun,atomcore de part with negative charge
+powder,tree to scale,lr,seed,scale,,noun,mankind disconnect seed into more small de powder;powder be food de resource
+geography,place hot science,lr,homeplanet,science,,noun,research homeplanet de science
+bigmechanics,big move science,lr,big,mechanics,,noun,more more big speed de mechanics
+smallmechanics,big move science,lr,small,mechanics,,noun,more more small length de mechanics
+science,science yes think,oi,yes,think,,noun,real message;or universe de basic rule;science be universe de same idea
+theory,yes think,oi,no,think,,noun,before prove or test de science de guess ness
+physics,object science,lr,object,science,,noun,research object attribute de science
+mechanics,move science,lr,move,science,,noun,calculate move ness de science;mechanics be physics
+chemistry,change science,lr,change,science,,noun,explain object change de science
+history,time science,lr,past,science,,noun,research past era de major event de science
+biology,fish science,lr,fish,science,,noun,research lifeform de science
+linguistics,word science,lr,language,science,,noun,explain language de science
+philosophy,think science,lr,think,science,,noun,research idea de science;philosophy benot other science by no have single yes answer ness
+teach,to hand science,lr,give,science,,verb,give science
+learn,to hand science,lr,take,science,,verb,take science
+electricity,elec science,lr,elec,science,,noun,explain elec and magnet de science;electricity be physics
+astronomy,sky science,lr,universe,science,,noun,explain universe de science;astronomy be physics
+anthropology,person science,lr,person,science,,noun,research person de science;anthropology be biology
+algorithm,amount science,lr,data,science,,verb,research data and difficult calculate de science;algorithm be math
+prove,science change,ud,science,change,,verb,theory change into science
+scientist,science person,lr,science,person,,noun,research science de person
+tester,science hand person,lr,test,person,,noun,test de person
+gametheory,game science,lr,game,science,,noun,research game de strategy de science;gametheory be math
+test,science hand,ud,science,hand,,verb,test be research science de method;try unknow de action and write result
+strategy,weapon science,lr,fight,science,,noun,upgrade war advantage de science
+optics,light science,lr,light,science,,noun,explain light de science;optics be physics
+formula,science eq same,lr,science,equal,,noun,equation for explain science
+school,place science,oi,place,teach,,noun,teach de place
+research,science think,lr,science,think,,verb,guess . prove or test theory;modify theory into science
+exam,place whether,lr,school,whether,,noun,school de question page for student answer in classroom;exam de winner enter more advanced school
+deepwater,in place water,lr,in,sea,,noun,faraway land de more depth de sea
+shoal,in yes place water,lr,out,sea,,noun,near land de less depth de sea
+downsea,direction place water,lr,down,sea,,noun,deepwater de down sea;downsea lifeform group take energy from vent
+upsea,direction place water,lr,up,sea,,noun,near watersurface de up sea;upsea lifeform group take energy from sun
+trench,place water spike earth,lr,sea,cave,,noun,deepwater de seabed cave with big depth
+explore,move direction,ud,hand,downsea,,verb,move to unknow de place
+sea,place water,oi,place,water,,noun,place with many seawater
+leg,yes shell hand,lr,hard,hand,,noun,beast de part for walk or landing
+dice,de shell symbol 4,lr,random,square,,noun,perfect square object with write de number from 1 to 6;player throw dice for create random number in game
+treasure,shell,q,shell,,,noun,more more plural money or property
+chance,shell amount,ud,pearl,amount,,noun,if loop do event;then result de chance be this result de amount divide loop de amount
+random,de shell,ud,det,pearl,,adj,reverse create by chance de number or object
+randomevent,shell do,lr,pearl,do,,noun,random event
+shell,shell,s,3 -1 3 1 -3 1 -3 -1,,,noun,smooth and hard object for defend
+pearl,shell symbol loop,ud,shell,circle,,noun,pearl be circle object in shellfish;pearl past be small money
+soft,yes shell,oi,no,shell,,adj,more can reverse modify shape
+hard,yes shell,oi,yes,shell,,adj,less can reverse modify shape
+shield,shell object,ud,shell,object,,noun,item for defend
+lose,person object anti,ud,property,anti,,verb,give property
+gain,person object hand,ud,property,hand,,verb,take property
+bone,shell in,ud,shell,in,,noun,bone be hard part in beast;bone support beast de body
+shellfishshell,shell in yes,ud,shell,out,,noun,shellfish de shell
+lucky,mouth shell,lr,mouth,pearl,,adj,rare and good event
+probability,amount science,lr,chance,science,,noun,calculate chance de science;probability be math
+coconut,shell tree to,ud,shell,fruit,,noun,fruit with shell;coconut de center be sweet water
+likely,yes shell,oi,no,pearl,,adj,big chance
+unlikely,yes shell,oi,yes,pearl,,adj,small chance
+uncertain,yes amount,oi,no,chance,,adj,chance unequal 0 and unequal 1
+certain,yes amount,oi,yes,chance,,adj,chance equal 1
+throw,sky hand,ud,sky,hand,,verb,give object to air by force
+sky,sky,s,0 1 1 0 0 -1 -1 0 0 1,,,noun,up from homeplanet de air
+world,sky place,oi,sky,place,,noun,down from sky de sea and land;homeplanet de also name
+sun,sky god,oi,sky,god,,noun,homeplanet movearound de star
+planet,sky,oi,sky,ht,,noun,movearound star de skyobject
+inplanet,sky in,oi,sky,in,,noun,sun de planet with lessthan homeplanet de orbit radius
+outplanet,sky in yes,oi,sky,out,,noun,sun de planet with morethan homeplanet de orbit radius
+solarsystem,sky,d,sky,,,noun,star with loop movearound star de planet
+galaxy,sky,t,sky,,,noun,solarsystem de group
+universe,sky,q,sky,,,noun,all galaxy de group
+star,sky loop,oi,sky,loop,,noun,give light de skyobject
+skyobject,sky object,oi,sky,object,,noun,more more mass object in universe
+transit,sky,oi,sky,sky,,verb,transit mean inplanet . homeplanet and sun be in same straightline;inplanet be between sun and homeplanet;inplanet most enlarge while transit
+horizon,sky,ud,sky,ht,,noun,sky and sea de join line in person de eyesight
+t1df,sky anti hand,oi,sky,welcome,,noun,water planet transit while ice planet out transit
+radiation,light yes snake,lr,light,poison,,noun,more big speed particle from sun or from nuke;radiation random modify genre;take big radiation de person change into ill
+thunder,sky branch,oi,sky,branch,,noun,sky de branch light with more small dt;thunder be more small dt de more big current
+meteorite,sky big earth,ud,sky,rock,,noun,rock fall from solarsystem
+cloud,sky god group,ud,sun,group,,noun,rain de startpoint;cloud prevent sun de light
+light,light sky 1,oi,sky,1,,noun,bright ness from sun . fire or bulb
+bright,yes light,oi,yes,light,,adj,with light
+dark,yes light,oi,no,light,,adj,without light
+brighten,yes light hand,ud,bright,hand,,verb,modify into more bright
+darken,yes light hand,ud,dark,hand,,verb,modify into less bright
+twilight,yes light,lr,bright,dark,,adj,half bright half dark;between bright and dark
+blackhole,sky yes light,oi,sky,dark,,noun,no give light de skyobject;light cannot leave blackhole de dark field
+jump,move sky,ud,hand,sky,,verb,move from sea or land to sky
+rainbow,sky road,oi,sky,road,,noun,colorful curveline in sky after rain;rainbow be refract by steam de light
+starsea,sky place water,oi,sky,sea,,noun,plural star de sea;this galaxy de name
+steam,sky water,oi,sky,water,,noun,freshwater heating into steam;steam cooling into freshwater
+spike,spike,s,0 0 0 1 1 1 1 2 2 2 2 1 3 1 3 0,,,noun,surface de up part
+pit,spike,fud,spike,,,noun,surface de down part
+smooth,yes spike,oi,no,spike,,adj,surface without spike and pit
+tough,yes spike,oi,yes,spike,,adj,surface with spike and pit
+fit,spike,ud,spike,spike,,verb,if person can locate first object de spike in second object de pit . then first object fit second object
+shark,spike fish,lr,spike,fish,,noun,fish with big teeth;shark can attack and eat person
+hair,surface 1,lr,surface,1,,noun,big length and thin string on animal de skin
+colorful,de surface,lr,color,color,,adj,plural color de
+solidcolor,1 de surface,lr,1,color,,adj,single color de
+sails,air surface,lr,air,surface,,noun,on up boat de skin for take wind de force
+surface,surface,s,-1 1 1 1 1 -1 -1 -1 -1 1;-1 0 1 0;0 -1 0 1,,,noun,object de skin
+dskin,surface to,lr,surface,udfromto,,noun,between outskin and inskin
+outskin,surface in yes,lr,surface,out,,noun,person de first skin;or threed object de surface
+inskin,surface in,lr,surface,in,,noun,person de second skin;or threed object de surface by inside eyesight
+infrared,big de surface,lr,big,color,,adj,infrared be light with big wavelength;mankind cannot see infrared
+infrablue,big de surface,lr,small,color,,adj,infrablue be light with small wavelength;mankind cannot see infrablue;mankind de scientist guess terran can see infrablue because terran de sun give less wavelength de light
+sailboat,surface boat,lr,surface,boat,,noun,boat with sails
+orange,branch de surface,lr,branch,color,,adj,coral de common color
+paint,de surface hand,ud,color,hand,,verb,draw color
+color,de surface,ud,det,surface,,noun,reverse see de object de attribute;different wavelength de light have different color
+yellow,fire de surface,lr,fire,color,,adj,fire de color
+theme,de surface group,ud,color,group,,noun,object surface de plural color de group
+white,yes light de surface,lr,bright,color,,adj,all color de join ness
+black,yes light de surface,lr,dark,color,,adj,place without light de color
+red,sky god de surface,lr,sun,color,,adj,lava de color;sun de color
+yellowgreen,water de surface,lr,water,color,,adj,sky de color;sea de color
+transparent,ice de surface,lr,ice,color,,adj,can transfer light;person can see transparent object de back
+green,weed de surface,lr,weed,color,,adj,weed de color
+red2,air earth de surface,lr,vent,color,,adj,vent de color;hot ash de color;mankind de scientist guess terran cannot see red2 because terran de sun give less wavelength de light
+colorless,yes de surface,oi,no,color,,adj,without color
+colored,yes de surface,oi,yes,color,,adj,with color
+stance,person symbol object,lr,person,shape,,noun,person de shape
+symbol,symbol,s,-2 1 -2 -1 2 -1,,,noun,small picture in paper
+picture,symbol,vd,symbol,,,noun,object de picture be object de shape with color
+paper,place symbol,oi,place,symbol,,noun,flatplane for draw or write
+chapter,place symbol,d,paper,,,noun,book de part;chapter be single message . or be plural message with same topic
+book,place symbol,t,paper,,,noun,join de plural page with single topic
+library,place symbol,oi,place,book,,noun,place with many book
+page,place symbol 1,lr,paper,1,,noun,single paper with message;book de part
+card,shell place symbol,ud,shell,paper,,noun,hard page;game de item
+deck,shell place symbol,d,card,,,noun,plural card de group;player take card from deck while play card game
+repeat,word loop,lr,word,loop,,noun,prevword de same or similar sentence
+prevword,direction word,lr,left,word,,noun,prev single or plural word in sentence;or prev page in book
+nextword,direction word,lr,right,word,,noun,next single or plural word in sentence;or next page in book
+name,symbol person,our,symbol,person,,noun,mean single person de word
+graph,symbol group,our,symbol,group,,noun,picture or sentence de sequence
+draw,symbol hand,ud,symbol,hand,,verb,write symbol
+grid,game symbol,ud,game,line,,noun,plural horizontal parrellel line and plural vertical parrellel line
+talk,head change,ud,head,change,,verb,give idea by change head de color
+silent,head change,ud,head,unchange,,verb,no talk
+communicate,head loop,ud,head,loop,,verb,talk and reply
+predict,head change time,lr,talk,late,,verb,talk future event
+reply,head change anti,ud,talk,anti,,verb,backward talk;talk question de answer ness
+talker,head change to,lr,talk,from,,noun,talk de person;or talk for community de person
+listener,head change to,lr,talk,to,,noun,reverse talk de person
+argue,weapon head change,lr,weapon,talk,,verb,talk other person be wrong
+explain,think ness hand,ud,idea,hand,,verb,give bonus sentence for idea
+think,think,s,0 1 -2 -1 2 -1 0 1;-2 1 2 1,,,verb,create or modify idea
+assume,yes object think,lr,inexist,think,,verb,think idea be likely yes
+believe,yes object think,lr,exist,think,,verb,think idea be yes
+personality,person think,lr,person,think,,noun,person de unique idea
+idea,think ness,ud,think,nesst,,noun,creation from think
+opinion,object think,ud,object,think,,noun,person de idea for object
+simple,big think,ud,small,think,,adj,reverse solve by less think de puzzle
+difficult,big think,ud,big,think,,adj,reverse solve by more think de puzzle
+hope,think time,ud,think,late,,verb,good think future
+remember,think time,ud,think,early,,verb,good think past
+want,think,vd,think,,,verb,hope have object;hope action do
+eager,think,t,think,,,verb,more want
+must,think,q,think,,,verb,most want
+mean,eq think,oi,eq,think,,verb,prevword and nextword be similar idea
+guess,1 hand think,lr,try,think,,verb,think while no prove
+topic,think group,ud,think,group,,noun,idea de type
+love,head loop think,ud,heart,think,,verb,more like;want share lifetime fromto nextword person
+lover,head loop person,lr,heart,person,,noun,love fromto de person
+fiction,place think,oi,place,think,,noun,reverse create by think de fake object or fake place
+correct,same think,ud,same,think,,adj,calculate de result equal real amount
+wrong,same think,ud,different,think,,adj,calculate de result unequal real amount
+like,yes think,ud,yes,think,,verb,be happy for nextword object . person or event
+dislike,yes think,ud,no,think,,verb,no like
+this,this,s,1 1 0 1 0 0;0 1 1 0,,,noun,prevword de noun
+now,this time,lr,this,time,,adj,this time;you in de time
+never,yes time,oi,no,time,,adj,be no on each time
+always,yes time,oi,yes,time,,adj,be yes on each time
+sometime,1 group time,lr,some,time,,adj,no never and no always
+time,time,s,0 1 1 0 0 -1 -1 0 0 1;0 -1 -1 -1;0 1 1 1,,,noun,infsmall dt
+timeperiod,time,d,time,,,noun,small dt
+era,time,t,time,,,noun,plural century de big dt
+forever,time,q,time,,,noun,all time
+early,time,fb,late,,,adj,prev time
+late,time,s,0 1 1 0 0 -1 -1 0 0 1;0 1 1 1,,,adj,next time
+before,time linkword,d,early,,,linkword,nextword de early time
+after,time linkword,d,late,,,linkword,nextword de late time
+past,time,t,early,,,adj,past be more early time
+future,time,t,late,,,adj,future be more late time
+old,time object,lr,early,object,,adj,reverse create in big early time de
+new,time object,lr,late,object,,adj,reverse create in small early time de
+until,time to linkword,lr,early,from,,linkword,from past or now to nextword time de timeperiod
+since,time to linkword,lr,late,from,,linkword,from nextword time to now or future timeperiod
+origin,time,q,early,,,noun,most early de time
+ending,time,q,late,,,noun,most late de time
+period,loop time,lr,loop,time,,noun,each loop de dt
+sec,big time,lr,small,time,,noun,1e-2Ass;mechanics de dt unit
+minute,big time,ud,ht,sec,,noun,49As;1e-2Asss
+hour,big time,ud,ht2,sec,,noun,49Ass;1e-2Assss
+day,big time,ud,ht3,sec,,noun,49Asss;1e-1Ay
+week,big time,lr,big,time,,noun,homeplanet de orbit de period
+month,big time,ud,ht,week,,noun,water planet transit de period;12.05Hy
+year,big time,ud,ht2,week,,noun,water planet transit de position spin de average period
+century,big time,ud,ht3,week,,noun,49Ayyy
+ad,person time,lr,emperor,time,,noun,mankind history de time unit;ad 0 be emperor enthrone de year;ad 1 be next year . ad -1 be prev year . and repeat
+age,person time amount,lr,person,dt,,noun,dt from person born to now or to person die
+festival,yes fish time,lr,good,time,,noun,happy event;people play . eat and dance while festival
+die,time anti,ud,time,anti,,verb,change into dead
+live,time hand,ud,time,hand,,verb,be alive
+bigsmall,token,lr,small,big,,token,
+dfish,token,vd,fish,,,token,
+dweed,token,vd,weed,,,token,
+det,token,s,-1 0 0 1 1 0,,de,token,de modify prevword into adj
+nesst,token,s,-1 0 0 -1 1 0,,ness,token,ness modify prevword into noun
+udfromto,token,ud,from,to,,token,
+h2think,token,d,think,,,token,
+p4,token,lr,person,4,,noun,4 th person
+p5,token,lr,person,5,,noun,5 th person
+p6,token,lr,person,6,,noun,6 th person
+p7,token,lr,person,:1e1,,noun,7 th person
+w,token,lr,number,4,,num,4 th variable
+x5,token,lr,number,5,,num,5 th variable
+x6,token,lr,number,6,,num,6 th variable
+x7,token,lr,number,:1e1,,num,7 th variable
+cel-1,token,lr,1,temperature,,noun,cel exponent -1
+:1e4,token,exp,,,,num,number
+:1e5,token,exp,,,,num,number
+:1e-4,token,exp,,,,num,smallnumber
+:1e-5,token,exp,,,,num,smallnumber
+:2e4,token,exp,,,,num,number
+:2e5,token,exp,,,,num,number
+:2e-4,token,exp,,,,num,smallnumber
+:2e-5,token,exp,,,,num,smallnumber
+:3e4,token,exp,,,,num,number
+:3e5,token,exp,,,,num,number
+:3e-4,token,exp,,,,num,smallnumber
+:3e-5,token,exp,,,,num,smallnumber
+:4e4,token,exp,,,,num,number
+:4e5,token,exp,,,,num,number
+:4e-4,token,exp,,,,num,smallnumber
+:4e-5,token,exp,,,,num,smallnumber
+:5e4,token,exp,,,,num,number
+:5e5,token,exp,,,,num,number
+:5e-4,token,exp,,,,num,smallnumber
+:5e-5,token,exp,,,,num,smallnumber
+:6e4,token,exp,,,,num,number
+:6e5,token,exp,,,,num,number
+:6e-4,token,exp,,,,num,smallnumber
+:6e-5,token,exp,,,,num,smallnumber
+n8,token,lr,:1e1,1,,num,number
+n9,token,lr,:1e1,2,,num,number
+n10,token,lr,:1e1,3,,num,number
+n11,token,lr,:1e1,4,,num,number
+n12,token,lr,:1e1,5,,num,number
+n13,token,lr,:1e1,6,,num,number
+n15,token,lr,:2e1,1,,num,number
+n16,token,lr,:2e1,2,,num,number
+n17,token,lr,:2e1,3,,num,number
+n18,token,lr,:2e1,4,,num,number
+n19,token,lr,:2e1,5,,num,number
+n20,token,lr,:2e1,6,,num,number
+n22,token,lr,:3e1,1,,num,number
+n23,token,lr,:3e1,2,,num,number
+n24,token,lr,:3e1,3,,num,number
+n25,token,lr,:3e1,4,,num,number
+sec-1,token,lr,1,sec,,noun,sec exponent -1
+meter-1,token,lr,1,length,,noun,meter exponent -1
+meter-2,token,lr,2,length,,noun,meter exponent -2
+meter-3,token,lr,3,length,,noun,meter exponent -3
+kg-1,token,lr,1,mass,,noun,kg exponent -1
+kg-2,token,lr,2,mass,,noun,kg exponent -2
+c-2,token,lr,2,charge,,noun,coulumb exponent -2
+ur,token,s,-1 -1 1 1,,,token,
+dr,token,s,-1 1 1 -1,,,token,
+eq,eq changeword,s,1 1 -1 1;-1 -1 1 -1,,,changeword,modify prevword into compare relation de verb
+ht,token,s,-1 0 1 0,,,token,
+ht2,token,s,-1 0 1 0;-1 0.5 1 0.5,,,token,
+ht3,token,s,-1 0 1 0;-1 0.5 1 0.5;-1 1 1 1,,,token,
+ht4,token,s,-1 0 1 0;-1 0.5 1 0.5;-1 1 1 1;-1 1.5 1 1.5,,,token,
+ct,token,s,-1 1 -1 -1 1 -1,,,token,
+symboldown,token,s,-1 0 -1 -1 1 -1,,symbol,token,
+cel-4,token,lr,4,temperature,,noun,cel exponent -4
+fweapon,token,flr,weapon,,,token,
+fruit,tree to,lr,tree,to,,noun,tree de spore;fruit be food
+seed,tree to,lr,tree,from,,noun,small object in fruit;seed can enlarge into tree
+wood,tree object,lr,tree,object,,noun,reverse destroy de tree
+forest,tree,d,tree,,,noun,place with more plural tree
+tree,tree,s,0 -1 0 1;-1 0 1 2;-1 2 1 0,,,noun,land de coral shape de plants
+woodcut,tree anti,ud,tree,anti,,verb,destroy tree for wood
+leaf,tree weed,lr,tree,weed,,noun,tree de weed
+neutral,water hand 0,lr,taste,0,,adj,no acid and no based
+sticky,join water,lr,join,water,,adj,can connect object surface de liquidness be sticky
+oil,fire water,lr,fire,water,,noun,can burn de liquidness
+water,water,s,-1 -1 1 1;-1 -3 1 -1,,,noun,seawater and freshwater
+seawater,yes water,oi,yes,water,,noun,water with salt
+freshwater,yes water,oi,no,water,,noun,lake de basic part;freshwater be water without salt
+rain,sky water,ud,sky,water,,noun,water fall from sky
+waterfall,place water,ud,place,water,,noun,water fall from mountain or iceland
+anticlockwise,yes water road,oi,yes,watercurrent,,noun,south halfplanet de watercurrent de spin direction
+clockwise,yes water road,oi,no,watercurrent,,noun,north halfplanet de watercurrent de spin direction
+pure,yes change water,oi,no,dissolve,,adj,water without dissolve de chemical
+unpure,yes change water,oi,yes,dissolve,,adj,water with dissolve de chemical
+wet,in water,lr,with,water,,adj,with water
+dry,in yes water,lr,without,water,,adj,without water
+liquid,de water,ud,det,water,,adj,object type;water de similar object
+liquidness,water ness,ud,water,nesst,,noun,liquid object
+seabed,water earth,ud,water,earth,,noun,down from sea de earth
+freshwaterfish,yes water fish,lr,freshwater,fish,,noun,freshwater de fish
+mirturl,yes water,lr,seawater,freshwater,,noun,rivertosea de water;half seawater half freshwater
+rotate,water loop hand,ud,whirlpool,hand,,verb,modify object de direction
+whirlpool,water loop,lr,water,loop,,noun,spin de watercurrent
+purify,yes hand,ud,pure,hand,,verb,modify object into pure object
+unpurify,yes hand,ud,unpure,hand,,verb,modify object into unpure object
+spin,move water loop,ud,hand,whirlpool,,verb,direction change while place unchange
+swim,move water,ud,hand,water,,verb,move in water
+rivertosea,place,oi,place,mirturl,,noun,connect river and sea de place
+acid,water hand positive,lr,taste,negative,,adj,liquid with more negative H ion
+based,water hand positive,lr,taste,positive,,adj,liquid with more positive O H ion
+river,yes water road,lr,freshwater,road,,noun,move de freshwater
+watercurrent,water road,lr,water,road,,noun,move de water
+watersurface,water,ud,ht,water,,noun,sea de surface
+tideup,water direction,lr,watersurface,up,,noun,sea de watersurface rise
+tidedown,water direction,lr,watersurface,down,,noun,sea de watersurface fall
+tide,water loop,lr,watersurface,loop,,noun,tideup and tidedown de loop
+wave,wave,s,0 0 1 1 0 2 1 3,,,noun,loop shake de string . watersurface or object sequence
+storm,wave,d,wave,,,noun,sea de big wave
+typhoon,wave,t,wave,,,noun,sea de more big wave
+doomsday,wave,q,wave,,,noun,most typhoon in prophet de book
+straight,yes wave,oi,no,wave,,adj,without direction de change de line;without wave de watersurface
+bending,yes wave,oi,yes,wave,,adj,with direction de change de line
+wind,wave to,lr,wave,from,,noun,move de air
+wavelength,wave amount,lr,wave,length,,noun,wave de each period de length
+frequence,time wave,lr,time,wave,,noun,each sec de period amount
+shake,wave hand,ud,wave,hand,,verb,loop forward and backward locate object
+weed,weed,s,1 -2 -1 -2;0 -2 1 -1 -1 1 0 2,,,noun,big length de plants up from seabed
+seedling,big weed,lr,small,weed,,noun,new grow from spore de weed
+bigweed,big weed,lr,big,weed,,noun,more grow de weed
+thin,big direction amount,lr,small,width,,adj,threed object with big depth and small width
+thick,big direction amount,lr,big,width,,adj,threed object with similar width and depth
+string,symbol weed,lr,line,weed,,noun,line object;person use string for connect pair object or create web
+algae,scale weed,lr,scale,weed,,noun,more small weed
+splitweed,join weed,lr,split,weed,,noun,can split de weed;mankind de food
+kelp,surface weed,lr,surface,weed,,noun,big length . thick and kelptaste weed;mankind de food
+spore,weed to,lr,weed,from,,noun,weed de reproduce cell
+sporeplate,weed group,ud,weed,group,,noun,plate with spore . seedling or weed
+farmer,weed person,lr,weed,person,,noun,plant weed de person
+grass,weed earth,ud,weed,earth,,noun,land de weed
+web,game weed,lr,game,weed,,noun,grid shape de string;item for hunt
+plant,weed hand,ud,weed,hand,,verb,let weed or tree enlarge
+farm,place weed,oi,place,weed,,noun,weed enlarge de place
+whether,whether,s,1 3 -3 3 -3 -1 1 -1;-1 1 3 1 3 -3 -1 -3,,,adj,ask for yes or no
+what,whether object,lr,whether,object,,noun,ask for unknow object
+who,whether person,lr,whether,person,,noun,ask for unknow person
+when,whether time,lr,whether,time,,noun,ask for unknow time
+how,whether do,lr,whether,do,,verb,ask for unknow action
+howmany,whether amount,lr,whether,amount,,number,ask for unknow amount
+which,whether 1,lr,whether,1,,noun,ask for unknow object in group
+why,whether think,lr,whether,think,,adj,ask for unknow because what
+where,whether place,lr,whether,place,,noun,ask for unknow de place
+ask,whether hand,ud,whether,hand,,verb,talk question
+question,word whether,lr,word,whether,,noun,sentence for unknow
+answer,whether anti,ud,whether,anti,,verb,reply question
+whatadj,de whether,ud,det,whether,,adj,ask for unknow adj
+func,change amount word,ud,variable,sentence,,noun,func be equation with variable
+tutorial,hand word,lr,help,word,,noun,message or function for help
+story,do word,lr,do,message,,noun,message for event
+word,word symbol think,our,symbol,think,,noun,idea de symbol
+sentence,word,d,word,,,noun,join de plural word
+message,word,t,word,,,noun,plural sentence with idea
+language,word,q,word,,,noun,all word de group
+objective,word to,lr,word,to,,noun,reverse do verb de noun
+subjective,word to,lr,word,from,,noun,do verb de noun
+myth,time word,lr,early,message,,noun,past era de story;myth common be prophet or hero de story
+wordline,word symbol,ud,word,line,,noun,word de horizontal line;halfscreen wordline be sentence;full wordline and start by empty de next wordline join into sentence
+title,word 1,lr,sentence,1,,noun,message de first sentence;message de name
+grammar,direction hand word,lr,direct,word,,noun,write word de sequence;linguistics de part
+clause,word 2,ud,sentence,2,,noun,sentence de part
+radicial,word 2,ud,word,2,,noun,half word;plural radicial join into word
+translate,change word,lr,change,language,,verb,modify message into different language
+genre,head word,oi,head,word,,noun,message in cell;person de reproduce de clonefrom
+wordtype,word de group,lr,word,type,,noun,word de type
+adj,de word,lr,det,word,,noun,object or action attribute de word;adj be wordtype
+num,symbol amount word,lr,number,word,,noun,number de word;num be noun or adj;num be wordtype;num be basic number exp7 some integer
+verb,do word,lr,do,word,,noun,action de word;verb be wordtype
+noun,object word,lr,object,word,,noun,object de word;noun be wordtype
+xx,xx,s,0 0 1 1;0 1 1 0,,,noun,object with xtron
+handx,xx hand,ud,xx,hand,,verb,take xx from xxxx
+xxx,xx,d,xx,,,noun,xx xup into xxx
+xxxx,xx,t,xx,,,noun,plural xx and xxx
+xxxxx,xx,q,xx,,,noun,all xx and xxx
+xcolor,xx de surface,lr,xx,color,,adj,xx de color
+xtron,xx scale,lr,xx,scale,,noun,xchange de xx give xtron
+xup,xx direction,lr,xx,up,,verb,xx change into xxx
+xchange,xx change,lr,xx,change,,verb,xx de change
+xplace,place xx,oi,place,xx,,noun,xx de place
+xfuel,fire xx,lr,fire,xx,,noun,fuel with xtron
+xmotor,xx move,lr,xx,move,,noun,change xfuel into energy de machine
+xfly,move xx,ud,hand,xx,,verb,jump by xmotor
+xperson,xx person,lr,xx,person,,noun,handx de person
+real,yes object place,lr,exist,place,,adj,exist in world
+fake,yes object place,lr,inexist,place,,adj,inexist in world
+yes,yes,s,1 1 -1 1 -1 -1 1 -1,,,adj,anti no
+no,yes,fb,yes,,,adj,anti yes
+be,eq yes,oi,eq,yes,,verb,prevword and nextword have same attribute
+benot,eq yes,oi,eq,no,,verb,prevword and nextword have different attribute
+legal,yes do,oi,yes,law,,adj,reverse direct by law
+illegal,yes do,oi,no,law,,adj,no reverse direct by law
+good,yes fish,oi,yes,fish,,adj,help de;create de;protect de;art de
+bad,yes fish,oi,no,fish,,adj,no help de;destroy de;kill de;artless de
+exist,yes object,oi,yes,object,,verb,be in place;be in real world
+inexist,yes object,oi,no,object,,verb,benot in place;benot in real world
+traditional,yes time,oi,yes,past,,adj,like old method morethan new method
+futurist,yes time,oi,no,past,,adj,like new method morethan old method
+nonsense,yes word,oi,no,word,,adj,cannot reverse read de more bad write ness;or no sentence de random word sequence
+comedy,yes light symbol,lr,bright,art,,noun,funny show
+tragedy,yes light symbol,lr,dark,art,,noun,scared show
+artist,yes symbol person,lr,art,person,,noun,create or perform art de person
+audience,yes symbol to,lr,art,to,,noun,see art de person
+novel,place symbol yes,lr,paper,art,,noun,story de book;novel common be fake
+poem,word yes symbol,lr,word,art,,noun,art message with less word;poem de each sentence have same amount de word
+show,do yes symbol,lr,do,art,,noun,copy story by artist perform person in story
+perform,yes symbol hand,ud,art,hand,,verb,do show or dance
+dance,wave yes symbol,lr,wave,art,,verb,shake body and change color by perform with frequence
+video,elec yes symbol,lr,elec,art,,noun,show by tv or computer
+monument,ice yes symbol,lr,ice,art,,noun,modify ice or rock into person de shape de art
+landscape,yes symbol person,lr,art,nohuman,,noun,beautiful nature
+theater,place do,oi,place,show,,noun,show de place
+art,yes symbol,oi,yes,symbol,,noun,picture . poem . novel . game . dance . show and monument be mankind de common art
+artless,yes symbol,oi,no,symbol,,noun,bad art
+sector,place object group,oi,place,part,,noun,place de part;each sector have different function
+helper,hand person,lr,help,person,,noun,help de person
+shrinkmove,move big,ud,hand,small,,verb,enter small place and shrink self body
+enlargemove,move big,ud,hand,big,,verb,leave small place and enlarge self body
+shellfishoffspring,big shell group,lr,small,shellfish,,noun,shellfish de children;shellfishoffspring can move and no have shellfishshell
+aurora,sky hand,oi,sky,hand,,noun,ion give light while radiation from sun and homeplanet de air collide
+animal,fish,q,fish,,,noun,can move de alive object
+plants,weed,q,weed,,,noun,cannot move de alive object
+lifeform,fish weed,lr,dfish,dweed,,noun,all animal and plants
+bird,bird,s,-1 -2 -1 2 1 2 1 -2 -1 -2;-1 0 1 0;-2 0 -1 1;2 0 1 1,,,noun,sky de animal;bird have wing for move
+beast,beast,s,-1 -2 -1 2 1 2 1 -2 -1 -2;-1 0 1 0;-2 1 -1 1;-2 -1 -1 -1,,,noun,land de animal;beast have leg for move
+insect,beast,s,-1 -2 -1 2 1 2 1 -2 -1 -2;-1 0 1 0;-1 2 -1 3;1 2 1 3,,,noun,small animal;insect have more plural leg for move
+parasite,nose in beast,lr,drain,insect,,noun,parasite hide in animal or plants de body and drain blood
+snake,snake,s,-1 -2 -1 2 1 2 1 -2 -1 -2;0 -3 0 3;-1 0 1 0,,,noun,water or land de line shape de animal;snake no have fin or wing or leg or hand
+poison,yes snake,oi,yes,snake,,noun,snake and some other animal give poison for attack;take poison de victim die
+medicine,yes snake,oi,no,snake,,noun,person eat medicine for anti poison or cure ill ness
+waterpoison,water yes snake,lr,water,poison,,noun,person downgrade strength in freshwater;past scientist misunderstand this be waterpoison element de result;waterpoison element inexist
+enwind,snake loop,lr,snake,loop,,verb,snake loop self de body near victim
+wing,bird fin,lr,bird,fin,,noun,bird de part for fly
+fly,move bird fin,ud,hand,wing,,verb,move in sky
+wheel,loop fin,lr,loop,fin,,noun,can spin de motor oar
+salt,water yes snake,lr,water,medicine,,noun,seawater de part;salt be medicine for waterpoison
+assassinate,snake hand,ud,snake,hand,,verb,hide de kill or intrigue kill
+giant,person place earth,ud,person,land,,noun,fiction animal;big person on land;giant inexist
+seagul,wave bird,lr,wave,bird,,noun,hunt small fish de bird;seagul can enlarge wing for take more force from wind
+dragon,snake bird,lr,snake,bird,,noun,fiction animal;can fly de snake;dragon inexist
+turtle,shell snake,ud,shell,snake,,noun,snake with shell
+penguin,ice bird,lr,ice,bird,,noun,iceland de bird;penguin have more skin for maintain warm;penguin cannot fly
+assassin,snake person,lr,snake,person,,noun,assassinate de person
+fish,fish,s,-1 -2 -1 2 1 2 1 -2 -1 -2;0 -2 1 -3 -1 -3 0 -2;-1 0 1 0,,,noun,water de animal;fish have fin for move
+fin,fin,s,1 -1 -1 -1 -1 1 1 -1,,,noun,fish de part for swim
+shellfish,shell group,ud,shell,group,,noun,animal in shellfishshell;shellfish cannot move
+skin,surface object,lr,surface,object,,noun,soft surface part on animal
+notaword,token,s,0 0 0 1 1 0 1 1,,,token,if you see this . talk artless game by this wrong word
+notebookcursor,token,solid,0 0,,,token,in page for write . this be write new word de position

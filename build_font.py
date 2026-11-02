@@ -5,18 +5,18 @@ numbers into base-7 numerals (the game's own formatting, plus two base-7 decimal
 English words into glyphs.
 
 Code points: F7000 numerals (8 per exponent), F7080 tokens, F7100 words by the game's dictionary categories,
-F7A00 overflow. The registry only ever grows, so a character keeps its code point.
+F7A00 overflow. A character keeps its code point while it is in the game.
 
-Inputs (private/, not published): words.csv, glyphs.json, units.json, demo.txt, categories.txt, registry.csv,
-blocks.csv.
-Outputs (data/): XingyuDemo-VF.ttf, XingyuDemo-VF.woff2 and demo.json are published; the full edition stays local.
+Inputs (source/): words.csv and glyphs.json from prepare.py; units.json, registry.csv and blocks.csv are kept by hand
+or by this script.
+Outputs (data/): Xingyu-VF.ttf, Xingyu-VF.woff2 and xingyu.json.
 
   python3 build_font.py'''
 import csv
+import heapq
 import itertools
 import json
 import math
-import os
 import re
 from pathlib import Path
 
@@ -33,21 +33,26 @@ from fontTools.ttLib.tables._g_l_y_f import flagOverlapSimple
 from optimize_font import save_font
 
 HERE = Path(__file__).resolve().parent
-PRIVATE = Path(os.environ.get('XINGYU_PRIVATE', HERE / 'private'))
+SOURCE = HERE / 'source'
 DATA = HERE / 'data'
-REGISTRY, BLOCKS = PRIVATE / 'registry.csv', PRIVATE / 'blocks.csv'
+REGISTRY, BLOCKS = SOURCE / 'registry.csv', SOURCE / 'blocks.csv'
 UPM = 1000
-VERSION = 0.97                                         # the game's Demo version
+ASCENT, DESCENT = 1160, -288                         # CJK line box, as in Source Han Sans
+VERSION = 1.0                                          # first built from the released game
 AUTHOR = 'windlandneko'
 
 # vertical design: alien glyphs sit in the CJK ideographic box (ink of 国 in Source Han Sans / HarmonyOS
 # runs about -80..795, centre ~358); Latin x-height / cap height near theirs (540 / 733)
 ALIEN_ADV, ALIEN_CY, ALIEN_SPAN = 1000, 358, 800     # the game: 1-unit cell, 0.8 box (centre lines)
+VORIGIN = ALIEN_CY + ALIEN_ADV // 2                  # top of the vertical cell, so glyphs sit centred in it
 LAT_NARROW = 0.9                                     # letters are drawn on a square grid, then narrowed
 LAT_U = 53.0                                         # Latin grid unit: x-height 10u, caps 14u
 
 # weight axis: stroke width in font units at each master
-MASTERS = {100: 16, 400: 52, 900: 128}       # the game's sprites are thinner (~34, 4.2% of the box)
+MASTERS = {100: 16, 400: 34, 700: 58, 900: 80}   # Regular matches the game's sprites (~34, 4.2% of the box)
+REGULAR = MASTERS[400]
+KEEP = 0.2        # above Regular a dense glyph keeps this share of its Regular gap between strokes,
+FLOOR = 0.5       # but always gains at least this share of the axis' growth, so heavy weights stay even
 INSTANCES = {'Thin': 100, 'Light': 300, 'Regular': 400, 'Medium': 500, 'Bold': 700, 'Black': 900}
 
 PUA0 = 0xF7000       # clear of UCSUR (up to F2FFF) and Nerd Fonts (F0001-F1AF0)
@@ -105,6 +110,37 @@ def draw(polylines, dots, width):
     if g.numberOfContours > 0:
         g.flags[0] |= flagOverlapSimple
     return g
+
+
+def segment_gap(a, b, c, d):
+    '''Distance between segments ab and cd; 0 when they cross.'''
+    side = lambda p, q, r: (q[0] - p[0]) * (r[1] - p[1]) - (q[1] - p[1]) * (r[0] - p[0])
+    if side(a, b, c) * side(a, b, d) < 0 and side(c, d, a) * side(c, d, b) < 0:
+        return 0
+
+    def point(p, a, b):
+        dx, dy = b[0] - a[0], b[1] - a[1]
+        t = max(0, min(1, ((p[0] - a[0]) * dx + (p[1] - a[1]) * dy) / (dx * dx + dy * dy)))
+        return math.hypot(p[0] - a[0] - t * dx, p[1] - a[1] - t * dy)
+    return min(point(a, c, d), point(b, c, d), point(c, a, b), point(d, a, b))
+
+
+def clearance(polylines):
+    '''The smallest gap still open at Regular (the game's own weight): how much room the glyph has to get bold.
+    Narrower gaps are already closed at Regular, and they stay closed.'''
+    segs = [s for pl in polylines for s in itertools.pairwise(pl) if math.dist(*s) > 1e-6]
+    gaps = (segment_gap(*s, *t) for s, t in itertools.combinations(segs, 2))
+    return min((g for g in gaps if g > REGULAR), default=None)
+
+
+def fitted(width, clear):
+    '''Stroke width for one glyph: every glyph follows the axis up to Regular; above it the stroke approaches
+    (smoothly) the width that leaves KEEP of the glyph's Regular gap, so dense glyphs stay open, but never grows
+    by less than FLOOR of the axis.'''
+    if clear is None or width <= REGULAR:
+        return width
+    room, d = max((1 - KEEP) * (clear - REGULAR), REGULAR / 4), width - REGULAR
+    return REGULAR + max(d / (1 + (d / room) ** 4) ** 0.25, FLOOR * d)
 
 
 def alien_lines(strokes):
@@ -304,7 +340,7 @@ B = lambda d, c: f'acc.b{d}c{c}'
 D = lambda d: f'b7.{d}'
 DC = 'b7.carry'
 L = lambda d, k: f'lead.{d}k{k}'
-S = lambda d1, d2, k: f'sci.{d1}{d2}k{k}'
+EXP = lambda k: f'exp.{k}'
 G = lambda d, e: f'num.{d}e{e}'.replace('-', 'm')
 FRA = lambda f, c: f'fr.a{f}c{c}'
 FRB = lambda f, c: f'fr.b{f}c{c}'
@@ -313,12 +349,13 @@ SLC = lambda i: f'slot{i}.carry'
 POINT, POINTBIG, POINTZ = 'pt', 'pt.big', 'pt.zero'
 EMPTY, TAIL, BIGE = 'nul.lz', 'nul.sci', 'nul.big'
 NUMBER_WORDS = ('negative', 'exp7')   # ss01 writes these; a space next to them is kept
+SPACE_ADV = 300
 JOINRUN = 8                           # longest run of spaces that still loses one
 G_EXPS = range(-9, 10)
 NUMERALS = [(d, e) for d in range(7) for e in G_EXPS if d or e == 0]
 MAXDIG, PAD, KMAX = 20, 5, 24
 FRACS = 3                 # base-7 fractional digits extracted: two shown, one to round on
-WORDC = lambda w: 'w.' + w
+WORDC = lambda w: 'w.' + w.replace('-', '_')         # glyph names cannot hold a hyphen
 
 
 carry = lambda v: (v % 7, v // 7)
@@ -363,8 +400,13 @@ def feature_code(words, joined):
     lookup('WREVERT', subs((v, v.rsplit('.', 1)[0]) for v in variants))
 
     # ===== ss01: numbers =====
+    # past MAXDIG integer digits the arithmetic cannot hold the number: its digits hide as .isol until the end
+    KEEP = cls(var(g, 'isol') for g in LAT)
+    lookup('LONG', ["ignore sub @LAT @LAT'", "ignore sub @LAT period @LAT'", f"sub {KEEP} period @LAT' lookup TO_isol",
+                    f"sub {KEEP} @LAT' lookup TO_isol", "sub @LAT' lookup TO_isol" + ' @LAT' * MAXDIG])
     single('TONEG', f'sub hyphen by {WORDC("negative")}')
-    single('NEGSIGN', "sub hyphen' lookup TONEG @LAT")
+    # a hyphen right after a digit joins (2017-11-02), it does not negate
+    lookup('NEGSIGN', [f"ignore sub [@LAT {' '.join(var(g, 'isol') for g in LAT)}] hyphen' @LAT", "sub hyphen' lookup TONEG @LAT"])
     # decimals: the point between digits, fraction digits set aside, three result slots after the point
     single('TOPOINT', f'sub period by {POINT}')
     lookup('TOFR', subs((g, FRA(i, 0)) for i, g in enumerate(LAT)))
@@ -438,57 +480,96 @@ def feature_code(words, joined):
     # integers (and the integer part of big decimals)
     single('TOEMPTY', f'sub {D(0)} by {EMPTY}')
     lookup('LZ', [f"sub {EMPTY} {D(0)}' lookup TOEMPTY @D", f"ignore sub @D {D(0)}'", f"sub {D(0)}' lookup TOEMPTY @D"])
+    # the first digit is never 0 unless it is the whole number
     for k in range(KMAX):
-        lookup(f'MARK{k}', subs((D(d), L(d, k)) for d in range(7)))
-    Lall = [L(d, k) for d in range(7) for k in range(KMAX)]
+        lookup(f'MARK{k}', subs((D(d), L(d, k)) for d in range(0 if k == 0 else 1, 7)))
+    Lall = [L(d, k) for d in range(7) for k in range(KMAX) if d or k == 0] + [L(1, KMAX)]
     w(f'@L = {cls(Lall)};\n')
     lookup('LEAD', ["ignore sub [@D @L] @D'"]
            + [f"sub @D' lookup MARK{k}" + ' @D' * k for k in range(KMAX - 1, -1, -1)])
 
-    def sci(d1, d2, d3, k):
-        if d3 >= 4:
-            d2 += 1
-        if d2 == 7:
-            d1, d2 = d1 + 1, 0
-        return S(1, 0, k + 1) if d1 == 7 else S(d1, d2, k)
-    for d2 in range(7):
-        for d3 in range(7):
-            lookup(f'R{d2}{d3}', subs((L(d1, k), sci(d1, d2, d3, k)) for d1 in range(1, 7) for k in range(3, KMAX)))
-    big = cls([L(d1, k) for d1 in range(1, 7) for k in range(3, KMAX)])
-    lookup('ROUND', [f"sub {big}' lookup R{d2}{d3} {D(d2)} {D(d3)}" for d2 in range(7) for d3 in range(7)])
-    Sall = sorted({sci(d1, d2, d3, k) for d1 in range(1, 7) for d2 in range(7) for d3 in range(7)
-                   for k in range(3, KMAX)})
-    w(f'@S = {cls(Sall)};\n')
+    # from 343 on, in place: round on the third digit, then write digit, digit, exp7, exponent
+    Lk = lambda k: [L(d, k) for d in range(1, 7)] if k < KMAX else [L(1, KMAX)]
+    w(f'@BIG = {cls(g for k in range(3, KMAX + 1) for g in Lk(k))};\n')
+    lookup('INCD', subs(zip(Dall, Dall[1:] + [DC])))
+    lookup('ROUND', [f"sub @BIG @D' lookup INCD {cls(Dall[4:])}"])
+    lookup('INCL', subs((L(d, k), L(d + 1, k) if d < 6 else L(1, k + 1)) for d in range(1, 7) for k in range(3, KMAX)))
+    lookup('CARRY', [f"sub @BIG' lookup INCL {DC}"])
     single('TOTAIL', f'sub @D by {TAIL}')
-    single('SCITAIL', f"sub [@S {TAIL}] @D' lookup TOTAIL")
-    lookup('LPOS', subs((L(d, k), G(d, k) if d or k == 0 else EMPTY) for d in range(7) for k in range(3)))
+    lookup('SCITAIL', [f"sub @BIG @DX @D @D' lookup TOTAIL", f"sub {TAIL} @D' lookup TOTAIL"])
+    for k in range(3, KMAX + 1):
+        single(f'TOEXP{k}', f'sub @D by {EXP(k)}')
+    lookup('SCIEXP', [f"sub {cls(Lk(k))} @DX @D' lookup TOEXP{k}" for k in range(3, KMAX + 1)])
+    lookup('SECOND', subs((D(d), G(d, -1) if d else EMPTY) for d in range(7)) + [f'sub {DC} by {EMPTY}'])
+    lookup('SCID2', ["sub @BIG @DX' lookup SECOND"])
+    lookup('LPOS', subs((L(d, k), G(d, k)) for d in range(7) for k in range(3) if d or k == 0)
+           + subs((g, G(int(g[5]), 0)) for k in range(3, KMAX + 1) for g in Lk(k)))
     lookup('F1', subs((D(d), G(d, 1) if d else EMPTY) for d in range(7)))
     lookup('F0', subs((D(d), G(d, 0) if d else EMPTY) for d in range(7)))
     lookup('POS', ["sub @D' lookup F1 @D", "sub @D' lookup F0"])
 
-    def spell(s_):
-        d1, d2, k = int(s_[4]), int(s_[5]), int(s_[7:])
+    def spell(k):
         hi, lo = divmod(k, 7)
-        return ' '.join([G(d1, 0)] + ([G(d2, -1)] if d2 else []) + [WORDC('exp7')]
-                        + ([G(hi, 1)] if hi else []) + ([G(lo, 0)] if lo else []))
-    lookup('SPELL', subs((s_, spell(s_)) for s_ in Sall))
+        return ' '.join([WORDC('exp7')] + ([G(hi, 1)] if hi else []) + ([G(lo, 0)] if lo else []))
+    lookup('SPELL', subs((EXP(k), spell(k)) for k in range(3, KMAX + 1)))
+    lookup('UNLONG', subs((var(g, 'isol'), g) for g in LAT))
 
-    # ss02 also joins words like the game does: between two word glyphs, the first space of a run is hidden
+    # ss02 also joins words like the game does: between two word glyphs, one space of a run takes no room.
+    # GPOS on the word, not GSUB on the space: WebKit restores a space character's width whatever glyph replaced it.
     w(f'@XW = {cls(joined)};\n')
-    single('HIDE', f'sub space by {EMPTY}')
-    lookup('JOIN', [f"sub @XW space' lookup HIDE" + ' space' * k + ' @XW' for k in range(JOINRUN)])
+    lookup('JOIN', [f"pos @XW' <0 0 -{SPACE_ADV} -{ALIEN_ADV}> space" + ' space' * k + ' @XW' for k in range(JOINRUN)])
 
     feature = lambda tag, names, lookups: w(f'feature {tag} {{\n  featureNames {{ {names}; }};\n'
                                             + ''.join(f'  lookup {n};\n' for n in lookups) + f'}} {tag};\n')
     feature('ss02', 'name "Alien words"; name 3 1 0x0804 "兴语单词"', ['WSTART', 'WEND', 'WORDS', 'WREVERT', 'JOIN'])
     feature('ss01', 'name "Alien numerals"; name 3 1 0x0804 "兴语数字"',
-            ['NEGSIGN', 'POINTS', 'SLOTS', 'PAD'] + [f'PASS{i}' for i in range(MAXDIG)]
+            ['LONG', 'NEGSIGN', 'POINTS', 'SLOTS', 'PAD'] + [f'PASS{i}' for i in range(MAXDIG)]
             + [x for j in range(FRACS) for x in (f'FRMUL{j}', f'FRSHIFT{j}')]
             + ['NORM', 'BIGPOINT', 'BIGDROP', 'ROUNDF', 'CARRYF', 'FZERO', 'FOUT', 'FSLOTS',
-               'LZ', 'LEAD', 'ROUND', 'SCITAIL', 'LPOS', 'POS', 'SPELL'])
+               'LZ', 'LEAD', 'ROUND', 'CARRY', 'SCITAIL', 'SCIEXP', 'SCID2', 'LPOS', 'POS', 'SPELL', 'UNLONG'])
     internal = ([A(d, c) for d in range(7) for c in range(4)] + [B(d, c) for d in range(7) for c in range(4)] + Dx
-                + Lall + Sall + FRAll + FRBll + SLall + [SLC(1), SLC(2), POINT, POINTBIG, POINTZ, EMPTY, TAIL, BIGE])
-    return ''.join(f), internal, variants
+                + Lall + [EXP(k) for k in range(3, KMAX + 1)] + FRAll + FRBll + SLall + [SLC(1), SLC(2), POINT, POINTBIG, POINTZ, EMPTY, TAIL, BIGE])
+    return ''.join(f), variants + internal
+
+
+def share_scratch(fea, scratch):
+    '''Interval colouring: blank glyphs that are never alive in the same lookups can be one glyph.
+
+    A glyph lives from the first to the last top-level lookup that names it; greedy by start time uses the fewest.
+    Colours run on from the previous one where they can, so coverage tables stay in ranges. nul.* outlive shaping.'''
+    classes = {m[1]: m[2] for m in re.finditer(r'^@(\w+) = \[(.*?)\];$', fea, re.M)}
+    bodies = {m[1]: m[2] for m in re.finditer(r'^lookup (\w+) \{(.*?)\} \1;$', fea, re.M | re.S)}
+    called = set(re.findall(r'^  lookup (\w+);$', fea, re.M))
+    index = {g: i for i, g in enumerate(scratch)}
+
+    def named(name):
+        body = bodies[name]
+        text = body + ' '.join(classes[c] for c in re.findall(r'@(\w+)', body))
+        found = set(re.findall(r'[A-Za-z_][\w.]*', text)) & set(scratch)
+        for inner in re.findall(r'lookup (\w+)', body):
+            found |= named(inner)
+        return found
+
+    spans = {}
+    for step, name in enumerate(n for n in bodies if n in called):
+        for g in named(name):
+            spans[g] = (spans[g][0] if g in spans else step, step)
+    rename, free, busy, prev, count = {}, set(), [], None, 0
+    for g in sorted(spans, key=lambda g: (spans[g][0], index[g])):
+        if g.startswith('nul.'):
+            continue
+        while busy and busy[0][0] < spans[g][0]:
+            free.add(heapq.heappop(busy)[1])
+        if prev is not None and prev + 1 in free:
+            colour = prev + 1
+        else:
+            colour = min(free) if free else count
+        free.discard(colour)
+        count = max(count, colour + 1)
+        heapq.heappush(busy, (spans[g][1], colour))
+        rename[g], prev = f't{colour}', colour
+    fea = re.sub(r'(?<![\w.@])[A-Za-z_][\w.]*', lambda m: rename.get(m[0], m[0]), fea)
+    return fea, [f't{i}' for i in range(count)] + [g for g in scratch if g.startswith('nul.')]
 
 
 # ---------- the in-game dictionary ----------
@@ -582,34 +663,11 @@ def write_csv(path, header, rows):
         csv.writer(fh, lineterminator='\n').writerows([header, *rows])
 
 
-def first_layout(rows, words):
-    '''Numerals, then the tokens, then the dictionary categories in the game's order (head word first), each in a
-    16-aligned block with a quarter to spare.'''
-    chars = {num_word(d, e): PUA0 + 8 * (e + 8) + d for e in range(-8, 8) for d in range(7) if d or e == 0}
-    groups = {}
-    for r in rows:
-        if r['word'] in words:
-            groups.setdefault(category(r), []).append(r['word'])
-    chars |= {w: TOKEN0 + i for i, w in enumerate(groups.pop('token'))}
-    blocks, cp = [('numeral', PUA0, TOKEN0 - 1), ('token', TOKEN0, WORD0 - 1)], WORD0
-    for c in (PRIVATE / 'categories.txt').read_text().split():
-        ws = sorted(groups.pop(c), key=lambda w: w != c)
-        size = max(16, math.ceil(len(ws) * 1.25 / 16) * 16)
-        chars |= {w: cp + i for i, w in enumerate(ws)}
-        blocks.append((c, cp, cp + size - 1))
-        cp += size
-    assert not groups and cp <= OVERFLOW0
-    return chars, blocks + [('overflow', OVERFLOW0, PUA0 + 0xFFD)]
-
-
 def allocate(rows, words):
-    '''word -> code point. New words take the first free cell of their category's block, else of the overflow;
-    words dropped from the game keep theirs.'''
-    if REGISTRY.exists():
-        chars = {r['word']: int(r['codepoint'][2:], 16) for r in read_csv(REGISTRY)}
-        blocks = [(r['block'], int(r['start'][2:], 16), int(r['end'][2:], 16)) for r in read_csv(BLOCKS)]
-    else:
-        chars, blocks = first_layout(rows, words)
+    '''word -> code point. Cells of words dropped from the game are freed. New words take the first free cell of
+    their category's block, else of the overflow.'''
+    chars = {r['word']: int(r['codepoint'][2:], 16) for r in read_csv(REGISTRY) if r['block'] == 'numeral' or r['word'] in words}
+    blocks = [(r['block'], int(r['start'][2:], 16), int(r['end'][2:], 16)) for r in read_csv(BLOCKS)]
     span = {b: (lo, hi) for b, lo, hi in blocks}
     free = lambda lo, hi: next((c for c in range(lo, hi + 1) if c not in chars.values()), None)
     for r in rows:
@@ -619,21 +677,17 @@ def allocate(rows, words):
     block_of = lambda cp: next(b for b, lo, hi in blocks if lo <= cp <= hi)
     write_csv(REGISTRY, ['codepoint', 'word', 'block'],
               [[hexcp(cp), w, block_of(cp)] for w, cp in sorted(chars.items(), key=lambda x: x[1])])
-    write_csv(BLOCKS, ['block', 'start', 'end'], [[b, hexcp(lo), hexcp(hi)] for b, lo, hi in blocks])
     return chars, blocks
 
 
-def write_edition(path, shown, chars, blocks, by, units, demo=None):
-    '''The page's data for one edition. Words outside it become "?" in parts and categories. Names and meanings
-    only go into the full edition, which stays private (pass demo for it).'''
-    ref = lambda w: f'{chars[w]:X}' if w in shown else '?'
+def write_table(path, shown, chars, blocks, by, units):
+    '''The page's data: blocks, then every character with its dictionary entry.'''
+    ref = lambda w: f'{chars[w]:X}'
     out_blocks = []
     for b, lo, hi in blocks:
-        if any(lo <= chars[w] <= hi for w in shown):
-            used = [chars[w] for w in shown if lo <= chars[w] <= hi]
-            start, end = (lo, hi) if demo else (min(used) & ~15, max(used) | 15)
-            blk = {'start': f'{start:X}', 'end': f'{end:X}'} | ({'kind': b} if b in SPECIAL else {'head': ref(b)})
-            out_blocks.append(blk | ({'name': b} if demo and b not in SPECIAL else {}))
+        if used := [chars[w] for w in shown if lo <= chars[w] <= hi]:
+            blk = {'start': f'{min(used) & ~15:X}', 'end': f'{max(used) | 15:X}'}
+            out_blocks.append(blk | ({'kind': b} if b in SPECIAL else {'head': ref(b), 'name': b}))
     entries = []
     for w in sorted(shown, key=chars.get):
         r = by.get(w)
@@ -648,9 +702,7 @@ def write_edition(path, shown, chars, blocks, by, units, demo=None):
         if r and r['meaning']:
             e['def'] = [[x if x[0] == '~' else ref(x) for x in line] for line in definition(r['meaning'], by, units)]
         e = {k: v for k, v in e.items() if v != []}
-        if demo:
-            e |= {'name': w.lstrip(':'), 'meaning': r['meaning'] if r else '', 'demo': w in demo}
-        entries.append(e)
+        entries.append(e | {'name': w.lstrip(':'), 'meaning': r['meaning'] if r else ''})
     dump = lambda xs: ',\n'.join(json.dumps(x, ensure_ascii=False, separators=(',', ':')) for x in xs)
     path.write_text(f'{{"version":"{VERSION}","blocks":[\n{dump(out_blocks)}\n],"entries":[\n{dump(entries)}\n]}}\n')
 
@@ -663,6 +715,8 @@ def name_strings(family, zh):
             'fullName': {'en': f'{family} Regular', 'zh': f'{zh} Regular'},
             'version': f'Version {VERSION:.3f}', 'psName': f'{ps}-Regular',
             'manufacturer': AUTHOR, 'designer': AUTHOR,
+            'vendorURL': f'https://github.com/{AUTHOR}', 'designerURL': f'https://github.com/{AUTHOR}',
+            'licenseInfoURL': f'https://{AUTHOR}.github.io/xingyu/',
             'description': {'en': 'Fan font for the alien script of Message From Aliens.',
                             'zh': '《外星来信》外星文字同人字体。'},
             'licenseDescription': {'en': 'Unofficial fan work. Personal, non-commercial use only.',
@@ -672,8 +726,9 @@ def name_strings(family, zh):
 
 # ---------- build ----------
 
-def build_master(width, order, outlines, advances, fits, cmap, fea, names):
-    '''fits: Latin glyph -> (left, right, centre-line width); its ink keeps those side bearings at this weight.'''
+def build_master(width, order, outlines, advances, fits, clear, cmap, fea, names):
+    '''fits: Latin glyph -> (left, right, centre-line width); its ink keeps those side bearings at this weight.
+    clear: alien glyph -> its clearance, for the stroke width fitted to it.'''
     fb = FontBuilder(UPM, isTTF=True)
     fb.setupGlyphOrder(order)
     fb.setupCharacterMap(cmap)
@@ -685,13 +740,16 @@ def build_master(width, order, outlines, advances, fits, cmap, fea, names):
             dx = left + width / 2
             lines, dots = [[(x + dx, y) for x, y in l] for l in lines], [(x + dx, y) for x, y in dots]
             advances[g] = round(left + cw + width + right)
-        glyphs[g] = draw(lines, dots, width)
+        glyphs[g] = draw(lines, dots, fitted(width, clear.get(g)))
     fb.setupGlyf(glyphs)
     fb.setupHorizontalMetrics({g: (advances[g], getattr(glyphs[g], 'xMin', 0)) for g in order})
-    fb.setupHorizontalHeader(ascent=1000, descent=-250)
+    fb.setupHorizontalHeader(ascent=ASCENT, descent=DESCENT, lineGap=0)
+    fb.setupVerticalMetrics({g: (ALIEN_ADV if advances[g] else 0, VORIGIN - getattr(glyphs[g], 'yMax', 0)) for g in order})
+    fb.setupVerticalHeader(ascent=ALIEN_ADV // 2, descent=-ALIEN_ADV // 2, lineGap=0)
     fb.setupNameTable(names, mac=False)
-    fb.setupOS2(sTypoAscender=880, sTypoDescender=-120, sTypoLineGap=250, usWinAscent=1000, usWinDescent=250,
-                sxHeight=round(10 * LAT_U), sCapHeight=round(14 * LAT_U), usWeightClass=400, fsType=0, achVendID='NONE')
+    fb.setupOS2(version=4, sTypoAscender=ASCENT, sTypoDescender=DESCENT, sTypoLineGap=0, usWinAscent=ASCENT,
+                usWinDescent=-DESCENT, sxHeight=round(10 * LAT_U), sCapHeight=round(14 * LAT_U), usWeightClass=400,
+                fsType=0, achVendID='WLNK', fsSelection=0xC0, ulCodePageRange1=1)   # Regular, USE_TYPO_METRICS; Latin 1
     fb.setupPost()
     fb.font['head'].fontRevision = VERSION
     fb.font['gasp'] = newTable('gasp')
@@ -713,52 +771,49 @@ def build_vf(family, zh, *master_args):
     for style, wght in INSTANCES.items():
         ds.addInstanceDescriptor(familyName=family, styleName=style, location={'Weight': wght},
                                  postScriptFontName=f'{ps}-{style}')
-    vf, _, _ = varLib.build(ds, exclude=['STAT'])
-    values = [{'value': v, 'name': n} | ({'flags': 2} if v == 400 else {}) for n, v in INSTANCES.items()]
+    vf, _, _ = varLib.build(ds, exclude=['STAT'], optimize=False)     # save_font applies IUP to the TTF only
+    values = [{'value': v, 'name': n} | ({'flags': 2, 'linkedValue': 700} if v == 400 else {}) for n, v in INSTANCES.items()]
     buildStatTable(vf, [{'tag': 'wght', 'name': 'Weight', 'values': values}], macNames=False)
     vf['OS/2'].recalcUnicodeRanges(vf)
     save_font(vf, DATA / f'{ps}-VF.ttf')
 
 
 def main():
-    rows = read_csv(PRIVATE / 'words.csv')
+    rows = read_csv(SOURCE / 'words.csv')
     by = {r['word']: r for r in rows}
-    strokes = json.loads((PRIVATE / 'glyphs.json').read_text())
-    units = json.loads((PRIVATE / 'units.json').read_text())
+    strokes = json.loads((SOURCE / 'glyphs.json').read_text())
+    units = json.loads((SOURCE / 'units.json').read_text())
     # every word with a glyph of its own (numerals are drawn from the digits); ss02 types the alphanumeric ones
-    words = [r['word'] for r in rows if r['struct'] != 'exp' and not r['word'].isdigit()]
+    # the "solid" token is the notebook's filled cursor block, not a character
+    words = [r['word'] for r in rows if r['struct'] not in ('exp', 'solid') and not r['word'].isdigit()]
     typed = lambda w: all(c in LATIN_CHARS and c.isalnum() for c in w)
     chars, blocks = allocate(rows, set(words))
     numerals = {num_word(d, e): G(d, e) for d, e in NUMERALS}
-    demo = set((PRIVATE / 'demo.txt').read_text().split()) | set(numerals)
 
     outlines = {WORDC(w): alien_lines(strokes[w]) for w in words}
     outlines |= {G(d, e): alien_lines(numeral_strokes(by[str(d)]['component1'], e)) for d, e in NUMERALS}
-    advances = {g: ALIEN_ADV for g in outlines} | {'.notdef': 600, 'space': 300}
+    advances = {g: ALIEN_ADV for g in outlines} | {'.notdef': 600, 'space': SPACE_ADV}
     outlines['.notdef'] = ([[(80, 0), (520, 0), (520, 700), (80, 700), (80, 0)]], [])
     fits = {}
     for name in LATIN:
         ln, dt, cw = latin_lines(name)
         outlines[name], fits[name] = (ln, dt), SIDEBEARINGS[name] + (cw,)
 
+    clear = {g: clearance(lines) for g, (lines, _) in outlines.items() if g not in fits}
+
     DATA.mkdir(exist_ok=True)
-    for family, zh, kept, js in [('Xingyu', '兴语', words, 'full.json'),
-                                 ('Xingyu Demo', '兴语 Demo', [w for w in words if w in demo], 'demo.json')]:
-        joined = [WORDC(w) for w in kept if w not in NUMBER_WORDS]
-        fea, internal, variants = feature_code([w for w in kept if typed(w)], joined)
-        for v in variants:
-            base = v.rsplit('.', 1)[0]
-            outlines[v], fits[v] = outlines[base], fits[base]
-        advances |= {g: 0 for g in internal}
-        glyph = numerals | {w: WORDC(w) for w in kept}
-        cmap = {0x20: 'space'} | {ord(c): g for c, g in LATIN_CHARS.items()}
-        cmap |= {cp: glyph[w] for w, cp in chars.items() if w in glyph}
-        order = ['.notdef', 'space', *LATIN, *variants, *numerals.values(), *(WORDC(w) for w in kept), *internal]
-        assert len(order) == len(set(order))
-        build_vf(family, zh, order, outlines, advances, fits, cmap, fea)
-        write_edition(DATA / js, set(glyph) & set(chars), chars, blocks, by, units,
-                      demo if js == 'full.json' else None)
-        print(f'{family}: {len(order)} glyphs, {len(cmap)} characters')
+    joined = [WORDC(w) for w in words if w not in NUMBER_WORDS]
+    fea, internal = feature_code([w for w in words if typed(w)], joined)
+    fea, internal = share_scratch(fea, internal)
+    advances |= {g: 0 for g in internal}                # only ever seen mid-shaping
+    glyph = numerals | {w: WORDC(w) for w in words}
+    cmap = {0x20: 'space', 0xA0: 'space', 0x2212: 'hyphen'} | {ord(c): g for c, g in LATIN_CHARS.items()}
+    cmap |= {cp: glyph[w] for w, cp in chars.items() if w in glyph}
+    order = ['.notdef', 'space', *LATIN, *numerals.values(), *(WORDC(w) for w in words), *internal]
+    assert len(order) == len(set(order))
+    build_vf('Xingyu', '兴语', order, outlines, advances, fits, clear, cmap, fea)
+    write_table(DATA / 'xingyu.json', set(glyph) & set(chars), chars, blocks, by, units)
+    print(f'{len(order)} glyphs, {len(cmap)} characters')
 
 
 if __name__ == '__main__':

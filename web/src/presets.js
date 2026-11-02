@@ -36,6 +36,14 @@ In the beginning God created the heaven and the earth.
 
 “Let there be light: and there was light.” — Genesis 1:3
 起初，上帝创造天地。上帝说，要有光，就有了光。`,
+  星球大战: `a long time ago in a galaxy far, far away....
+
+star war
+a new hope
+
+it is a dark time in the galaxy. the empire has a new weapon with the power to destroy a planet.
+rebel people from a free world fight for hope in space.
+a hero leaves home to bring light to the sky.`,
   长篇混排: `远方来信 / a letter from the night sky
 
 2026 年 10 月 22 日，20:17。山上的观测站终于安静下来。窗外只有 wind、stone 和远处的 sea；桌上放着一杯已经冷掉的 water。屏幕亮起时，我先看见 1、2、3，接着是一行无法辨认的 word。
@@ -53,4 +61,4 @@ water and fire   earth and sky   sun and moon
 Morning comes slowly. The first light touches the glass, the paper, and the hands of the people still sitting at the table. We do not have every answer. We have a few words, a few numbers, and one more reason to keep looking at the sky.
 
 天亮前，我们发出了回信：we see you。`,
-}
+};

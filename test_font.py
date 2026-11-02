@@ -12,7 +12,7 @@ from fractions import Fraction
 
 import uharfbuzz as hb
 
-from build_font import NUMBER_WORDS, PRIVATE, read_csv, to_base7, integer_words as game
+from build_font import NUMBER_WORDS, SOURCE, read_csv, to_base7, integer_words as game
 
 
 def decimal(s):
@@ -45,7 +45,7 @@ def main():
                 e = e.replace('m', '-')
                 n = d if e == '0' else f'{d}e{e}'
             elif n.startswith('w.'):
-                n = n[2:]
+                n = n[2:].replace('_', '-')
             out.append(n)
         return out
 
@@ -71,15 +71,42 @@ def main():
     decs += [f'0.{rng.randrange(10 ** 4):04d}' for _ in range(1000)]
     check('ss01 decimals', decs, decimal, {'ss01': True})
 
-    rows = read_csv(PRIVATE / 'words.csv')
+    # hyphens between digits, the real minus sign, numbers too long for the arithmetic
+    LATIN = 'zero one two three four five six seven eight nine'.split()
+    latin = lambda s: [{'-': 'hyphen', '.': 'period'}.get(c) or LATIN[int(c)] for c in s]
+    long = ['1' * 21, '9' * 40, '123456789012345678901', '-' + '7' * 21, '1' * 21 + '.5']
+    edges = {'2017-11-02': game(2017) + ['hyphen'] + game(11) + ['hyphen'] + game(2),
+             '3.5-1': decimal('3.5') + ['hyphen', '1'], '−5': game(-5), '−0.5': decimal('-0.5'),
+             '2017−11': game(2017) + ['hyphen'] + game(11), '9' * 20: game(10 ** 20 - 1),
+             '0.' + '3' * 30: decimal('0.' + '3' * 30), '1' * 20 + '.5': decimal('1' * 20 + '.5'),
+             '1' * 21 + '-5': latin('1' * 21) + ['hyphen', '5']}
+    edges |= {s: latin(s) for s in long}
+    check('ss01 edges', list(edges), edges.get, {'ss01': True})
+    check('ss01 edges with ss02', list(edges), edges.get, {'ss01': True, 'ss02': True})
+
+    rows = read_csv(SOURCE / 'words.csv')
     words = [r['word'] for r in rows if r['struct'] != 'exp' and len(r['word']) > 0 and r['word'].isalnum()
              and r['word'] not in '0123456789' and font.get_glyph_from_name('w.' + r['word']) is not None]
     check('ss02 words', words, lambda s: [s], {'ss02': True})
-    # the space between two words is hidden; one of two is kept
-    gap = lambda a, b: ['space'] if a in NUMBER_WORDS or b in NUMBER_WORDS else []
-    trios = {f'{a} {b}  {c}.': [a, *gap(a, b), b, 'space', *gap(b, c), c, 'period']
-             for a, b, c in zip(words, words[1:], words[2:])}
-    check('ss02 in text', list(trios), trios.get, {'ss02': True})
+    # one space between two words takes no room: n spaces advance like n - 1
+    def advance(text, direction):
+        buf = hb.Buffer()
+        buf.add_str(text)
+        buf.guess_segment_properties()
+        buf.direction = direction
+        hb.shape(font, buf, {'ss02': True})
+        return abs(sum(p.x_advance + p.y_advance for p in buf.glyph_positions))
+
+    pairs = {f'{a}{" " * n}{b}': (a, b, n) for a, b in zip(words, words[1:]) for n in (1, 2, 3, 8, 9)}
+    for w in NUMBER_WORDS:
+        pairs |= {f'{w} water': (w, 'water', 1), f'water {w}': ('water', w, 1)}
+    def room(c, unit):
+        a, b, n = pairs[c]
+        joined = a not in NUMBER_WORDS and b not in NUMBER_WORDS and n <= 8
+        return 2000 + unit * (n - joined)
+    for label, direction, unit in (('horizontal', 'ltr', 300), ('vertical', 'ttb', 1000)):
+        bad = [c for c in pairs if advance(c, direction) != room(c, unit)]
+        print(f'ss02 joining, {label}: {len(pairs) - len(bad)}/{len(pairs)}', *[repr(c) for c in bad[:8]])
     # partial words stay Latin
     for text in ['i feel happy today', 'happys', 'Happy', 'exp7 3e2 3e-1 2017', 'water-1 sky.']:
         print(f'  {text!r:24} ->', ' '.join(shape(text, {'ss02': True})))

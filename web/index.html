@@ -1,75 +1,152 @@
 <!doctype html>
 <html lang="zh-CN">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="color-scheme" content="light dark">
-  <meta name="description" content="《外星来信》外星文字的同人字体与码位表">
-  <title>兴语码位表</title>
-  <link rel="stylesheet" href="/src/style.css">
-</head>
-<body>
-  <header class="top">
-    <div class="brand">
-      <button type="button" class="brand-mark xy" id="brand" data-cp="F7666" title="右键查阅" aria-label="兴语"></button>
-      <div><h1>兴语码位表</h1><p class="sub" id="stat"></p></div>
-    </div>
-    <div class="top-actions">
-      <a id="dl-full" class="pill" download hidden><i data-lucide="download"></i>完整版 TTF</a>
-      <a id="dl-demo" class="pill" download><i data-lucide="download"></i>Demo 版 TTF</a>
-      <button type="button" class="pill" id="spoil" aria-pressed="false" hidden><i data-lucide="eye"></i>完整版</button>
-      <button type="button" class="tool help-trigger" popovertarget="help" aria-label="说明"><i data-lucide="circle-question-mark"></i></button>
-    </div>
-  </header>
-
-  <main>
-    <section id="pad">
-      <div class="controls">
-        <span class="feature"><label class="chk"><input type="checkbox" id="f-ss01" checked> ss01 数字</label><button type="button" class="tool help-trigger" popovertarget="help-ss01" aria-label="数字特性说明"><i data-lucide="circle-question-mark"></i></button></span>
-        <span class="feature"><label class="chk"><input type="checkbox" id="f-ss02" checked> ss02 单词</label><button type="button" class="tool help-trigger" popovertarget="help-ss02" aria-label="单词特性说明"><i data-lucide="circle-question-mark"></i></button></span>
-        <label class="range">字重 <input type="range" id="f-wght" min="100" max="900" step="10" value="400"><output id="o-wght"></output></label>
-        <label class="range">字号 <input type="range" id="f-size" min="14" max="120" value="24"><output id="o-size"></output></label>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="description" content="《外星来信》外星文字的同人字体与码位表" />
+    <title>兴语码位表</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <header class="top">
+      <div class="brand">
+        <button
+          type="button"
+          class="brand-mark xy"
+          id="brand"
+          data-cp="F7666"
+          title="右键查阅"
+          aria-label="兴语"
+        ></button>
+        <div>
+          <h1>兴语码位表</h1>
+          <p class="sub" id="stat"></p>
+        </div>
       </div>
-      <div class="pad-actions">
-        <div class="presets" id="presets"></div>
-        <button type="button" class="pill" id="copy-pua" title="复制后不再依赖 ss01 / ss02"><i data-lucide="copy"></i>复制为 PUA</button>
+      <div class="top-actions">
+        <a class="pill" href="Xingyu-VF.ttf" download><i data-lucide="download"></i>下载 TTF</a>
+        <button type="button" class="tool help-trigger" popovertarget="help" aria-label="说明">
+          <i data-lucide="circle-question-mark"></i>
+        </button>
       </div>
-      <textarea id="pad-input" class="xy" spellcheck="false" rows="8" aria-label="打字区"></textarea>
-      <p id="pad-src" class="src"></p>
-    </section>
+    </header>
 
-    <section id="chart">
-      <search class="search">
-        <i data-lucide="search"></i>
-        <input id="q" type="search" placeholder="输入单词、数字、码位，或粘贴兴语" autocomplete="off" spellcheck="false" aria-label="搜索">
-        <span id="q-count" class="count" role="status"></span>
-        <button type="button" id="q-clear" class="clear" title="清空" aria-label="清空搜索" disabled><i data-lucide="x"></i></button>
-      </search>
-      <div id="chart-body" class="chart-body"></div>
-      <aside id="detail" class="detail" aria-live="polite"></aside>
-    </section>
-  </main>
+    <main>
+      <section id="pad">
+        <div class="controls">
+          <span class="feature"
+            ><label class="chk"><input type="checkbox" id="f-ss01" checked /> ss01 数字</label
+            ><button
+              type="button"
+              class="tool help-trigger"
+              popovertarget="help-ss01"
+              aria-label="数字特性说明"
+            >
+              <i data-lucide="circle-question-mark"></i></button
+          ></span>
+          <span class="feature"
+            ><label class="chk"><input type="checkbox" id="f-ss02" checked /> ss02 单词</label
+            ><button
+              type="button"
+              class="tool help-trigger"
+              popovertarget="help-ss02"
+              aria-label="单词特性说明"
+            >
+              <i data-lucide="circle-question-mark"></i></button
+          ></span>
+          <label class="range"
+            >字重
+            <input type="range" id="f-wght" min="100" max="900" step="10" value="400" /><output
+              id="o-wght"
+            ></output
+          ></label>
+          <label class="range"
+            >字号 <input type="range" id="f-size" min="14" max="120" value="24" /><output
+              id="o-size"
+            ></output
+          ></label>
+        </div>
+        <div class="pad-actions">
+          <div class="presets" id="presets"></div>
+          <button type="button" class="pill" id="copy-pua" title="复制后不再依赖 ss01 / ss02">
+            <i data-lucide="copy"></i>复制为 PUA
+          </button>
+        </div>
+        <textarea
+          id="pad-input"
+          class="xy"
+          spellcheck="false"
+          rows="8"
+          aria-label="打字区"
+        ></textarea>
+        <p id="pad-src" class="src"></p>
+      </section>
 
-  <aside id="help-ss01" class="notes feature-note" popover>
-    <h2>ss01 · 数字</h2>
-    <p>阿拉伯数字转换为七进制兴语，支持负数和小数。整数从 343 起用近似指数表示；小数保留两位七进制精度，绝对值达到 2401 时按整数处理。</p>
-    <p class="help-example">试试 <code>7 49 -5 3.14</code></p>
-  </aside>
-  <aside id="help-ss02" class="notes feature-note" popover>
-    <h2>ss02 · 单词</h2>
-    <p>将支持的英文单词转换为兴语，区分大小写，其余保留原文。相邻兴语字会隐藏一个空格；需要留空时，输入两个空格。</p>
-    <p class="help-example">试试 <code>water fire sky</code></p>
-  </aside>
-  <aside id="help" class="notes" popover aria-labelledby="help-title">
-    <div class="help-head"><h2 id="help-title">说明</h2><button type="button" class="tool" popovertarget="help" popovertargetaction="hide" aria-label="关闭说明"><i data-lucide="x"></i></button></div>
-    <p>直接输入或选择示例，通过数字、单词特性切换显示。下方保留原文。</p>
-    <p>字形左键插入，右键查阅。词条右上角可复制字符和前后跳转。</p>
-    <p>“复制为 PUA”保留转换后的字形，粘贴后无需开启 ss01 / ss02。</p>
-    <p>Demo 版仅含 Demo 可见字形，码位从 U+F7000 起，字重支持 100–900。</p>
-    <p class="help-footer">非官方同人作品，仅限个人非商业使用。字形版权归 Artless Games。</p>
-  </aside>
+      <section id="chart">
+        <search class="search">
+          <i data-lucide="search"></i>
+          <input
+            id="q"
+            type="search"
+            placeholder="输入单词、数字、码位，或粘贴兴语"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="搜索"
+          />
+          <span id="q-count" class="count" role="status"></span>
+          <button
+            type="button"
+            id="q-clear"
+            class="clear"
+            title="清空"
+            aria-label="清空搜索"
+            disabled
+          >
+            <i data-lucide="x"></i>
+          </button>
+        </search>
+        <div id="chart-body" class="chart-body"></div>
+        <aside id="detail" class="detail" aria-live="polite"></aside>
+      </section>
+    </main>
 
-  <div id="toast" role="status" aria-live="polite"></div>
-  <script type="module" src="/src/main.js"></script>
-</body>
+    <aside id="help-ss01" class="notes feature-note" popover>
+      <h2>ss01 · 数字</h2>
+      <p>
+        阿拉伯数字转换为七进制兴语，支持负数和小数。整数从 343
+        起用近似指数表示；小数保留两位七进制精度，绝对值达到 2401 时按整数处理。
+      </p>
+      <p class="help-example">试试 <code>7 49 -5 3.14</code></p>
+    </aside>
+    <aside id="help-ss02" class="notes feature-note" popover>
+      <h2>ss02 · 单词</h2>
+      <p>
+        将支持的英文单词转换为兴语，区分大小写，其余保留原文。相邻兴语字会隐藏一个空格；需要留空时，输入两个空格。
+      </p>
+      <p class="help-example">试试 <code>water fire sky</code></p>
+    </aside>
+    <aside id="help" class="notes" popover aria-labelledby="help-title">
+      <div class="help-head">
+        <h2 id="help-title">说明</h2>
+        <button
+          type="button"
+          class="tool"
+          popovertarget="help"
+          popovertargetaction="hide"
+          aria-label="关闭说明"
+        >
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <p>直接输入或选择示例，通过数字、单词特性切换显示。下方保留原文。</p>
+      <p>字形左键插入，右键查阅。词条右上角可复制字符和前后跳转。</p>
+      <p>“复制为 PUA”保留转换后的字形，粘贴后无需开启 ss01 / ss02。</p>
+      <p>码位从 U+F7000 起，字重支持 100–900。</p>
+      <p class="help-footer">非官方同人作品，仅限个人非商业使用。字形版权归 Artless Games。</p>
+    </aside>
+
+    <div id="toast" role="status" aria-live="polite"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
 </html>
