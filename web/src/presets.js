@@ -1,50 +1,47 @@
 export const PRESETS = {
   混排: `夜空 / night sky
-2026 年，我们在 earth 上仰望 sun、moon 和 star。
+2026 年，我们在 earth 上仰望 sun 和 star。
 一杯 water，一团 fire，一阵 wind；文字把不同的世界连在一起。
-1 + 2 = 3；7 × 7 = 49；圆周率约为 3.14。
-原生兴语：\u{F7041} \u{F7042} \u{F7043}；英文：one two three。`,
-  兴语: `we see star in sky
-sun and moon   water and fire
+1 + 2 = 3；7 + 42 = 49；圆周率约为 3.14。
+原生兴语：\u{F78C0} \u{F72A0}；英文：water sky。`,
+  单词: `we see star in sky
+sun and star   water and fire
 earth and sky   light and dark
-one two three   1 2 3
-word and word   word  and  word`,
+
+word and word
+word  and  word
+word   and   word`,
   数字: `0 1 2 3 4 5 6
 7 8 48 49 50 342 343 344
 2017 2026 2400 2401 123456789
 -1 -7 -49 -343
 0.01 0.1 0.5 1.25 3.14 -2.718
-1e-1 2e-2 3e-3`,
-  拉丁: `ABCDEFGHIJKLMNOPQRSTUVWXYZ
-abcdefghijklmnopqrstuvwxyz
-Sphinx of black quartz, judge my vow.
-The quick brown fox jumps over the lazy dog.
-0123456789  + - = / ( ) [ ] { }
-Hello, world! “Type & explore.”`,
-  // https://www.folger.edu/explore/shakespeares-works/hamlet/read/3/1/
-  // https://en.wikisource.org/wiki/Alice's_Adventures_in_Wonderland_(1866)/Chapter_1
-  名言: `“To be or not to be—that is the question.”
-— William Shakespeare, Hamlet, Act 3, Scene 1
-生存还是毁灭，这是个问题。
+1e-1 2e-2 3e-3
+2026-11-02
+99999999999999999999
+100000000000000000000`,
+  星战: `in more more past de era
+in more more faraway de galaxy....
 
-“what is the use of a book,” thought Alice, “without pictures or conversations?”
-— Lewis Carroll, Alice’s Adventures in Wonderland, Chapter 1
-一本没有图画，也没有对话的书，有什么用呢？`,
-  // https://ebible.org/kjv/GEN01.htm
-  创世记: `创世记 1:1 · King James Version
-In the beginning God created the heaven and the earth.
+star
+big war
 
-“Let there be light: and there was light.” — Genesis 1:3
-起初，上帝创造天地。上帝说，要有光，就有了光。`,
-  星球大战: `a long time ago in a galaxy far, far away....
+4 th chapter
+new de hope ness
 
-star war
-a new hope
+this be war in galaxy de era
+rebel de plural rocket from hide de fort attack
+rebel first beat bad de galaxy empire
 
-it is a dark time in the galaxy. the empire has a new weapon with the power to destroy a planet.
-rebel people from a free world fight for hope in space.
-a hero leaves home to bring light to the sky.`,
-  长篇混排: `远方来信 / a letter from the night sky
+hide de rebel intrigue take empire de most strong de weapon de concept while fight
+die star be single universe de fort with shell
+this have strength for destroy single planet de all
+
+king de daughter LEIA by they de rocket dash to home
+empire de bad warrior move for take they
+they store rebel intrigue take de concept
+this concept can protect they de race and free galaxy....`,
+  长文: `远方来信 / a letter from the night sky
 
 2026 年 10 月 22 日，20:17。山上的观测站终于安静下来。窗外只有 wind、stone 和远处的 sea；桌上放着一杯已经冷掉的 water。屏幕亮起时，我先看见 1、2、3，接着是一行无法辨认的 word。
 
@@ -61,4 +58,10 @@ water and fire   earth and sky   sun and moon
 Morning comes slowly. The first light touches the glass, the paper, and the hands of the people still sitting at the table. We do not have every answer. We have a few words, a few numbers, and one more reason to keep looking at the sky.
 
 天亮前，我们发出了回信：we see you。`,
+  字母: `ABCDEFGHIJKLMNOPQRSTUVWXYZ
+abcdefghijklmnopqrstuvwxyz
+Sphinx of black quartz, judge my vow.
+The quick brown fox jumps over the lazy dog.
+0123456789  + - = / ( ) [ ]
+Hello, world!`,
 };
