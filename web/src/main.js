@@ -264,6 +264,7 @@ function showDetail(e) {
     `${nav("d-back", "F72D7", "上一个", hist.i > 0)}${nav("d-fwd", "F72D8", "下一个", hist.i < hist.list.length - 1)}</div>` +
     `</div><div class="dtop"><button type="button" class="big xy" data-cp="${e.cp}" title="插入" aria-label="插入 U+${e.cp}">${e.char}</button>` +
     `<div class="dmeta"><b class="word-name">${esc(e.name)}</b>` +
+    (e.fan ? `<small>非官方：游戏里没有，按游戏的规则补全</small>` : "") +
     `<dl>${row("结构", STRUCT[e.struct])}${row("部件", !e.roots && e.parts?.map(ref).join(""))}` +
     `${row("类别", e.cats?.map(ref).join(""))}</dl></div></div>` +
     (dict.length ? `<div class="dict">${dict.join("")}</div>` : "") +

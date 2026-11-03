@@ -464,7 +464,7 @@ piece,scale group,ud,scale,group,,noun,part de part
 each,yes group,ud,yes,group,,adj,all single part in group
 some,1 group,ud,1,group,,adj,single or plural part in group
 none,yes group,ud,no,group,,adj,0 part in group
-percent,1e-2 group,ud,:1e-2,group,,verb,1e-2 group
+percent,1 group,ud,:1e-2,group,,verb,1e-2 group
 limit,spike group,ud,spike,group,,noun,group de most number or group de least number;object cannot morethan big limit or lessthan small limit
 average,yes spike group,ud,smooth,group,,noun,group de plusness divide group de object amount
 community,person group,ud,person,group,,noun,person de group
@@ -753,46 +753,46 @@ penalty,person do,lr,slave,do,,noun,slave de negativebonus action;;now mankind f
 4,4,s,0 -3 0 3;3 0 -3 0,,,num,basic number
 5,5,s,1 -3 1 3;-1 -3 -1 3;3 0 -3 0,,,num,basic number
 6,6,s,0 -3 0 3;-2 -3 -2 3;2 -3 2 3;3 0 -3 0,,,num,basic number
-:1e1,1e1,exp,,,,num,number;first no basic number
-:2e1,2e1,exp,,,,num,number
-:3e1,3e1,exp,,,,num,number
-:4e1,4e1,exp,,,,num,number
-:5e1,5e1,exp,,,,num,number
-:6e1,6e1,exp,,,,num,number;42 be reply ness to lifeform and universe and all
-:1e2,1e2,exp,,,,num,number
-:1e3,1e3,exp,,,,num,number
-:1e-1,1e-1,exp,,,,num,smallnumber
-:1e-2,1e-2,exp,,,,num,smallnumber
-:1e-3,1e-3,exp,,,,num,smallnumber
+:1e1,1,exp,,,,num,number;first no basic number
+:2e1,2,exp,,,,num,number
+:3e1,3,exp,,,,num,number
+:4e1,4,exp,,,,num,number
+:5e1,5,exp,,,,num,number
+:6e1,6,exp,,,,num,number;42 be reply ness to lifeform and universe and all
+:1e2,1,exp,,,,num,number
+:1e3,1,exp,,,,num,number
+:1e-1,1,exp,,,,num,smallnumber
+:1e-2,1,exp,,,,num,smallnumber
+:1e-3,1,exp,,,,num,smallnumber
 x,symbol amount 1,lr,number,1,,num,first variable
 y,symbol amount 2,lr,number,2,,num,second variable
 z,symbol amount 3,lr,number,3,,num,third variable
 number,symbol amount,our,symbol,amount,,noun,amount de symbol
-:2e-1,2e-1,exp,,,,num,smallnumber
-:3e-1,3e-1,exp,,,,num,smallnumber
-:4e-1,4e-1,exp,,,,num,smallnumber
-:5e-1,5e-1,exp,,,,num,smallnumber
-:6e-1,6e-1,exp,,,,num,smallnumber
-:2e2,2e2,exp,,,,num,number
-:2e3,2e3,exp,,,,num,number
-:2e-2,2e-2,exp,,,,num,smallnumber
-:2e-3,2e-3,exp,,,,num,smallnumber
-:3e2,3e2,exp,,,,num,number
-:3e3,3e3,exp,,,,num,number
-:3e-2,3e-2,exp,,,,num,smallnumber
-:3e-3,3e-3,exp,,,,num,smallnumber
-:4e2,4e2,exp,,,,num,number
-:4e3,4e3,exp,,,,num,number
-:4e-2,4e-2,exp,,,,num,smallnumber
-:4e-3,4e-3,exp,,,,num,smallnumber
-:5e2,5e2,exp,,,,num,number
-:5e3,5e3,exp,,,,num,number
-:5e-2,5e-2,exp,,,,num,smallnumber
-:5e-3,5e-3,exp,,,,num,smallnumber
-:6e2,6e2,exp,,,,num,number
-:6e3,6e3,exp,,,,num,number
-:6e-2,6e-2,exp,,,,num,smallnumber
-:6e-3,6e-3,exp,,,,num,smallnumber
+:2e-1,2,exp,,,,num,smallnumber
+:3e-1,3,exp,,,,num,smallnumber
+:4e-1,4,exp,,,,num,smallnumber
+:5e-1,5,exp,,,,num,smallnumber
+:6e-1,6,exp,,,,num,smallnumber
+:2e2,2,exp,,,,num,number
+:2e3,2,exp,,,,num,number
+:2e-2,2,exp,,,,num,smallnumber
+:2e-3,2,exp,,,,num,smallnumber
+:3e2,3,exp,,,,num,number
+:3e3,3,exp,,,,num,number
+:3e-2,3,exp,,,,num,smallnumber
+:3e-3,3,exp,,,,num,smallnumber
+:4e2,4,exp,,,,num,number
+:4e3,4,exp,,,,num,number
+:4e-2,4,exp,,,,num,smallnumber
+:4e-3,4,exp,,,,num,smallnumber
+:5e2,5,exp,,,,num,number
+:5e3,5,exp,,,,num,number
+:5e-2,5,exp,,,,num,smallnumber
+:5e-3,5,exp,,,,num,smallnumber
+:6e2,6,exp,,,,num,number
+:6e3,6,exp,,,,num,number
+:6e-2,6,exp,,,,num,smallnumber
+:6e-3,6,exp,,,,num,smallnumber
 object,object,s,-1 -2 -1 2 1 2 1 -2 -1 -2;-1 0 1 0,,,noun,all noun be object
 single,1 object,lr,1,object,,adj,1 object
 pair,2 object,lr,2,object,,adj,2 object
@@ -910,7 +910,7 @@ minusness,positive change to,lr,minus,to,,noun,minus de result
 multiplyness,join change to,lr,multiply,to,,noun,multiply de result
 divideness,join change to,lr,divide,to,,noun,divide de result
 exponent,big change,ud,big,change,,verb,tonumber amount de fromnumber de multiplyness;backward log
-exp7,1e1 change,ud,:1e1,change,,verb,7 exponent nextword number
+exp7,1 change,ud,:1e1,change,,verb,7 exponent nextword number
 log,big change,ud,small,change,,verb,backward exponent
 exponentness,big change to,lr,exponent,to,,noun,exponent de result
 logness,big change to,lr,log,to,,noun,log de result
@@ -1417,3 +1417,9 @@ shellfish,shell group,ud,shell,group,,noun,animal in shellfishshell;shellfish ca
 skin,surface object,lr,surface,object,,noun,soft surface part on animal
 notaword,token,s,0 0 0 1 1 0 1 1,,,token,if you see this . talk artless game by this wrong word
 notebookcursor,token,solid,0 0,,,token,in page for write . this be write new word de position
+fourth,to 4,lr,from,4,,adj,4 th
+fifth,to 5,lr,from,5,,adj,5 th
+sixth,to 6,lr,from,6,,adj,6 th
+last4,to 4,lr,to,4,,adj,backward 4 th
+last5,to 5,lr,to,5,,adj,backward 5 th
+last6,to 6,lr,to,6,,adj,backward 6 th

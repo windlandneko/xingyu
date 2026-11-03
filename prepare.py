@@ -4,6 +4,7 @@
 
   source/words.csv    word, category, struct, component1, component2, rename, wordtype, meaning (file order kept)
   source/glyphs.json  word -> strokes, composed like AlienInfo.GetCharacter
+  source/extra.csv    fan-made words not in the game (kept by hand, in the game's columns), appended to the above
 
 The game has no category column: it derives categories from radicals (Global.Search_Radicial and Global.Init), which
 categorize() follows. CATEGORIES is the list in Global..cctor, read off GameAssembly.dll.'''
@@ -160,7 +161,7 @@ def radicals(word, by, memo):
     if how in ('s', 'solid'):
         found[r['redirect'] if r['redirect'] not in ('', 'token') else word] = 0
     elif how == 'exp':
-        found[word[1:]] = 0
+        found[word.lstrip(':')[:1]] = 0     # Init strips ':', then the leading digit is taken
     else:
         if word in CATEGORIES:
             found[word] = 0
@@ -198,7 +199,8 @@ def categorize(r, by, memo):
 
 def main():
     sys.setrecursionlimit(5000)
-    rows = read_dictionary()
+    with open(HERE / 'source/extra.csv', newline='') as fh:
+        rows = read_dictionary() + list(csv.DictReader(fh))     # fan-made words, composed like the game's
     by = {r['word']: r for r in rows}
     memo, strokes = {}, {}
     for r in rows:

@@ -1,0 +1,7 @@
+word,meaning,wordtype,redirect,struct,component1,component2,modifier,rename
+fourth,4 th,adj,,lr,from,4,,
+fifth,5 th,adj,,lr,from,5,,
+sixth,6 th,adj,,lr,from,6,,
+last4,backward 4 th,adj,,lr,to,4,,
+last5,backward 5 th,adj,,lr,to,5,,
+last6,backward 6 th,adj,,lr,to,6,,

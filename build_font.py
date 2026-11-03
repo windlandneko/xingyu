@@ -4,11 +4,11 @@ Every stroke segment is a capsule, so the wght axis (100-900) only changes the s
 numbers into base-7 numerals (the game's own formatting, plus two base-7 decimal places); ss02 turns the script's
 English words into glyphs.
 
-Code points: F7000 numerals (8 per exponent), F7080 tokens, F7100 words by the game's dictionary categories,
-F7A00 overflow. A character keeps its code point while it is in the game.
+Code points: F7000 numerals (8 per exponent), F7080 tokens, F70F0 ordinals and number words, F7110 words by the
+game's radicals, F7A00 overflow. A character keeps its code point while it is in the game.
 
-Inputs (source/): words.csv and glyphs.json from prepare.py; units.json, registry.csv and blocks.csv are kept by hand
-or by this script.
+Inputs (source/): words.csv and glyphs.json from prepare.py; units.json, registry.csv, blocks.csv and extra.csv
+(fan-made words) are kept by hand or by this script.
 Outputs (data/): Xingyu-VF.ttf, Xingyu-VF.woff2 and xingyu.json.
 
   python3 build_font.py'''
@@ -35,10 +35,10 @@ from optimize_font import save_font
 HERE = Path(__file__).resolve().parent
 SOURCE = HERE / 'source'
 DATA = HERE / 'data'
-REGISTRY, BLOCKS = SOURCE / 'registry.csv', SOURCE / 'blocks.csv'
+REGISTRY, BLOCKS, EXTRA = SOURCE / 'registry.csv', SOURCE / 'blocks.csv', SOURCE / 'extra.csv'
 UPM = 1000
 ASCENT, DESCENT = 1160, -288                         # CJK line box, as in Source Han Sans
-VERSION = 1.0                                          # first built from the released game
+VERSION, REVISION = '1.0.1', 1.001                       # 1.0 was the first built from the released game
 AUTHOR = 'windlandneko'
 
 # vertical design: alien glyphs sit in the CJK ideographic box (ink of 国 in Source Han Sans / HarmonyOS
@@ -648,7 +648,6 @@ def roots(r, by):
 # ---------- code points ----------
 
 num_word = lambda d, e: str(d) if e == 0 else f':{d}e{e}'
-category = lambda r: r['category'].split()[0]
 hexcp = lambda cp: f'U+{cp:05X}'
 SPECIAL = ('numeral', 'token', 'overflow')
 
@@ -664,15 +663,17 @@ def write_csv(path, header, rows):
 
 
 def allocate(rows, words):
-    '''word -> code point. Cells of words dropped from the game are freed. New words take the first free cell of
-    their category's block, else of the overflow.'''
+    '''word -> code point. Cells of words dropped from the game are freed. A new word never goes into another
+    group: it takes the first free cell in the block of the first of its categories that has a block, else in the
+    overflow. Moving it next to related words of its group is done by hand in registry.csv.'''
     chars = {r['word']: int(r['codepoint'][2:], 16) for r in read_csv(REGISTRY) if r['block'] == 'numeral' or r['word'] in words}
     blocks = [(r['block'], int(r['start'][2:], 16), int(r['end'][2:], 16)) for r in read_csv(BLOCKS)]
     span = {b: (lo, hi) for b, lo, hi in blocks}
     free = lambda lo, hi: next((c for c in range(lo, hi + 1) if c not in chars.values()), None)
     for r in rows:
         if r['word'] in words and r['word'] not in chars:
-            chars[r['word']] = free(*span.get(category(r), span['overflow'])) or free(*span['overflow'])
+            home = next((span[c] for c in r['category'].split() if c in span), span['overflow'])
+            chars[r['word']] = free(*home) or free(*span['overflow'])
             print('new', hexcp(chars[r['word']]), r['word'])
     block_of = lambda cp: next(b for b, lo, hi in blocks if lo <= cp <= hi)
     write_csv(REGISTRY, ['codepoint', 'word', 'block'],
@@ -688,7 +689,7 @@ def write_table(path, shown, chars, blocks, by, units):
         if used := [chars[w] for w in shown if lo <= chars[w] <= hi]:
             blk = {'start': f'{min(used) & ~15:X}', 'end': f'{max(used) | 15:X}'}
             out_blocks.append(blk | ({'kind': b} if b in SPECIAL else {'head': ref(b), 'name': b}))
-    entries = []
+    entries, fan = [], {r['word'] for r in read_csv(EXTRA)}
     for w in sorted(shown, key=chars.get):
         r = by.get(w)
         e = {'cp': f'{chars[w]:X}', 'struct': r['struct'] if r else 'exp'}
@@ -701,6 +702,8 @@ def write_table(path, shown, chars, blocks, by, units):
             e['roots'] = [ref(x) for x in roots(r, by)]
         if r and r['meaning']:
             e['def'] = [[x if x[0] == '~' else ref(x) for x in line] for line in definition(r['meaning'], by, units)]
+        if w in fan:
+            e['fan'] = True    # made for the font, not in the game
         e = {k: v for k, v in e.items() if v != []}
         entries.append(e | {'name': w.lstrip(':'), 'meaning': r['meaning'] if r else ''})
     dump = lambda xs: ',\n'.join(json.dumps(x, ensure_ascii=False, separators=(',', ':')) for x in xs)
@@ -711,9 +714,9 @@ def name_strings(family, zh):
     ps = family.replace(' ', '')
     return {'copyright': f'(c) 2026 {AUTHOR}. Glyph designs (c) Artless Games.',
             'familyName': {'en': family, 'zh': zh}, 'styleName': 'Regular',
-            'uniqueFontIdentifier': f'{VERSION:.3f};{ps}',
+            'uniqueFontIdentifier': f'{REVISION:.3f};{ps}',
             'fullName': {'en': f'{family} Regular', 'zh': f'{zh} Regular'},
-            'version': f'Version {VERSION:.3f}', 'psName': f'{ps}-Regular',
+            'version': f'Version {REVISION:.3f}', 'psName': f'{ps}-Regular',
             'manufacturer': AUTHOR, 'designer': AUTHOR,
             'vendorURL': f'https://github.com/{AUTHOR}', 'designerURL': f'https://github.com/{AUTHOR}',
             'licenseInfoURL': f'https://{AUTHOR}.github.io/xingyu/',
@@ -751,7 +754,7 @@ def build_master(width, order, outlines, advances, fits, clear, cmap, fea, names
                 usWinDescent=-DESCENT, sxHeight=round(10 * LAT_U), sCapHeight=round(14 * LAT_U), usWeightClass=400,
                 fsType=0, achVendID='WLNK', fsSelection=0xC0, ulCodePageRange1=1)   # Regular, USE_TYPO_METRICS; Latin 1
     fb.setupPost()
-    fb.font['head'].fontRevision = VERSION
+    fb.font['head'].fontRevision = REVISION
     fb.font['gasp'] = newTable('gasp')
     fb.font['gasp'].gaspRange = {0xFFFF: 0x000F}
     fb.font['prep'] = newTable('prep')
