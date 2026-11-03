@@ -1,5 +1,5 @@
 /* Scale: spacing 4 / 8 / 12 / 16 / 24 / 40; radius 4 (inline), 8 (controls), 12 (cards), 16 (sheets).
-   Rounded surfaces never carry an outline: they stand out by fill and shadow. */
+   Rounded surfaces get a full hairline ring (never a one-sided border) and a soft shadow. */
 :root {
   --bg: #f3f4f6;
   --surface: #ffffff;
@@ -19,6 +19,7 @@
   --tile-ink: #f1e8d3;
   --lift: 0 1px 2px rgb(16 24 32 / 5%), 0 2px 10px rgb(16 24 32 / 4%);
   --lift-hi: 0 4px 12px rgb(16 24 32 / 8%), 0 16px 40px rgb(16 24 32 / 12%);
+  --ring: 0 0 0 1px var(--grid);
 
   --r-xs: 4px;
   --r-md: 8px;
@@ -143,7 +144,7 @@ button,
 .card {
   background: var(--surface);
   border-radius: var(--r-lg);
-  box-shadow: var(--lift);
+  box-shadow: var(--ring), var(--lift);
 }
 
 /* ---------- buttons ---------- */
@@ -442,7 +443,7 @@ sl-switch::part(label) {
 }
 .chart-bar sl-button::part(base) {
   background: var(--surface);
-  box-shadow: var(--lift);
+  box-shadow: var(--ring), var(--lift);
 }
 .chart-bar sl-button::part(base):hover {
   color: var(--accent);
@@ -457,7 +458,7 @@ sl-switch::part(label) {
   padding: 0 6px 0 12px;
   border-radius: var(--r-md);
   background: var(--surface);
-  box-shadow: var(--lift);
+  box-shadow: var(--ring), var(--lift);
   color: var(--muted);
 }
 .search:focus-within {
@@ -568,9 +569,7 @@ sl-switch::part(label) {
   overflow: hidden;
   border-radius: var(--r-lg);
   background: var(--surface);
-  box-shadow:
-    0 0 0 1px var(--grid),
-    var(--lift);
+  box-shadow: var(--ring), var(--lift);
 }
 .rlabel {
   grid-column: 1;
@@ -684,7 +683,10 @@ button.cell:hover small b,
   border: 0;
   border-radius: var(--r-md);
   background: var(--surface);
-  box-shadow: var(--lift);
+  box-shadow: var(--ring), var(--lift);
+}
+.hits .cell.fan {
+  background: color-mix(in srgb, var(--accent) 9%, var(--surface));
 }
 .hits .cell.sel {
   background: var(--accent-soft);
@@ -959,7 +961,7 @@ button.part:hover {
   border: 0;
   border-radius: var(--r-lg);
   background: var(--surface);
-  box-shadow: var(--lift-hi);
+  box-shadow: var(--ring), var(--lift-hi);
   color: var(--ink);
   cursor: pointer;
   opacity: 0;
@@ -1014,7 +1016,7 @@ button.part:hover {
   border: 0;
   border-radius: var(--r-lg);
   background: var(--surface);
-  box-shadow: var(--lift-hi);
+  box-shadow: var(--ring), var(--lift-hi);
   color: var(--ink);
 }
 .help-head {
