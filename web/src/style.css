@@ -172,6 +172,7 @@ sl-button::part(prefix) {
   margin-inline-start: -2px;
 }
 sl-button svg {
+  display: block;
   width: 15px;
   height: 15px;
 }
@@ -585,6 +586,10 @@ sl-switch::part(label) {
 .rlabel span {
   writing-mode: vertical-rl;
 }
+.rlabel b {
+  color: var(--muted);
+  font-weight: 700;
+}
 
 .cell {
   display: flex;
@@ -643,9 +648,9 @@ button.cell:hover small b,
 .cell.empty {
   background: repeating-linear-gradient(
     -45deg,
-    transparent 0 3px,
-    var(--grid) 3.6px 4.4px,
-    transparent 5px 7px
+    transparent 0 2px,
+    color-mix(in srgb, var(--grid) 55%, transparent) 2.5px 3px,
+    transparent 3.5px 4.5px
   );
   cursor: default;
 }
@@ -1118,4 +1123,18 @@ button.part:hover {
     font-size: 8px;
     letter-spacing: 0.02em;
   }
+}
+
+/* Xingyu's ink sits about 0.07em below the centre of its line box (ascent 1160, descent 288, ink about
+   -59..775), so boxes that centre a glyph lift it by that much */
+.brand-mark,
+.sec .xy,
+.cell .xy,
+.big,
+.dnav .tool.xy {
+  padding-bottom: 0.14em;
+}
+.nav-list .xy,
+.bhead b .part {
+  transform: translateY(-0.07em);
 }

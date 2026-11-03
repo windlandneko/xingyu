@@ -201,7 +201,7 @@ function renderBlock(b) {
   const labels = [],
     cells = [];
   for (let r = lo; r <= hi; r += 16) {
-    labels.push(`<span class="rlabel"><span>${hex(r).slice(1, -1)}x</span></span>`);
+    labels.push(`<span class="rlabel"><span><b>${hex(r).slice(1, -1)}</b>x</span></span>`);
     for (let c = 0; c < 16; c++) cells.push(cell(ed.byCp.get(hex(r + c))));
   }
   const [title, note] = KIND[b.kind] ?? [`${ref(b.head)} ${esc(b.name)}`];
