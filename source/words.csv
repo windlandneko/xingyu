@@ -1420,6 +1420,67 @@ notebookcursor,token,solid,0 0,,,token,in page for write . this be write new wor
 fourth,to 4,lr,from,4,,adj,4 th
 fifth,to 5,lr,from,5,,adj,5 th
 sixth,to 6,lr,from,6,,adj,6 th
+seventh,to 1,lr,from,:1e1,,adj,7 th
 last4,to 4,lr,to,4,,adj,backward 4 th
 last5,to 5,lr,to,5,,adj,backward 5 th
 last6,to 6,lr,to,6,,adj,backward 6 th
+last7,to 1,lr,to,:1e1,,adj,backward 7 th
+onefourth,amount 4,ud,amount,4,,num,1 divide 4;or prevword number divide 4
+onefifth,amount 5,ud,amount,5,,num,1 divide 5;or prevword number divide 5
+onesixth,amount 6,ud,amount,6,,num,1 divide 6;or prevword number divide 6
+oneseventh,amount 1,ud,amount,:1e1,,num,1 divide 7;or prevword number divide 7
+exponent4,big change 4,lr,exponent,4,,noun,prevword number exponent 4
+exponent5,big change 5,lr,exponent,5,,noun,prevword number exponent 5
+exponent6,big change 6,lr,exponent,6,,noun,prevword number exponent 6
+exponent7,big change 1,lr,exponent,:1e1,,noun,prevword number exponent 7
+heptagon,symbol 1,lr,line,:1e1,,noun,7 join straightline de closeshape
+n26,token,lr,:3e1,5,,num,number
+n27,token,lr,:3e1,6,,num,number
+n29,token,lr,:4e1,1,,num,number
+n30,token,lr,:4e1,2,,num,number
+n31,token,lr,:4e1,3,,num,number
+n32,token,lr,:4e1,4,,num,number
+n33,token,lr,:4e1,5,,num,number
+n34,token,lr,:4e1,6,,num,number
+n36,token,lr,:5e1,1,,num,number
+n37,token,lr,:5e1,2,,num,number
+n38,token,lr,:5e1,3,,num,number
+n39,token,lr,:5e1,4,,num,number
+n40,token,lr,:5e1,5,,num,number
+n41,token,lr,:5e1,6,,num,number
+n43,token,lr,:6e1,1,,num,number
+n44,token,lr,:6e1,2,,num,number
+n45,token,lr,:6e1,3,,num,number
+n46,token,lr,:6e1,4,,num,number
+n47,token,lr,:6e1,5,,num,number
+n48,token,lr,:6e1,6,,num,number
+p0,person 0,lr,person,0,,noun,0 th person
+onezeroth,amount 0,ud,amount,0,,num,1 divide 0;or prevword number divide 0
+onewhole,amount 1,ud,amount,1,,num,1 divide 1;or prevword number divide 1
+exponent0,big change 0,lr,exponent,0,,noun,prevword number exponent 0
+exponent1,big change 1,lr,exponent,1,,noun,prevword number exponent 1
+zerogon,symbol 0,lr,line,0,,noun,0 join straightline de closeshape
+digon,symbol 2,lr,line,2,,noun,2 join straightline de closeshape
+n7,token,lr,:1e1,0,,num,number
+n14b,token,lr,:1e1,:1e1,,num,number
+n14,token,lr,:2e1,0,,num,number
+n21b,token,lr,:2e1,:1e1,,num,number
+n21,token,lr,:3e1,0,,num,number
+n28b,token,lr,:3e1,:1e1,,num,number
+n28,token,lr,:4e1,0,,num,number
+n35b,token,lr,:4e1,:1e1,,num,number
+n35,token,lr,:5e1,0,,num,number
+n42b,token,lr,:5e1,:1e1,,num,number
+n42,token,lr,:6e1,0,,num,number
+n49b,token,lr,:6e1,:1e1,,num,number
+loop4,loop,ud,loop,ht4,,adj,divide 1e4 from nextword de loop num
+overlord,person,ud,ht4,person,,noun,single and superior emperor;overlord control all emperor
+overlordheir,time person,lr,late,overlord,,noun,next overlord
+day49,big time,ud,ht4,sec,,noun,49Assss;1e1Ay
+century49,big time,ud,ht4,week,,noun,49Ayyyy;1e4Ayyy
+ht5,token,s,-1 0 1 0;-1 0.5 1 0.5;-1 1 1 1;-1 1.5 1 1.5;-1 2 1 2,,,token,
+loop5,loop ht5,ud,loop,ht5,,adj,divide 1e5 from nextword de loop num
+supreme,ht5 person,ud,ht5,person,,noun,single and superior overlord;supreme control all overlord
+supremeheir,time ht5 person,lr,late,supreme,,noun,next supreme
+day2401,ht5 big time,ud,ht5,sec,,noun,49 day49;1e3Ay
+century2401,ht5 big time,ud,ht5,week,,noun,49 century49;1e4Ayyyy

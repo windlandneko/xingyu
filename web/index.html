@@ -10,104 +10,114 @@
   </head>
   <body>
     <header class="top">
-      <div class="brand">
-        <button
-          type="button"
-          class="brand-mark xy"
-          id="brand"
-          data-cp="F7666"
-          title="右键查阅"
-          aria-label="兴语"
-        ></button>
-        <div>
-          <h1>兴语码位表</h1>
-          <p class="sub" id="stat"></p>
+      <div class="top-in">
+        <div class="brand">
+          <button
+            type="button"
+            class="brand-mark xy"
+            id="brand"
+            data-cp="F7603"
+            title="右键查阅"
+            aria-label="兴语"
+          ></button>
+          <div>
+            <h1>兴语码位表</h1>
+            <p class="sub" id="stat"></p>
+          </div>
         </div>
-      </div>
-      <div class="top-actions">
-        <a class="pill" href="Xingyu-VF.ttf" download><i data-lucide="download"></i>下载 TTF</a>
-        <button type="button" class="tool help-trigger" popovertarget="help" aria-label="说明">
-          <i data-lucide="circle-question-mark"></i>
-        </button>
+        <div class="top-actions">
+          <sl-button size="small" href="Xingyu-VF.ttf" download
+            ><i data-lucide="download" slot="prefix"></i>下载 TTF</sl-button
+          >
+          <button type="button" class="tool help-trigger" popovertarget="help" aria-label="说明">
+            <i data-lucide="circle-question-mark"></i>
+          </button>
+        </div>
       </div>
     </header>
 
     <main>
       <section id="pad">
-        <div class="controls">
-          <span class="feature"
-            ><label class="chk"><input type="checkbox" id="f-ss01" checked /> ss01 数字</label
-            ><button
-              type="button"
-              class="tool help-trigger"
-              popovertarget="help-ss01"
-              aria-label="数字特性说明"
+        <h2 class="sec"><span class="xy" data-word="write" aria-hidden="true"></span>打字区</h2>
+        <div class="card pad-card">
+          <div class="controls">
+            <span class="feature"
+              ><sl-switch id="f-ss01" size="small" checked>ss01 数字</sl-switch
+              ><button
+                type="button"
+                class="tool help-trigger"
+                popovertarget="help-ss01"
+                aria-label="数字特性说明"
+              >
+                <i data-lucide="circle-question-mark"></i></button
+            ></span>
+            <span class="feature"
+              ><sl-switch id="f-ss02" size="small" checked>ss02 单词</sl-switch
+              ><button
+                type="button"
+                class="tool help-trigger"
+                popovertarget="help-ss02"
+                aria-label="单词特性说明"
+              >
+                <i data-lucide="circle-question-mark"></i></button
+            ></span>
+            <label class="range"
+              ><span>字重</span>
+              <sl-range id="f-wght" min="100" max="900" step="10" value="400" tooltip="none"></sl-range
+              ><output id="o-wght"></output
+            ></label>
+            <label class="range"
+              ><span>字号</span>
+              <sl-range id="f-size" min="14" max="120" value="24" tooltip="none"></sl-range
+              ><output id="o-size"></output
+            ></label>
+          </div>
+          <textarea
+            id="pad-input"
+            class="xy"
+            spellcheck="false"
+            rows="7"
+            aria-label="打字区"
+          ></textarea>
+          <p id="pad-src" class="src"></p>
+          <div class="pad-actions">
+            <div class="presets" id="presets" aria-label="示例"></div>
+            <sl-button size="small" id="copy-pua" title="复制后不再依赖 ss01 / ss02"
+              ><i data-lucide="copy" slot="prefix"></i>复制为 PUA</sl-button
             >
-              <i data-lucide="circle-question-mark"></i></button
-          ></span>
-          <span class="feature"
-            ><label class="chk"><input type="checkbox" id="f-ss02" checked /> ss02 单词</label
-            ><button
-              type="button"
-              class="tool help-trigger"
-              popovertarget="help-ss02"
-              aria-label="单词特性说明"
-            >
-              <i data-lucide="circle-question-mark"></i></button
-          ></span>
-          <label class="range"
-            >字重
-            <input type="range" id="f-wght" min="100" max="900" step="10" value="400" /><output
-              id="o-wght"
-            ></output
-          ></label>
-          <label class="range"
-            >字号 <input type="range" id="f-size" min="14" max="120" value="24" /><output
-              id="o-size"
-            ></output
-          ></label>
+          </div>
         </div>
-        <div class="pad-actions">
-          <div class="presets" id="presets"></div>
-          <button type="button" class="pill" id="copy-pua" title="复制后不再依赖 ss01 / ss02">
-            <i data-lucide="copy"></i>复制为 PUA
-          </button>
-        </div>
-        <textarea
-          id="pad-input"
-          class="xy"
-          spellcheck="false"
-          rows="8"
-          aria-label="打字区"
-        ></textarea>
-        <p id="pad-src" class="src"></p>
       </section>
 
       <section id="chart">
-        <search class="search">
-          <i data-lucide="search"></i>
-          <input
-            id="q"
-            type="search"
-            placeholder="输入单词、数字、码位，或粘贴兴语"
-            autocomplete="off"
-            spellcheck="false"
-            aria-label="搜索"
-          />
-          <span id="q-count" class="count" role="status"></span>
-          <button
-            type="button"
-            id="q-clear"
-            class="clear"
-            title="清空"
-            aria-label="清空搜索"
-            disabled
-          >
-            <i data-lucide="x"></i>
-          </button>
-        </search>
+        <h2 class="sec"><span class="xy" data-word="symbol" aria-hidden="true"></span>码位表</h2>
+        <div class="chart-bar">
+          <search class="search">
+            <i data-lucide="search"></i>
+            <input
+              id="q"
+              type="search"
+              placeholder="搜索单词、码位或兴语"
+              autocomplete="off"
+              spellcheck="false"
+              aria-label="搜索"
+            />
+            <span id="q-count" class="count" role="status"></span>
+            <button
+              type="button"
+              id="q-clear"
+              class="clear"
+              title="清空"
+              aria-label="清空搜索"
+              disabled
+            >
+              <i data-lucide="x"></i>
+            </button>
+          </search>
+          <sl-button id="nav-open"><i data-lucide="list" slot="prefix"></i>分组</sl-button>
+        </div>
         <div id="chart-body" class="chart-body"></div>
-        <aside id="detail" class="detail" aria-live="polite"></aside>
+        <aside id="detail" class="detail card" aria-live="polite"></aside>
       </section>
     </main>
 
@@ -142,9 +152,17 @@
       <p>直接输入或选择示例，通过数字、单词特性切换显示。下方保留原文。</p>
       <p>字形左键插入，右键查阅。词条右上角可复制字符和前后跳转。</p>
       <p>“复制为 PUA”保留转换后的字形，粘贴后无需开启 ss01 / ss02。</p>
-      <p>码位从 U+F7000 起，字重支持 100–900。</p>
+      <p>码位从 U+F7000 起，字重支持 100–900。浅色底的格子是自造字：游戏里没有，按游戏的规则补全。</p>
       <p class="help-footer">非官方同人作品，仅限个人非商业使用。字形版权归 Artless Games。</p>
     </aside>
+
+    <sl-drawer id="nav" label="分组" class="nav-drawer">
+      <nav id="nav-list" class="nav-list" aria-label="分组"></nav>
+    </sl-drawer>
+    <sl-drawer id="sheet" placement="bottom" no-header class="sheet" label="词条"></sl-drawer>
+    <button type="button" id="to-pad" class="to-pad" title="回到打字区" aria-label="回到打字区">
+      <i data-lucide="arrow-up"></i>
+    </button>
 
     <div id="toast" role="status" aria-live="polite"></div>
     <script type="module" src="/src/main.js"></script>

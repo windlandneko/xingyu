@@ -3,7 +3,7 @@ export const PRESETS = {
 2026 年，我们在 earth 上仰望 sun 和 star。
 一杯 water，一团 fire，一阵 wind；文字把不同的世界连在一起。
 1 + 2 = 3；7 + 42 = 49；圆周率约为 3.14。
-原生兴语：\u{F78C0} \u{F72A0}；英文：water sky。`,
+原生兴语：\u{F7820} \u{F7260}；英文：water sky。`,
   单词: `we see star in sky
 sun and star   water and fire
 earth and sky   light and dark

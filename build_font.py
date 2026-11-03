@@ -4,8 +4,9 @@ Every stroke segment is a capsule, so the wght axis (100-900) only changes the s
 numbers into base-7 numerals (the game's own formatting, plus two base-7 decimal places); ss02 turns the script's
 English words into glyphs.
 
-Code points: F7000 numerals (8 per exponent), F7080 tokens, F70F0 ordinals and number words, F7110 words by the
-game's radicals, F7A00 overflow. A character keeps its code point while it is in the game.
+Code points: F7000 numerals (8 per exponent, 5th place down to -5th), F7060 number words in rows of 8 (a digit sits in its column), F70D0
+words by the game's radicals in the game's order, similar words side by side, then internal tokens; F7A00 overflow.
+A character keeps its code point while it is in the game.
 
 Inputs (source/): words.csv and glyphs.json from prepare.py; units.json, registry.csv, blocks.csv and extra.csv
 (fan-made words) are kept by hand or by this script.
@@ -38,7 +39,7 @@ DATA = HERE / 'data'
 REGISTRY, BLOCKS, EXTRA = SOURCE / 'registry.csv', SOURCE / 'blocks.csv', SOURCE / 'extra.csv'
 UPM = 1000
 ASCENT, DESCENT = 1160, -288                         # CJK line box, as in Source Han Sans
-VERSION, REVISION = '1.0.1', 1.001                       # 1.0 was the first built from the released game
+VERSION, REVISION = '1.1', 1.1                          # 1.0 was the first built from the released game
 AUTHOR = 'windlandneko'
 
 # vertical design: alien glyphs sit in the CJK ideographic box (ink of 国 in Source Han Sans / HarmonyOS
@@ -351,7 +352,7 @@ EMPTY, TAIL, BIGE = 'nul.lz', 'nul.sci', 'nul.big'
 NUMBER_WORDS = ('negative', 'exp7')   # ss01 writes these; a space next to them is kept
 SPACE_ADV = 300
 JOINRUN = 8                           # longest run of spaces that still loses one
-G_EXPS = range(-9, 10)
+G_EXPS = range(-5, 6)        # the game's numerals go to the 5th place
 NUMERALS = [(d, e) for d in range(7) for e in G_EXPS if d or e == 0]
 MAXDIG, PAD, KMAX = 20, 5, 24
 FRACS = 3                 # base-7 fractional digits extracted: two shown, one to round on
@@ -614,7 +615,7 @@ def number_words(t):
     '''A number in a definition ("12", "-3", "1e-2") as numeral words, or None.'''
     if re.fullmatch(r'-?\d+', t):
         return [num_word(int(x[0]), int(x[2:] or 0)) if x[0].isdigit() else x for x in integer_words(int(t))]
-    if (m := re.fullmatch(r'(-?)(\d)e(-?\d+)', t)) and abs(int(m[3])) < 4:
+    if (m := re.fullmatch(r'(-?)(\d)e(-?\d+)', t)) and abs(int(m[3])) <= 5:     # the numeral block's range
         return (['negative'] if m[1] else []) + [num_word(int(m[2]), int(m[3]))]
     return None
 
