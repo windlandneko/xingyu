@@ -240,6 +240,7 @@ function renderChart() {
       ? `<div class="hits">${hits.map(cell).join("")}</div>`
       : '<p class="none">没有找到。</p>';
   if (hits?.length && !hits.includes(selected)) go(hits[0], true);
+  queueStuck();
 }
 
 let selected = null;
@@ -402,6 +403,27 @@ new ResizeObserver(() => {
   root.setProperty("--top-h", (getComputedStyle(top).position === "sticky" ? top.offsetHeight : 0) + "px");
   root.setProperty("--bar-h", document.querySelector(".chart-bar").offsetHeight + "px");
 }).observe(document.body);
+
+// which sticky bars are stuck: the lowest one fades its glass out past its edge
+let stuckFrame = 0;
+function markStuck() {
+  stuckFrame = 0;
+  const bar = document.querySelector(".chart-bar");
+  const line = bar.getBoundingClientRect();
+  const top = parseFloat(getComputedStyle(bar).top);
+  const edge = top + bar.offsetHeight + 0.5;
+  let any = false;
+  for (const h of document.querySelectorAll(".bhead")) {
+    const r = h.getBoundingClientRect();
+    const stuck = r.top <= edge && r.bottom >= top;
+    h.classList.toggle("stuck", stuck);
+    any ||= stuck;
+  }
+  bar.classList.toggle("fade", line.top <= top + 0.5 && scrollY > 0 && !any);
+}
+const queueStuck = () => (stuckFrame ||= requestAnimationFrame(markStuck));
+addEventListener("scroll", queueStuck, { passive: true });
+addEventListener("resize", queueStuck);
 
 showDetail(null);
 renderChart();

@@ -20,7 +20,7 @@
   --lift: 0 1px 2px rgb(16 24 32 / 5%), 0 2px 10px rgb(16 24 32 / 4%);
   --lift-hi: 0 4px 12px rgb(16 24 32 / 8%), 0 16px 40px rgb(16 24 32 / 12%);
   --ring: 0 0 0 1px var(--grid);
-  --glass: color-mix(in srgb, var(--bg) 72%, transparent);
+  --glass: color-mix(in srgb, var(--bg) 85%, transparent);
 
   --r-xs: 4px;
   --r-md: 8px;
@@ -442,9 +442,6 @@ sl-switch::part(label) {
      cards' ring and shadow on the right */
   margin: 0 -12px 0 calc(-1 * var(--gutter));
   padding: 8px 12px 8px var(--gutter);
-  background: var(--glass);
-  backdrop-filter: blur(16px) saturate(1.6);
-  -webkit-backdrop-filter: blur(16px) saturate(1.6);
 }
 .chart-bar .tool {
   width: 40px;
@@ -523,9 +520,23 @@ sl-switch::part(label) {
   /* the 2px under the bar leave the card's top ring in view */
   margin: 0 -12px 2px calc(-1 * var(--gutter));
   padding: 12px 12px 8px var(--gutter);
+}
+/* frosted glass behind the sticky bars; while stuck, the lowest bar's glass runs on past its edge and
+   fades out, so what scrolls under it blurs away gradually instead of meeting a hard line */
+.chart-bar::before,
+.bhead.stuck::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
   background: var(--glass);
   backdrop-filter: blur(16px) saturate(1.6);
   -webkit-backdrop-filter: blur(16px) saturate(1.6);
+}
+.chart-bar.fade::before,
+.bhead.stuck::before {
+  bottom: -24px;
+  mask-image: linear-gradient(#000 calc(100% - 44px), rgb(0 0 0 / 60%) calc(100% - 24px), transparent);
 }
 .bhead b {
   display: flex;
@@ -666,7 +677,8 @@ button.cell:hover small b,
     transparent 0 2px,
     color-mix(in srgb, var(--grid) 55%, transparent) 2.5px 3px,
     transparent 3.5px 4.5px
-  );
+  ),
+  color-mix(in srgb, var(--bg) 80%, var(--surface));
   cursor: default;
 }
 /* fan-made words */
