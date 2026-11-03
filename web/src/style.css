@@ -20,6 +20,7 @@
   --lift: 0 1px 2px rgb(16 24 32 / 5%), 0 2px 10px rgb(16 24 32 / 4%);
   --lift-hi: 0 4px 12px rgb(16 24 32 / 8%), 0 16px 40px rgb(16 24 32 / 12%);
   --ring: 0 0 0 1px var(--grid);
+  --glass: color-mix(in srgb, var(--bg) 72%, transparent);
 
   --r-xs: 4px;
   --r-md: 8px;
@@ -441,12 +442,20 @@ sl-switch::part(label) {
      cards' ring and shadow on the right */
   margin: 0 -12px 0 calc(-1 * var(--gutter));
   padding: 8px 12px 8px var(--gutter);
-  background: var(--bg);
+  background: var(--glass);
+  backdrop-filter: blur(16px) saturate(1.6);
+  -webkit-backdrop-filter: blur(16px) saturate(1.6);
 }
 .chart-bar .tool {
   width: 40px;
   height: 40px;
+  background: var(--surface);
+  box-shadow: var(--ring), var(--lift);
   color: var(--ink);
+}
+.chart-bar .tool:hover {
+  background: var(--accent-soft);
+  color: var(--accent);
 }
 .chart-bar .tool svg {
   width: 20px;
@@ -511,9 +520,12 @@ sl-switch::part(label) {
   flex-wrap: wrap;
   align-items: center;
   gap: 4px 12px;
-  margin: 0 -12px 0 calc(-1 * var(--gutter));
-  padding: 12px 12px 10px var(--gutter);
-  background: var(--bg);
+  /* the 2px under the bar leave the card's top ring in view */
+  margin: 0 -12px 2px calc(-1 * var(--gutter));
+  padding: 12px 12px 8px var(--gutter);
+  background: var(--glass);
+  backdrop-filter: blur(16px) saturate(1.6);
+  -webkit-backdrop-filter: blur(16px) saturate(1.6);
 }
 .bhead b {
   display: flex;
