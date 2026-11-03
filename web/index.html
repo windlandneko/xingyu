@@ -26,6 +26,19 @@
           </div>
         </div>
         <div class="top-actions">
+          <sl-dropdown id="save-dropdown" distance="6" hidden>
+            <button type="button" id="save-slot" slot="trigger" aria-label="存档槽位">
+              <span id="save-label">存档</span>
+            </button>
+            <sl-menu id="save-menu">
+              <sl-divider></sl-divider>
+              <sl-menu-item id="save-delete" value="delete" disabled>
+                <i data-lucide="x" slot="prefix"></i>删除存档
+              </sl-menu-item>
+            </sl-menu>
+          </sl-dropdown>
+          <sl-button size="small" id="save-import">导入存档</sl-button>
+          <input id="save-files" type="file" accept=".sav,.json,.backup" multiple hidden />
           <sl-button size="small" href="Xingyu-VF.ttf" download
             ><i data-lucide="download" slot="prefix"></i>下载 TTF</sl-button
           >
@@ -97,7 +110,7 @@
             <input
               id="q"
               type="search"
-              placeholder="搜索单词、码位或兴语"
+              placeholder="搜索注释、码位或兴语"
               autocomplete="off"
               spellcheck="false"
               aria-label="搜索"
@@ -155,6 +168,7 @@
       <p>字形左键插入，右键查阅。词条右上角可复制字符和前后跳转。</p>
       <p>“复制为 PUA”保留转换后的字形，粘贴后无需开启 ss01 / ss02。</p>
       <p>码位从 U+F7000 起，字重支持 100–900。浅色底的格子是自造字：游戏里没有，按游戏的规则补全。</p>
+      <sl-switch id="full-unlock" size="small">全开档</sl-switch>
       <p class="help-footer">非官方同人作品，仅限个人非商业使用。字形版权归 Artless Games。</p>
     </aside>
 

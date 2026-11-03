@@ -14,6 +14,7 @@
   --fill-hi: rgb(22 25 29 / 9%);
   --accent: #1d6c88;
   --accent-soft: #e2eff4;
+  --locked-bg: color-mix(in srgb, #f5ce54 24%, var(--surface));
   --on-accent: #ffffff;
   --tile-bg: #16191d;
   --tile-ink: #f1e8d3;
@@ -48,7 +49,8 @@
     --fill: rgb(231 234 238 / 6%);
     --fill-hi: rgb(231 234 238 / 10%);
     --accent: #6cc2de;
-    --accent-soft: #172e37;
+    --accent-soft: #1b4253;
+    --locked-bg: color-mix(in srgb, #f5ce54 28%, var(--surface));
     --on-accent: #0b1a20;
     --tile-bg: #262b32;
     --lift: 0 1px 2px rgb(0 0 0 / 30%);
@@ -69,7 +71,8 @@
   --fill: rgb(231 234 238 / 6%);
   --fill-hi: rgb(231 234 238 / 10%);
   --accent: #6cc2de;
-  --accent-soft: #172e37;
+  --accent-soft: #1b4253;
+  --locked-bg: color-mix(in srgb, #f5ce54 28%, var(--surface));
   --on-accent: #0b1a20;
   --tile-bg: #262b32;
   --lift: 0 1px 2px rgb(0 0 0 / 30%);
@@ -91,6 +94,10 @@ html:root {
   --sl-color-neutral-300: var(--line);
   --sl-color-neutral-700: var(--ink);
   --sl-panel-background-color: var(--surface);
+  --sl-border-radius-small: var(--r-xs);
+  --sl-border-radius-medium: var(--r-md);
+  --sl-border-radius-large: var(--r-lg);
+  --sl-border-radius-x-large: var(--r-xl);
   --sl-input-border-radius-small: var(--r-md);
   --sl-input-border-radius-medium: var(--r-md);
   --sl-input-height-small: 30px;
@@ -120,6 +127,7 @@ body {
 }
 .xy {
   font-family: var(--xy);
+  font-weight: 400;
 }
 code {
   font-family: var(--mono);
@@ -276,6 +284,45 @@ h1 {
   color: var(--muted);
   font: 11px/1.2 var(--mono);
 }
+#save-import {
+  margin-right: 8px;
+}
+#save-slot {
+  display: flex;
+  align-items: center;
+  height: 30px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: var(--r-md);
+  background: var(--fill);
+  white-space: nowrap;
+  font-size: 13px;
+  cursor: pointer;
+}
+#save-slot:hover {
+  background: var(--fill-hi);
+}
+.brand-mark,
+.sec .xy,
+.bhead b .part,
+#save-label .xy,
+#save-menu .xy {
+  font-weight: 700;
+}
+#save-menu {
+  min-width: 144px;
+  padding: 4px;
+}
+#save-menu sl-menu-item::part(base) {
+  border-radius: var(--r-xs);
+}
+#save-menu sl-divider {
+  --spacing: 4px;
+}
+#save-menu svg {
+  width: 15px;
+  height: 15px;
+}
 .top-actions {
   display: flex;
   align-items: center;
@@ -313,7 +360,6 @@ main {
   place-items: center;
   height: 28px;
   font-size: 26px;
-  font-weight: 800;
   line-height: 1;
   letter-spacing: 0;
 }
@@ -395,7 +441,7 @@ sl-switch::part(label) {
   border-top: 1px solid var(--hair);
   background: var(--sunken);
   color: color-mix(in srgb, var(--ink) 72%, var(--muted));
-  font: 600 15px/1.6 var(--xy); /* the font's own Latin is a thin stroke at 400 */
+  font: 700 15px/1.6 var(--xy); /* the font's own Latin is a thin stroke at 400 */
   font-feature-settings:
     "ss01" 0,
     "ss02" 0;
@@ -565,13 +611,19 @@ sl-switch::part(label) {
   font: 11px var(--mono);
   font-variant-numeric: tabular-nums;
 }
-.bhead > span i {
+.bhead > span i,
+.nav-list i {
   min-width: 28px;
   padding: 1px 6px;
   border-radius: var(--r-xs);
   background: var(--fill);
   font-style: normal;
   text-align: center;
+}
+.bhead > span i.complete,
+.nav-list i.complete {
+  background: var(--accent);
+  color: var(--on-accent);
 }
 .bhead small {
   order: 3;
@@ -639,27 +691,49 @@ sl-switch::part(label) {
 .bcells > .cell:nth-last-child(-n + 16) {
   border-bottom: 0;
 }
+.cell .xy,
+.big,
+.detail .part:not(.empty) {
+  font-weight: var(--glyph-weight, 400);
+}
 .cell .xy {
   flex: 1;
   display: grid;
   place-items: center;
   font-size: 72cqw;
-  font-weight: 500;
   line-height: 1;
 }
 .cell small {
+  width: 100%;
+  min-height: 1em;
   color: var(--faint);
   transform: translateY(1px);
   font: 500 9px/1 var(--mono);
   letter-spacing: 0.04em;
   font-variant-numeric: tabular-nums;
 }
+.cell-note,
+.part-note {
+  overflow: hidden;
+  color: var(--muted);
+  font-family: var(--ui);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.cell-note {
+  display: block;
+  letter-spacing: 0;
+}
+.cell-code,
+.cell.sel .cell-note {
+  display: none;
+}
+.cell.sel .cell-code {
+  display: inline;
+}
 .cell small b {
   color: var(--muted);
   font-weight: 700;
-}
-button.cell:hover {
-  background: var(--fill);
 }
 button.cell:hover small,
 button.cell:hover small b,
@@ -667,23 +741,16 @@ button.cell:hover small b,
 .cell.sel small b {
   color: var(--accent);
 }
-.cell.sel {
-  background: var(--accent-soft);
-  box-shadow: inset 0 0 0 1.5px var(--accent);
-}
-.cell.empty {
+.cell.empty,
+.part.empty {
   background: repeating-linear-gradient(
     -45deg,
     transparent 0 2px,
-    color-mix(in srgb, var(--grid) 55%, transparent) 2.5px 3px,
+    color-mix(in srgb, var(--ink) 14%, transparent) 2.5px 3px,
     transparent 3.5px 4.5px
   ),
-  color-mix(in srgb, var(--bg) 80%, var(--surface));
+  var(--empty-bg, color-mix(in srgb, var(--bg) 80%, var(--surface)));
   cursor: default;
-}
-/* fan-made words */
-.cell.fan {
-  background: color-mix(in srgb, var(--accent) 9%, var(--surface));
 }
 @container code-chart (max-width: 640px) {
   .bgrid {
@@ -717,12 +784,20 @@ button.cell:hover small b,
   background: var(--surface);
   box-shadow: var(--ring), var(--lift);
 }
-.hits .cell.fan {
-  background: color-mix(in srgb, var(--accent) 9%, var(--surface));
+button.cell:not(.sel):hover {
+  background: var(--fill);
 }
+.cell.sel,
 .hits .cell.sel {
   background: var(--accent-soft);
   box-shadow: inset 0 0 0 1.5px var(--accent);
+}
+.locked {
+  --empty-bg: var(--locked-bg);
+}
+.part.empty {
+  width: 1em;
+  height: 1em;
 }
 .none {
   margin: 16px 0;
@@ -751,12 +826,21 @@ button.cell:hover small b,
   gap: 8px;
   margin: -4px -4px 12px 0;
 }
+.dlabels {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
 .dcode {
   padding: 2px 8px;
   border-radius: var(--r-xs);
   background: var(--fill);
   color: var(--muted);
   font: 12px/1.5 var(--mono);
+}
+.dcode.fan {
+  background: var(--accent-soft);
+  color: var(--accent);
 }
 .dnav {
   display: flex;
@@ -802,18 +886,11 @@ button.cell:hover small b,
   min-width: 0;
 }
 .word-name {
+  white-space: pre-wrap;
   font-size: 16px;
   font-weight: 600;
   line-height: 1.3;
   overflow-wrap: anywhere;
-}
-.dmeta small {
-  margin-top: -4px;
-  padding: 1px 6px;
-  border-radius: var(--r-xs);
-  background: var(--accent-soft);
-  color: var(--accent);
-  font-size: 11px;
 }
 .dtop dl {
   display: grid;
@@ -843,6 +920,20 @@ button.cell:hover small b,
   line-height: 1;
   vertical-align: middle;
 }
+.part-note {
+  display: none;
+  font-weight: 400;
+}
+.detail .part:not(.empty) {
+  height: auto;
+  grid-template-rows: 1.15em auto;
+}
+.detail .part-note {
+  display: block;
+  max-width: 5em;
+  font-size: 10px;
+  line-height: 1.4;
+}
 button.part {
   color: inherit;
   cursor: pointer;
@@ -859,9 +950,11 @@ button.part:hover {
 .dict p {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: flex-start;
+  gap: 8px 4px;
   min-height: 34px;
   margin: 0;
+  padding-block: 4px;
 }
 .dict .part {
   font-size: 28px;
@@ -870,12 +963,6 @@ button.part:hover {
   padding: 0 4px;
   color: var(--muted);
   font: 12px var(--mono);
-}
-.meaning {
-  margin: 12px 0 0;
-  color: var(--muted);
-  font-size: 12px;
-  overflow-wrap: anywhere;
 }
 .dacts {
   display: none;
@@ -906,7 +993,7 @@ button.part:hover {
   width: 36px;
   height: 4px;
   margin: 0 auto 12px;
-  border-radius: 2px;
+  border-radius: var(--r-xs);
   background: var(--fill-hi);
 }
 .sheet .dacts {
@@ -916,7 +1003,7 @@ button.part:hover {
   margin-top: 16px;
 }
 .nav-drawer {
-  --size: 360px;
+  --size: 480px;
   --header-spacing: 16px 16px 8px 20px;
   --body-spacing: 0 12px 16px;
 }
@@ -964,7 +1051,7 @@ button.part:hover {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.nav-list small {
+.nav-list i {
   color: var(--faint);
   font: 11px var(--mono);
 }
@@ -975,7 +1062,7 @@ button.part:hover {
   background: var(--accent-soft);
   color: var(--accent);
 }
-.nav-list a[aria-current] small {
+.nav-list a[aria-current] i:not(.complete) {
   color: var(--accent);
 }
 
@@ -1075,6 +1162,15 @@ button.part:hover {
   border-top: 1px solid var(--hair);
   font-size: 12px;
 }
+#help:popover-open {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px;
+}
+#help > p {
+  margin: 0;
+}
 .help-example code {
   white-space: nowrap;
 }
@@ -1095,9 +1191,12 @@ button.part:hover {
     --gutter: 16px;
   }
   .top-in {
+    flex-wrap: wrap;
+    justify-content: flex-end;
     padding-block: 10px;
   }
   .brand {
+    margin-right: auto;
     gap: 10px;
   }
   .brand-mark {
