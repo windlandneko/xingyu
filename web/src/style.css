@@ -437,17 +437,20 @@ sl-switch::part(label) {
   display: flex;
   gap: 8px;
   min-width: 0;
-  /* the sticky bars reach into the margin, so the hanging row numbers pass under them */
-  margin-left: calc(-1 * var(--gutter));
-  padding: 8px 0 8px var(--gutter);
+  /* the sticky bars reach into the margin, so the hanging row numbers pass under them, and past the
+     cards' ring and shadow on the right */
+  margin: 0 -12px 0 calc(-1 * var(--gutter));
+  padding: 8px 12px 8px var(--gutter);
   background: var(--bg);
 }
-.chart-bar sl-button::part(base) {
-  background: var(--surface);
-  box-shadow: var(--ring), var(--lift);
+.chart-bar .tool {
+  width: 40px;
+  height: 40px;
+  color: var(--ink);
 }
-.chart-bar sl-button::part(base):hover {
-  color: var(--accent);
+.chart-bar .tool svg {
+  width: 20px;
+  height: 20px;
 }
 .search {
   flex: 1;
@@ -508,8 +511,8 @@ sl-switch::part(label) {
   flex-wrap: wrap;
   align-items: center;
   gap: 4px 12px;
-  margin-left: calc(-1 * var(--gutter));
-  padding: 12px 0 10px var(--gutter);
+  margin: 0 -12px 0 calc(-1 * var(--gutter));
+  padding: 12px 12px 10px var(--gutter);
   background: var(--bg);
 }
 .bhead b {
