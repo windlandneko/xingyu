@@ -89,7 +89,8 @@ export function toPieces(text, { ss01, ss02, lookup }) {
   let last = 0;
   for (const m of text.matchAll(re)) {
     let pua, len;
-    if (m[2] && /^[1-6]e$/.test(m[1]) && (pua = lookup(m[1] + m[2].replace("−", "-")))) len = m[0].length;
+    if (m[2] && /^[1-6]e$/.test(m[1]) && (pua = lookup(m[1] + m[2].replace("−", "-"))))
+      len = m[0].length;
     else if (!/^[0-6]$/.test(m[1]) && (pua = lookup(m[1]))) len = m[1].length;
     if (!pua) continue;
     plain(text.slice(last, m.index));

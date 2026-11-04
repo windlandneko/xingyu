@@ -4,10 +4,10 @@ import "@shoelace-style/shoelace/dist/components/button/button.js";
 import "@shoelace-style/shoelace/dist/components/drawer/drawer.js";
 import "@shoelace-style/shoelace/dist/components/range/range.js";
 import "@shoelace-style/shoelace/dist/components/switch/switch.js";
-import '@shoelace-style/shoelace/dist/components/dropdown/dropdown.js'
-import '@shoelace-style/shoelace/dist/components/menu/menu.js'
-import '@shoelace-style/shoelace/dist/components/menu-item/menu-item.js'
-import '@shoelace-style/shoelace/dist/components/divider/divider.js'
+import "@shoelace-style/shoelace/dist/components/dropdown/dropdown.js";
+import "@shoelace-style/shoelace/dist/components/menu/menu.js";
+import "@shoelace-style/shoelace/dist/components/menu-item/menu-item.js";
+import "@shoelace-style/shoelace/dist/components/divider/divider.js";
 import { createIcons, ArrowUp, Copy, Download, CircleQuestionMark, List, Search, X } from "lucide";
 import { joinWords, toPieces } from "./convert.js";
 import { fontTokens } from "./font-tokens.js";
@@ -113,109 +113,127 @@ for (const el of document.querySelectorAll("[data-word]")) el.textContent = look
 
 // ---------- save slots ----------
 
-const fullUnlock = $('full-unlock')
-const saves = new Map(store.get('saves', []).filter(save => /^slot-[1-7]$/.test(save.id)).map(save => [save.id, save]))
-let activeSlot = store.get('save-slot', 'slot-1') || 'slot-1'
-const available = e => e && (!e.fan || fullUnlock.checked)
-const unlocked = e => available(e) && (fullUnlock.checked || e.note !== undefined)
-const annotation = e => e?.note || (fullUnlock.checked ? e?.name ?? '' : '')
-const mark = (cp, fallback) => unlocked(ed.byCp.get(cp)) ? chr(cp) : fallback
+const fullUnlock = $("full-unlock");
+const saves = new Map(
+  store
+    .get("saves", [])
+    .filter((save) => /^slot-[1-7]$/.test(save.id))
+    .map((save) => [save.id, save]),
+);
+let activeSlot = store.get("save-slot", "slot-1") || "slot-1";
+const available = (e) => e && (!e.fan || fullUnlock.checked);
+const unlocked = (e) => available(e) && (fullUnlock.checked || e.note !== undefined);
+const annotation = (e) => e?.note || (unlocked(e) && !fullUnlock.checked ? "" : (e?.name ?? ""));
+const mark = (cp, fallback) => (unlocked(ed.byCp.get(cp)) ? chr(cp) : fallback);
 
 async function readSave(file) {
-  let text = (await file.text()).trim()
-  if (!text.startsWith('{')) {
-    const encode = text => new TextEncoder().encode(text)
-    const key = await crypto.subtle.importKey(
-      'raw', encode('terrible_artwork'), 'AES-CBC', false, ['decrypt'],
-    )
-    const bytes = Uint8Array.from(atob(text), ch => ch.charCodeAt(0))
+  let text = (await file.text()).trim();
+  if (!text.startsWith("{")) {
+    const encode = (text) => new TextEncoder().encode(text);
+    const key = await crypto.subtle.importKey("raw", encode("terrible_artwork"), "AES-CBC", false, [
+      "decrypt",
+    ]);
+    const bytes = Uint8Array.from(atob(text), (ch) => ch.charCodeAt(0));
     const plain = await crypto.subtle.decrypt(
-      { name: 'AES-CBC', iv: encode("wedidn'tplaytest") }, key, bytes,
-    )
-    text = new TextDecoder().decode(plain)
+      { name: "AES-CBC", iv: encode("wedidn'tplaytest") },
+      key,
+      bytes,
+    );
+    text = new TextDecoder().decode(plain);
   }
-  const { dict } = JSON.parse(text)
-  if (!dict || typeof dict !== 'object' || !Object.values(dict).every(note => typeof note === 'string')) {
-    throw new Error('存档中没有字典记录')
+  const { dict } = JSON.parse(text);
+  if (
+    !dict ||
+    typeof dict !== "object" ||
+    !Object.values(dict).every((note) => typeof note === "string")
+  ) {
+    throw new Error("存档中没有字典记录");
   }
-  return dict
+  return dict;
 }
 
-const slotLabel = id => {
+const slotLabel = (id) => {
   const number = toPieces(id.slice(5), { ss01: true, ss02: false, lookup })
-    .map(piece => piece.pua).join('')
-  return `存档 <span class="xy">${number}</span>`
-}
+    .map((piece) => piece.pua)
+    .join("");
+  return `存档 <span class="xy">${number}</span>`;
+};
 
-$('save-menu').insertAdjacentHTML('afterbegin', Array.from({ length: 7 }, (_, i) => {
-  const id = `slot-${i + 1}`
-  return `<sl-menu-item value="${id}" type="checkbox">${slotLabel(id)}</sl-menu-item>`
-}).join(''))
-const slotItems = $('save-menu').querySelectorAll('[type="checkbox"]')
+$("save-menu").insertAdjacentHTML(
+  "afterbegin",
+  Array.from({ length: 7 }, (_, i) => {
+    const id = `slot-${i + 1}`;
+    return `<sl-menu-item value="${id}" type="checkbox">${slotLabel(id)}</sl-menu-item>`;
+  }).join(""),
+);
+const slotItems = $("save-menu").querySelectorAll('[type="checkbox"]');
 
 function selectSlot(id = activeSlot) {
-  activeSlot = id
-  $('save-dropdown').hidden = !saves.size
-  store.set('save-slot', id)
-  $('save-label').innerHTML = slotLabel(id)
-  for (const item of slotItems) item.checked = item.value === id
-  $('save-delete').disabled = !saves.has(id)
+  activeSlot = id;
+  $("save-dropdown").hidden = !saves.size;
+  store.set("save-slot", id);
+  $("save-label").innerHTML = slotLabel(id);
+  for (const item of slotItems) item.checked = item.value === id;
+  $("save-delete").disabled = !saves.has(id);
 }
 
-$('save-import').addEventListener('click', () => $('save-files').click())
+$("save-import").addEventListener("click", () => $("save-files").click());
 
 function refreshSave() {
-  const notes = new Map(Object.entries(saves.get(activeSlot)?.notes ?? {}))
+  const notes = new Map(Object.entries(saves.get(activeSlot)?.notes ?? {}));
   for (const e of entries) {
-    const note = notes.get(e.name) ?? notes.get(`:${e.name}`) ??
-      (e.struct === 'exp' ? notes.get(e.name[0]) : undefined)
-    e.note = note?.trim().replace(/^\?$/, '')
+    const note =
+      notes.get(e.name) ??
+      notes.get(`:${e.name}`) ??
+      (e.struct === "exp" ? notes.get(e.name[0]) : undefined);
+    e.note = note?.trim().replace(/^\?$/, "");
   }
-  $('stat').textContent = `v${ed.version} · ${entries.filter(unlocked).length} / ${entries.filter(available).length} 字已解锁`
-  Object.assign(hist, { list: [], i: -1, auto: false })
-  showDetail(null)
-  renderNav()
-  renderChart()
+  $("stat").textContent =
+    `v${ed.version} · ${entries.filter(unlocked).length} / ${entries.filter(available).length} 字已解锁`;
+  Object.assign(hist, { list: [], i: -1, auto: false });
+  showDetail(null);
+  renderNav();
+  renderChart();
 }
 
-fullUnlock.addEventListener('sl-change', refreshSave)
-$('save-menu').addEventListener('sl-select', ev => {
-  const id = ev.detail.item.value
-  if (id === 'delete') {
-    saves.delete(activeSlot)
-    store.set('saves', [...saves.values()])
+fullUnlock.addEventListener("sl-change", refreshSave);
+$("save-menu").addEventListener("sl-select", (ev) => {
+  const id = ev.detail.item.value;
+  if (id === "delete") {
+    saves.delete(activeSlot);
+    store.set("saves", [...saves.values()]);
   }
-  selectSlot(id === 'delete' ? activeSlot : id)
-  refreshSave()
-})
-$('save-files').addEventListener('change', async () => {
-  const input = $('save-files')
-  if (!input.files.length) return
-  $('save-import').disabled = true
-  const failed = []
-  let selectedSlot
+  selectSlot(id === "delete" ? activeSlot : id);
+  refreshSave();
+});
+$("save-files").addEventListener("change", async () => {
+  const input = $("save-files");
+  if (!input.files.length) return;
+  $("save-import").disabled = true;
+  const failed = [];
+  let selectedSlot;
   for (const file of input.files) {
     try {
-      const notes = await readSave(file)
-      const number = /^alienmessage([1-7])\.sav/i.exec(file.name)?.[1]
-      const id = `slot-${number ?? 1}`
-      saves.set(id, { id, notes })
-      selectedSlot ??= id
+      const notes = await readSave(file);
+      const number = /^alienmessage([1-7])\.sav/i.exec(file.name)?.[1];
+      const id = `slot-${number ?? 1}`;
+      saves.set(id, { id, notes });
+      selectedSlot ??= id;
     } catch {
-      failed.push(file.name)
+      failed.push(file.name);
     }
   }
   if (selectedSlot) {
-    store.set('saves', [...saves.values()])
-    selectSlot(selectedSlot)
-    fullUnlock.checked = false
-    refreshSave()
+    store.set("saves", [...saves.values()]);
+    selectSlot(selectedSlot);
+    fullUnlock.checked = false;
+    refreshSave();
   }
-  toast(failed.length ? `无法读取：${failed.join('、')}` : '已导入存档')
-  input.value = ''
-  $('save-import').disabled = false
-})
-selectSlot()
+  toast(failed.length ? `无法读取：${failed.join("、")}` : "已导入存档");
+  input.value = "";
+  $("save-import").disabled = false;
+});
+selectSlot();
 
 // ---------- typing pad ----------
 
@@ -290,37 +308,39 @@ const KIND = {
   overflow: ["溢出区", "留给以后新增的字"],
 };
 
-const groupLabel = b => {
-  const head = ed.byCp.get(b.head)
-  return unlocked(head) ? annotation(head) : '未解锁'
-}
+const groupLabel = (b) => {
+  const head = ed.byCp.get(b.head);
+  return unlocked(head) ? annotation(head) : "未解锁";
+};
 
 // a code point as a glyph button
 const ref = (cp, interactive = true) => {
-  const e = ed.byCp.get(cp)
-  if (!available(e)) return '<span class="part empty"></span>'
-  if (!unlocked(e)) return '<span class="part empty locked" role="img" aria-label="未解锁"></span>'
-  const tag = interactive ? 'button' : 'span'
-  return `<${tag} class="part xy"${interactive ? ` type="button" data-cp="${cp}" title="U+${cp}"` : ''}><span>${e.char}</span><small class="part-note">${esc(annotation(e))}</small></${tag}>`
-}
+  const e = ed.byCp.get(cp);
+  if (!available(e)) return '<span class="part empty"></span>';
+  if (!unlocked(e)) return '<span class="part empty locked" role="img" aria-label="未解锁"></span>';
+  const tag = interactive ? "button" : "span";
+  return `<${tag} class="part xy"${interactive ? ` type="button" data-cp="${cp}" title="U+${cp}"` : ""}><span>${e.char}</span><small class="part-note">${esc(annotation(e))}</small></${tag}>`;
+};
 
-function cell(e) {
+// search results show locked words too: looking a word up is not a spoiler
+function cell(e, reveal = false) {
   if (!available(e)) return '<span class="cell empty"></span>';
-  if (!unlocked(e)) return '<span class="cell empty locked" role="img" aria-label="未解锁"></span>';
+  if (!reveal && !unlocked(e))
+    return '<span class="cell empty locked" role="img" aria-label="未解锁"></span>';
   const title = esc(annotation(e));
   return (
-    `<button type="button" class="cell${e === selected ? " sel" : ""}" data-cp="${e.cp}" title="${title}">` +
+    `<button type="button" class="cell${e === selected ? " sel" : ""}${e.fan ? " fan" : ""}" data-cp="${e.cp}" title="${title}">` +
     `<span class="xy">${e.char}</span><small><span class="cell-note">${title}</span><span class="cell-code">${e.cp.slice(1, -1)}<b>${e.cp.slice(-1)}</b></span></small></button>`
   );
 }
 
-const groupCount = b => {
-  const words = ed.entries.filter(e => available(e) && e.cp >= b.start && e.cp <= b.end)
-  const total = words.length
-  const collected = words.filter(unlocked).length
-  const complete = !fullUnlock.checked && total > 0 && collected === total
-  return `<i${complete ? ' class="complete"' : ''}>${fullUnlock.checked ? total : `${collected}/${total}`}</i>`
-}
+const groupCount = (b) => {
+  const words = ed.entries.filter((e) => available(e) && e.cp >= b.start && e.cp <= b.end);
+  const total = words.length;
+  const collected = words.filter(unlocked).length;
+  const complete = !fullUnlock.checked && total > 0 && collected === total;
+  return `<i${complete ? ' class="complete"' : ""}>${fullUnlock.checked ? total : `${collected}/${total}`}</i>`;
+};
 
 // one card of cells per block; the row numbers hang in the margin on the same grid rows
 function renderBlock(b) {
@@ -341,16 +361,17 @@ function renderBlock(b) {
   );
 }
 
-// Search only visible characters, code points and player annotations.
+// pasted PUA characters, what ss01 / ss02 would turn the text into, then code points, notes and names
 function search(q) {
   const hits = new Map();
-  const add = (e) => unlocked(e) && hits.set(e.cp, e);
+  const add = (e) => available(e) && hits.set(e.cp, e);
   const pasted = (ch) => ed.byCp.get(hex(ch.codePointAt(0)));
   for (const ch of q) add(pasted(ch));
+  for (const p of toPieces(q, { ss01: true, ss02: true, lookup })) if (p.pua) add(pasted(p.pua));
   const terms = q.toLowerCase().split(/\s+/);
   const match = (e, t) =>
     (/^(u\+)?[0-9a-f]{3,5}$/.test(t) && e.cp.toLowerCase().endsWith(t.replace("u+", ""))) ||
-    annotation(e).toLowerCase().includes(t);
+    `${e.note ?? ""} ${e.name} ${e.meaning}`.toLowerCase().includes(t);
   for (const e of ed.entries) if (terms.every((t) => match(e, t))) add(e);
   return [...hits.values()];
 }
@@ -363,7 +384,7 @@ function renderChart() {
   $("chart-body").innerHTML = !q
     ? ed.blocks.map(renderBlock).join("")
     : hits.length
-      ? `<div class="hits">${hits.map(cell).join("")}</div>`
+      ? `<div class="hits">${hits.map((e) => cell(e, true)).join("")}</div>`
       : '<p class="none">没有找到。</p>';
   if (hits?.length && !hits.includes(selected)) go(hits[0], true);
   queueStuck();
@@ -377,7 +398,7 @@ const line = (xs, title = "") => `<p${title && ` title="${title}"`}>${xs.map(wor
 function showDetail(e) {
   selected = e;
   document.querySelector(".cell.sel")?.classList.remove("sel");
-  if (!unlocked(e)) {
+  if (!available(e)) {
     selected = null;
     $("detail").innerHTML = '<p class="hint">左键插入，右键查阅。</p>';
     return;
@@ -407,12 +428,12 @@ function showDetail(e) {
   const nav = (id, cp, title, ok) =>
     `<button type="button" class="tool xy" id="${id}" data-cp="${cp}" title="${title}" aria-label="${title}"${ok ? "" : " disabled"}>${mark(cp, id === "d-back" ? "←" : "→")}</button>`;
   $("detail").innerHTML =
-    `<div class="dhead"><div class="dlabels"><span class="dcode">U+${e.cp}</span>${e.fan ? '<span class="dcode fan">自造字</span>' : ''}</div>` +
+    `<div class="dhead"><div class="dlabels"><span class="dcode">U+${e.cp}</span>${e.fan ? '<span class="dcode fan">自造字</span>' : ""}</div>` +
     `<div class="dnav"><button type="button" class="tool xy" id="d-copy" data-cp="F73BE" title="复制" aria-label="复制 U+${e.cp}">${mark("F73BE", "⧉")}</button>` +
     `${nav("d-back", "F729A", "上一个", hist.i > 0)}${nav("d-fwd", "F7299", "下一个", hist.i < hist.list.length - 1)}</div>` +
     `</div><div class="dtop"><button type="button" class="big xy" data-cp="${e.cp}" title="插入" aria-label="插入 U+${e.cp}">${e.char}</button>` +
     `<div class="dmeta"><b class="word-name">${esc(annotation(e))}</b>` +
-    `<dl>${row("结构", STRUCT[e.struct])}${row("部件", !e.roots && e.parts?.map(cp => ref(cp)).join(""))}${row("类别", e.cats?.map(cp => ref(cp)).join(""))}</dl>` +
+    `<dl>${row("结构", STRUCT[e.struct])}${row("部件", !e.roots && e.parts?.map((cp) => ref(cp)).join(""))}${row("类别", e.cats?.map((cp) => ref(cp)).join(""))}</dl>` +
     `</div></div>` +
     (dict.length ? `<div class="dict">${dict.join("")}</div>` : "") +
     `<div class="dacts"><sl-button variant="primary" id="d-insert"><i data-lucide="arrow-up" slot="prefix"></i>插入打字区</sl-button>` +
@@ -428,7 +449,7 @@ function showDetail(e) {
 // history for the card's back / forward; a search's automatic pick replaces itself instead of piling up
 const hist = { list: [], i: -1, auto: false };
 function go(e, auto = false) {
-  if (!unlocked(e)) return;
+  if (!available(e)) return;
   if (e === hist.list[hist.i]) return showDetail(e);
   hist.list = hist.list.slice(0, hist.i + (hist.auto ? 0 : 1)).concat(e);
   hist.i = hist.list.length - 1;
@@ -438,7 +459,7 @@ function go(e, auto = false) {
 }
 
 function insert(e) {
-  if (!unlocked(e)) return;
+  if (!available(e)) return;
   pad.setRangeText(e.char, pad.selectionStart, pad.selectionEnd, "end");
   updatePad();
   toast("已加入打字区");
@@ -529,7 +550,10 @@ $("to-pad").addEventListener("click", () => {
 new ResizeObserver(() => {
   const root = document.documentElement.style;
   const top = document.querySelector(".top");
-  root.setProperty("--top-h", (getComputedStyle(top).position === "sticky" ? top.offsetHeight : 0) + "px");
+  root.setProperty(
+    "--top-h",
+    (getComputedStyle(top).position === "sticky" ? top.offsetHeight : 0) + "px",
+  );
   root.setProperty("--bar-h", document.querySelector(".chart-bar").offsetHeight + "px");
 }).observe(document.body);
 

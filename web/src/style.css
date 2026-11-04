@@ -582,7 +582,11 @@ sl-switch::part(label) {
 .chart-bar.fade::before,
 .bhead.stuck::before {
   bottom: -24px;
-  mask-image: linear-gradient(#000 calc(100% - 44px), rgb(0 0 0 / 60%) calc(100% - 24px), transparent);
+  mask-image: linear-gradient(
+    #000 calc(100% - 44px),
+    rgb(0 0 0 / 60%) calc(100% - 24px),
+    transparent
+  );
 }
 .bhead b {
   display: flex;
@@ -744,12 +748,12 @@ button.cell:hover small b,
 .cell.empty,
 .part.empty {
   background: repeating-linear-gradient(
-    -45deg,
-    transparent 0 2px,
-    color-mix(in srgb, var(--ink) 14%, transparent) 2.5px 3px,
-    transparent 3.5px 4.5px
-  ),
-  var(--empty-bg, color-mix(in srgb, var(--bg) 80%, var(--surface)));
+      -45deg,
+      transparent 0 2px,
+      color-mix(in srgb, var(--ink) 14%, transparent) 2.5px 3px,
+      transparent 3.5px 4.5px
+    ),
+    var(--empty-bg, color-mix(in srgb, var(--bg) 80%, var(--surface)));
   cursor: default;
 }
 @container code-chart (max-width: 640px) {
@@ -783,6 +787,11 @@ button.cell:hover small b,
   border-radius: var(--r-md);
   background: var(--surface);
   box-shadow: var(--ring), var(--lift);
+}
+/* fan-made words only appear with 全开档, when nothing is locked, so they borrow the locked yellow */
+.cell.fan,
+.hits .cell.fan {
+  background: var(--locked-bg);
 }
 button.cell:not(.sel):hover {
   background: var(--fill);
@@ -839,8 +848,8 @@ button.cell:not(.sel):hover {
   font: 12px/1.5 var(--mono);
 }
 .dcode.fan {
-  background: var(--accent-soft);
-  color: var(--accent);
+  background: var(--locked-bg);
+  color: color-mix(in srgb, #f5ce54 55%, var(--ink));
 }
 .dnav {
   display: flex;

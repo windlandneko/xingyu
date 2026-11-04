@@ -10,7 +10,8 @@ A character keeps its code point while it is in the game.
 
 Inputs (source/): words.csv and glyphs.json from prepare.py; units.json, registry.csv, blocks.csv and extra.csv
 (fan-made words) are kept by hand or by this script.
-Outputs (data/): Xingyu-VF.ttf, Xingyu-VF.woff2 and xingyu.json.
+Outputs (data/): Xingyu-VF.ttf, Xingyu-VF.woff2, xingyu.json, and Xingyu-QQ.ttf for QQ (alien glyphs only, under a
+family name QQ accepts).
 
   python3 build_font.py'''
 import csv
@@ -21,13 +22,13 @@ import math
 import re
 from pathlib import Path
 
-from fontTools import varLib
+from fontTools import subset, varLib
 from fontTools.designspaceLib import DesignSpaceDocument
 from fontTools.feaLib.builder import addOpenTypeFeaturesFromString
 from fontTools.fontBuilder import FontBuilder
 from fontTools.otlLib.builder import buildStatTable
 from fontTools.pens.ttGlyphPen import TTGlyphPen
-from fontTools.ttLib import newTable
+from fontTools.ttLib import TTFont, newTable
 from fontTools.ttLib.tables import ttProgram
 from fontTools.ttLib.tables._g_l_y_f import flagOverlapSimple
 
@@ -39,7 +40,7 @@ DATA = HERE / 'data'
 REGISTRY, BLOCKS, EXTRA = SOURCE / 'registry.csv', SOURCE / 'blocks.csv', SOURCE / 'extra.csv'
 UPM = 1000
 ASCENT, DESCENT = 1160, -288                         # CJK line box, as in Source Han Sans
-VERSION, REVISION = '1.1', 1.1                          # 1.0 was the first built from the released game
+VERSION, REVISION = '1.2', 1.2                          # 1.0 was the first built from the released game
 AUTHOR = 'windlandneko'
 
 # vertical design: alien glyphs sit in the CJK ideographic box (ink of 国 in Source Han Sans / HarmonyOS
@@ -782,6 +783,30 @@ def build_vf(family, zh, *master_args):
     save_font(vf, DATA / f'{ps}-VF.ttf')
 
 
+QQ_FAMILY, QQ_PS = 'WenQuanYi Micro Hei', 'XingyuQQPUA'
+
+
+def build_qq(src, dst):
+    '''QQ only renders custom text in fonts whose family it knows, so this copy keeps the alien code points (no
+    OpenType features, which QQ ignores anyway) and borrows the family name WenQuanYi Micro Hei.'''
+    font = TTFont(src)
+    options = subset.Options()
+    options.layout_features, options.name_IDs, options.name_languages = [], ['*'], ['*']
+    options.notdef_outline = True
+    subsetter = subset.Subsetter(options)
+    subsetter.populate(unicodes=[cp for cp in font.getBestCmap() if cp >= 0xF0000])
+    subsetter.subset(font)
+    for record in font['name'].names:
+        if record.nameID in (1, 16):
+            record.string = QQ_FAMILY
+        elif record.nameID == 4:
+            record.string = f'{QQ_FAMILY} Regular'
+        elif record.nameID in (3, 6) or record.nameID >= 256:
+            record.string = re.sub(r'\bXingyu(?=[-;]|$)', QQ_PS, record.toUnicode())
+    font.save(dst)
+    print(f'{dst.name}: {dst.stat().st_size:,} bytes')
+
+
 def main():
     rows = read_csv(SOURCE / 'words.csv')
     by = {r['word']: r for r in rows}
@@ -816,6 +841,7 @@ def main():
     order = ['.notdef', 'space', *LATIN, *numerals.values(), *(WORDC(w) for w in words), *internal]
     assert len(order) == len(set(order))
     build_vf('Xingyu', '兴语', order, outlines, advances, fits, clear, cmap, fea)
+    build_qq(DATA / 'Xingyu-VF.ttf', DATA / 'Xingyu-QQ.ttf')
     write_table(DATA / 'xingyu.json', set(glyph) & set(chars), chars, blocks, by, units)
     print(f'{len(order)} glyphs, {len(cmap)} characters')
 

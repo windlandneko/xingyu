@@ -4,6 +4,7 @@
 
 - 码位表与试用：[在线使用](https://windlandneko.github.io/xingyu/)
 - 字体下载：[`data/Xingyu-VF.ttf`](data/Xingyu-VF.ttf)
+- QQ 用：[`data/Xingyu-QQ.ttf`](data/Xingyu-QQ.ttf)，只含外星字，家族名借用 WenQuanYi Micro Hei 以便 QQ 识别，安装后在 QQ 里选这个字体。
 
 ## 用法
 

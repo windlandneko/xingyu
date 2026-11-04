@@ -1443,6 +1443,8 @@ U+F789F,recharge,elec
 U+F78A0,current,elec
 U+F78A1,currentn,elec
 U+F78A2,a,elec
+U+F78A3,capacitorn,elec
+U+F78A4,inductorn,elec
 U+F78B0,xx,xx
 U+F78B1,xxx,xx
 U+F78B2,xxxx,xx

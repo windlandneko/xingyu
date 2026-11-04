@@ -54,7 +54,7 @@ bandwidth,amount,ud,data,amount,,noun,data de amount
 temperature,hot amount,ud,warm,amount,,noun,amount for measure hot or cold;more temperature mean more hot;less temperature mean more cold
 cel,hot amount 1,lr,temperature,1,,noun,temperature de unit;freshwater de meltpoint be 0 cel;freshwater de boilpoint be 49 cel
 k,hot amount 0,lr,temperature,0,,noun,temperature de unit;universe de least temperature be 0 k;1 delta cel equal 1 delta k
-heat,fire amount,ud,fire,amount,,noun,object store by temperature de energy;heat be atom de kinetic
+heat,fire amount,ud,fire,amount,,noun,object store by temperature de energy
 kinetic,do amount to,lr,energy,to,,noun,move de object de energy
 potential,do amount to,lr,energy,from,,noun,object store by position de energy;object can give de energy
 distance,road amount,ud,road,amount,,noun,from startpoint to endpoint de length
@@ -251,7 +251,7 @@ settrap,earth weapon hand,ud,trap,hand,,verb,create trap for hunt . fight or ass
 landing,move place earth,ud,hand,land,,verb,move on land
 flux,direction earth surface,ud,magnet,surface,,noun,magnet line de amount through surface
 elec,elec,s,-1 0 0 1 1 0 0 -1 -1 0;0 1 0 -2,,,noun,eel de skill for shock;energy for elecitem
-current,elec,ud,ht,elec,,noun,electron move by single direction
+current,elec,ud,ht,elec,,noun,move by same direction de charge
 currentn,elec amount,ud,current,amount,,noun,current de amount
 a,amount 1,lr,currentn,1,,noun,currentn de unit
 resistor,elec anti,ud,elec,anti,,noun,elecitem;move through resistor de current give heat
@@ -266,9 +266,11 @@ currentline,elec symbol,ud,elec,line,,noun,metal string for transfer current
 voltage,elec amount,ud,elec,amount,,noun,battery de strength
 v,elec amount 1,lr,voltage,1,,noun,voltage de unit
 capacitor,elec group,ud,elec,group,,noun,circuit de part;capacitor have charge;capacitor give or take charge by current
-f,elec group 1,lr,capacitor,1,,noun,capacitor strength de unit
+capacitorn,elec group amount,ud,capacitor,amount,,noun,capacitor strength
+f,amount 1,lr,capacitorn,1,,noun,capacitorn de unit
 inductor,elec change,lr,elec,unchange,,noun,circuit de part;inductor maintain current
-henry,elec change 1,lr,inductor,1,,noun,inductor strength de unit
+inductorn,elec change amount,ud,inductor,amount,,noun,inductor de strength
+henry,amount 1,lr,inductorn,1,,noun,inductorn de unit
 charge,elec object,lr,elec,object,,noun,charge be positive or negative;object with same charge repel;object with different charge attract
 chargen,elec object amount,ud,charge,amount,,noun,charge de amount
 coulumb,amount 1,lr,chargen,1,,noun,charge de unit
@@ -388,7 +390,7 @@ fun,head game,lr,head,game,,adj,player de emotion from play game
 gameconsole,game item,lr,game,item,,noun,machine for play
 puzzle,think game,lr,think,game,,noun,win by think de game
 demo,time game,lr,early,game,,noun,halfscreen game;game creator give no price de demo for attract player
-dlc,time game,lr,late,game,,noun,game de bonus part;if game more sell . then game creator create dlc
+dlc,time game,lr,late,game,,noun,game de bonus stage;if game more sell . then game creator create dlc
 male,gender,s,0 2 0 0;1 1 -1 -1;1 -1 -1 1;1 0 -1 0;0.5 1.5 0 2 -0.5 1.5,,,noun,person de gender type
 female,gender,s,0 2 0 0;1 1 -1 -1;1 -1 -1 1;1 0 -1 0;0.5 2.5 0 2 -0.5 2.5,,,noun,person de gender type
 virgin,gender,s,0 2 0 0;1 1 -1 -1;1 -1 -1 1;1 0 -1 0;0.5 1.5 0.5 2 -0.5 2 -0.5 1.5,,,noun,person de gender type
@@ -446,10 +448,10 @@ fix,place anti,ud,place,anti,,verb,prevent object move
 push,direction hand,ud,front,hand,,verb,forward locate object
 pull,direction hand,ud,back,hand,,verb,backward locate object
 share,to hand amount 2,lr,give,half,,verb,give object de part to other person for pair person have object
-oxidant,to hand positive scale,lr,take,electron,,noun,can take electron de element
+oxidant,to hand positive scale,lr,take,electron,,noun,can take electron de chemical
 god,god,s,0 1 0 -1;1 1 -1 -1;1 -1 -1 1;1 0 -1 0,,,noun,universe de creator
-multigod,god,q,god,,,noun,worship all god de religion
-dualgod,god,vd,god,,,noun,worship hot god and cold god de religion
+multigod,god,q,god,,,noun,worship all god de religion be multigod religion
+dualgod,god,vd,god,,,noun,worship hot god and cold god de religion be dualgod religion
 antigod,god anti,ud,god,anti,,verb,no worship god;think god inexist
 priest,god hand person,lr,worship,person,,noun,direct worship de person
 religion,god person,lr,believer,believer,,noun,worship god de community
@@ -464,7 +466,7 @@ piece,scale group,ud,scale,group,,noun,part de part
 each,yes group,ud,yes,group,,adj,all single part in group
 some,1 group,ud,1,group,,adj,single or plural part in group
 none,yes group,ud,no,group,,adj,0 part in group
-percent,1 group,ud,:1e-2,group,,verb,1e-2 group
+percent,1 group,ud,:1e-2,group,,num,1e-2 group
 limit,spike group,ud,spike,group,,noun,group de most number or group de least number;object cannot morethan big limit or lessthan small limit
 average,yes spike group,ud,smooth,group,,noun,group de plusness divide group de object amount
 community,person group,ud,person,group,,noun,person de group
@@ -804,7 +806,7 @@ attribute,de object,ud,det,object,,noun,adj for object
 sequence,object symbol,ud,object,line,,noun,locate by direction de object group
 alone,yes 2 object,oi,no,pair,,adj,be single and benot pair
 bonus,positive object,lr,positive,object,,noun,positive delta;morethan basic amount
-negativebonus,positive object,lr,negative,object,,noun,negative delta;lessthan basic amount de amount
+negativebonus,positive object,lr,negative,object,,noun,negative delta;lessthan basic amount
 open,yes place,oi,yes,place,,adj,can move from and to de place be open
 close,yes place,oi,no,place,,adj,cannot move from and to de place be close
 lock,yes place object,lr,close,object,,noun,item for prevent enter place
@@ -1155,7 +1157,7 @@ hour,big time,ud,ht2,sec,,noun,49Ass;1e-2Assss
 day,big time,ud,ht3,sec,,noun,49Asss;1e-1Ay
 week,big time,lr,big,time,,noun,homeplanet de orbit de period
 month,big time,ud,ht,week,,noun,water planet transit de period;12.05Hy
-year,big time,ud,ht2,week,,noun,water planet transit de position spin de average period
+year,big time,ud,ht2,week,,noun,water planet transit de position spin de average period;490Hy
 century,big time,ud,ht3,week,,noun,49Ayyy
 ad,person time,lr,emperor,time,,noun,mankind history de time unit;ad 0 be emperor enthrone de year;ad 1 be next year . ad -1 be prev year . and repeat
 age,person time amount,lr,person,dt,,noun,dt from person born to now or to person die
@@ -1251,8 +1253,8 @@ seawater,yes water,oi,yes,water,,noun,water with salt
 freshwater,yes water,oi,no,water,,noun,lake de basic part;freshwater be water without salt
 rain,sky water,ud,sky,water,,noun,water fall from sky
 waterfall,place water,ud,place,water,,noun,water fall from mountain or iceland
-anticlockwise,yes water road,oi,yes,watercurrent,,noun,south halfplanet de watercurrent de spin direction
-clockwise,yes water road,oi,no,watercurrent,,noun,north halfplanet de watercurrent de spin direction
+anticlockwise,yes water road,oi,yes,watercurrent,,noun,south halfplanet de watercurrent de spin direction;move forward de person rotate to left be anticlockwise move
+clockwise,yes water road,oi,no,watercurrent,,noun,north halfplanet de watercurrent de spin direction;move forward de person rotate to right be clockwise move
 pure,yes change water,oi,no,dissolve,,adj,water without dissolve de chemical
 unpure,yes change water,oi,yes,dissolve,,adj,water with dissolve de chemical
 wet,in water,lr,with,water,,adj,with water
@@ -1304,13 +1306,13 @@ web,game weed,lr,game,weed,,noun,grid shape de string;item for hunt
 plant,weed hand,ud,weed,hand,,verb,let weed or tree enlarge
 farm,place weed,oi,place,weed,,noun,weed enlarge de place
 whether,whether,s,1 3 -3 3 -3 -1 1 -1;-1 1 3 1 3 -3 -1 -3,,,adj,ask for yes or no
-what,whether object,lr,whether,object,,noun,ask for unknow object
-who,whether person,lr,whether,person,,noun,ask for unknow person
-when,whether time,lr,whether,time,,noun,ask for unknow time
-how,whether do,lr,whether,do,,verb,ask for unknow action
-howmany,whether amount,lr,whether,amount,,number,ask for unknow amount
-which,whether 1,lr,whether,1,,noun,ask for unknow object in group
-why,whether think,lr,whether,think,,adj,ask for unknow because what
+what,whether object,lr,whether,object,,noun,ask for unknow de object
+who,whether person,lr,whether,person,,noun,ask for unknow de person
+when,whether time,lr,whether,time,,noun,ask for unknow de time
+how,whether do,lr,whether,do,,verb,ask for unknow de action
+howmany,whether amount,lr,whether,amount,,number,ask for unknow de amount
+which,whether 1,lr,whether,1,,noun,ask for unknow de object in group
+why,whether think,lr,whether,think,,adj,ask for because what
 where,whether place,lr,whether,place,,noun,ask for unknow de place
 ask,whether hand,ud,whether,hand,,verb,talk question
 question,word whether,lr,word,whether,,noun,sentence for unknow
