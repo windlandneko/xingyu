@@ -25,6 +25,8 @@ cd web && npm install && npm run dev
 
 游戏更新时先运行 `prepare.py`，从游戏文件重新生成 `source/words.csv` 和 `source/glyphs.json`。
 
+`python3 update.py` 把整个流程串起来：Steam 有新版本时，从 Parallels 虚拟机同步游戏，然后依次运行 prepare、build、test。码位有增删改时，生成 `.update/diff.html`（绿增、红删、蓝改）和发版说明草稿 `.update/notes.md`，然后停下等人确认，确认后运行 `python3 update.py publish`；码位没有变化时直接提交、打 tag 并发布 Release。
+
 优化只合并轮廓、指令、字宽及全部字重变化数据均相同的字形，保留码位、字形编号和 OpenType 特性；构建时自动执行，也可单独运行 `optimize_font.py`。
 
 网页加载 WOFF2，下载按钮提供 TTF。为继续从字体内部读取搜索与 PUA 转换所需的对应关系，WOFF2 的[标准附加数据区](https://www.w3.org/TR/WOFF2/#Private)内保存 Deflate 压缩的原始 `cmap`、`post` 表，使用浏览器原生解压。
