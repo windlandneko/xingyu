@@ -190,8 +190,6 @@ U+F70E0,bignumber,big
 U+F70E1,smallnumber,big
 U+F70E2,bigweed,big
 U+F70E3,seedling,big
-U+F70E4,thick,big
-U+F70E5,thin,big
 U+F70E6,shellfishoffspring,big
 U+F70E7,morethan,big
 U+F70E8,lessthan,big
@@ -331,7 +329,6 @@ U+F71AF,smithing,change
 U+F71B0,appear,change
 U+F71B1,disappear,change
 U+F71B2,remain,change
-U+F71B3,startas,change
 U+F71B4,variant,change
 U+F71B5,vanilla,change
 U+F71B6,multiply,change
@@ -871,7 +868,6 @@ U+F74E2,realize,brain
 U+F74E3,nerve,brain
 U+F74E4,smart,brain
 U+F74E5,stupid,brain
-U+F74E6,handbrain,brain
 U+F74E7,know,brain
 U+F74E8,unknow,brain
 U+F74E9,understand,brain
@@ -899,7 +895,9 @@ U+F7503,sweet,mouth
 U+F7504,kelptaste,mouth
 U+F7505,bitter,mouth
 U+F7506,tasty,mouth
-U+F7507,notaste,mouth
+U+F7507,badtaste,mouth
+U+F7508,bloody,mouth
+U+F7509,mixedtaste,mouth
 U+F7510,eye,eye
 U+F7511,see,eye
 U+F7512,read,eye
@@ -919,7 +917,7 @@ U+F7525,hope,think
 U+F7526,remember,think
 U+F7527,topic,think
 U+F7528,explain,think
-U+F7529,assume,think
+U+F7529,unbelieve,think
 U+F752A,believe,think
 U+F752B,personality,think
 U+F752C,guess,think
@@ -1245,7 +1243,6 @@ U+F776D,random,shell
 U+F776E,dice,shell
 U+F776F,hard,shell
 U+F7770,soft,shell
-U+F7771,leg,shell
 U+F7772,payment,shell
 U+F7773,income,shell
 U+F7774,cost,shell
@@ -1276,6 +1273,7 @@ U+F77A3,seed,tree
 U+F77A4,wood,tree
 U+F77A5,leaf,tree
 U+F77A6,woodcut,tree
+U+F77A7,grove,tree
 U+F77B0,air,air
 U+F77B1,gasness,air
 U+F77B2,bubble,air
@@ -1325,6 +1323,7 @@ U+F77F6,heatvalue,fire
 U+F77F7,burn,fire
 U+F77F8,burnpoint,fire
 U+F77F9,obsidian,fire
+U+F77FA,smoke,fire
 U+F7800,hot,hot
 U+F7801,cold,hot
 U+F7802,boil,hot

@@ -40,7 +40,7 @@ DATA = HERE / 'data'
 REGISTRY, BLOCKS, EXTRA = SOURCE / 'registry.csv', SOURCE / 'blocks.csv', SOURCE / 'extra.csv'
 UPM = 1000
 ASCENT, DESCENT = 1160, -288                         # CJK line box, as in Source Han Sans
-VERSION, REVISION = '1.2', 1.2                          # 1.0 was the first built from the released game
+VERSION, REVISION = '1.3', 1.3                          # 1.0 was the first built from the released game
 AUTHOR = 'windlandneko'
 
 # vertical design: alien glyphs sit in the CJK ideographic box (ink of 国 in Source Han Sans / HarmonyOS
