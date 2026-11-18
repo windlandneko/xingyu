@@ -114,6 +114,7 @@ for (const el of document.querySelectorAll("[data-word]")) el.textContent = look
 // ---------- save slots ----------
 
 const fullUnlock = $("full-unlock");
+const showOld = $("show-old");
 const saves = new Map(
   store
     .get("saves", [])
@@ -121,8 +122,9 @@ const saves = new Map(
     .map((save) => [save.id, save]),
 );
 let activeSlot = store.get("save-slot", "slot-1") || "slot-1";
-const available = (e) => e && (!e.fan || fullUnlock.checked);
-const unlocked = (e) => available(e) && (fullUnlock.checked || e.note !== undefined);
+// deprecated words have left the game, so showing them spoils nothing
+const available = (e) => e && (!e.fan || fullUnlock.checked) && (!e.old || showOld.checked);
+const unlocked = (e) => available(e) && (fullUnlock.checked || e.old || e.note !== undefined);
 const annotation = (e) => e?.note || (unlocked(e) && !fullUnlock.checked ? "" : (e?.name ?? ""));
 const mark = (cp, fallback) => (unlocked(ed.byCp.get(cp)) ? chr(cp) : fallback);
 
@@ -197,6 +199,7 @@ function refreshSave() {
 }
 
 fullUnlock.addEventListener("sl-change", refreshSave);
+showOld.addEventListener("sl-change", refreshSave);
 $("save-menu").addEventListener("sl-select", (ev) => {
   const id = ev.detail.item.value;
   if (id === "delete") {
@@ -329,7 +332,7 @@ function cell(e, reveal = false) {
     return '<span class="cell empty locked" role="img" aria-label="未解锁"></span>';
   const title = esc(annotation(e));
   return (
-    `<button type="button" class="cell${e === selected ? " sel" : ""}${e.fan ? " fan" : ""}" data-cp="${e.cp}" title="${title}">` +
+    `<button type="button" class="cell${e === selected ? " sel" : ""}${e.fan ? " fan" : ""}${e.old ? " old" : ""}" data-cp="${e.cp}" title="${title}">` +
     `<span class="xy">${e.char}</span><small><span class="cell-note">${title}</span><span class="cell-code">${e.cp.slice(1, -1)}<b>${e.cp.slice(-1)}</b></span></small></button>`
   );
 }
@@ -428,7 +431,7 @@ function showDetail(e) {
   const nav = (id, cp, title, ok) =>
     `<button type="button" class="tool xy" id="${id}" data-cp="${cp}" title="${title}" aria-label="${title}"${ok ? "" : " disabled"}>${mark(cp, id === "d-back" ? "←" : "→")}</button>`;
   $("detail").innerHTML =
-    `<div class="dhead"><div class="dlabels"><span class="dcode">U+${e.cp}</span>${e.fan ? '<span class="dcode fan">自造字</span>' : ""}</div>` +
+    `<div class="dhead"><div class="dlabels"><span class="dcode">U+${e.cp}</span>${e.fan ? '<span class="dcode fan">自造字</span>' : ""}${e.old ? '<span class="dcode old">弃用</span>' : ""}</div>` +
     `<div class="dnav"><button type="button" class="tool xy" id="d-copy" data-cp="F73BE" title="复制" aria-label="复制 U+${e.cp}">${mark("F73BE", "⧉")}</button>` +
     `${nav("d-back", "F729A", "上一个", hist.i > 0)}${nav("d-fwd", "F7299", "下一个", hist.i < hist.list.length - 1)}</div>` +
     `</div><div class="dtop"><button type="button" class="big xy" data-cp="${e.cp}" title="插入" aria-label="插入 U+${e.cp}">${e.char}</button>` +

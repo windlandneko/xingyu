@@ -4,6 +4,7 @@
 
   source/words.csv    word, category, struct, component1, component2, rename, wordtype, meaning (file order kept)
   source/glyphs.json  word -> strokes, composed like AlienInfo.GetCharacter
+  source/retired.json words dropped from the game, with their last strokes (kept as deprecated glyphs)
   source/extra.csv    fan-made words not in the game (kept by hand, in the game's columns), appended to the above
 
 The game has no category column: it derives categories from radicals (Global.Search_Radicial and Global.Init), which
@@ -19,7 +20,7 @@ import UnityPy
 from Crypto.Cipher import AES
 
 HERE = Path(__file__).resolve().parent
-GAME = HERE.parent / 'Message From Aliens/MessageFromAliens_Data'
+GAME = Path.home() / 'Library/Application Support/Steam/steamapps/common/Message From Aliens' / 'MessageFromAliens.app/Contents/Resources/Data'
 COLUMNS = ['word', 'category', 'struct', 'component1', 'component2', 'rename', 'wordtype', 'meaning']
 CATEGORIES = '''big positive amount yes group join loop change same eq place road sky time light direction person gender
 alien terran god hand anti move do item weapon head brain mouth eye think nose gill science this and symbol surface word
@@ -197,6 +198,20 @@ def categorize(r, by, memo):
 
 # ---------- outputs ----------
 
+def retire(rows):
+    '''Words that left the game move, with their last strokes, to source/retired.json; a word that comes back leaves it.'''
+    path = HERE / 'source/retired.json'
+    retired = json.loads(path.read_text()) if path.exists() else {}
+    strokes = json.loads((HERE / 'source/glyphs.json').read_text())
+    with open(HERE / 'source/words.csv', newline='') as fh:
+        old = {r['word']: r for r in csv.DictReader(fh)}
+    now = {r['word'] for r in rows}
+    retired |= {w: {'row': r, 'strokes': strokes[w]} for w, r in old.items() if w not in now and w in strokes}
+    retired = {w: v for w, v in retired.items() if w not in now}
+    path.write_text('{\n' + ',\n'.join(f'{json.dumps(w)}:{json.dumps(v, ensure_ascii=False, separators=(",", ":"))}'
+                                       for w, v in sorted(retired.items())) + '\n}\n')
+
+
 def main():
     sys.setrecursionlimit(5000)
     with open(HERE / 'source/extra.csv', newline='') as fh:
@@ -206,6 +221,7 @@ def main():
     for r in rows:
         r['category'] = ' '.join(categorize(r, by, memo))
         glyph(r['word'], by, strokes)
+    retire(rows)
     with open(HERE / 'source/words.csv', 'w', newline='') as fh:
         out = csv.writer(fh, lineterminator='\n')
         out.writerow(COLUMNS)

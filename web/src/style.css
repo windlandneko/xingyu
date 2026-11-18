@@ -15,6 +15,7 @@
   --accent: #1d6c88;
   --accent-soft: #e2eff4;
   --locked-bg: color-mix(in srgb, #f5ce54 24%, var(--surface));
+  --old-bg: color-mix(in srgb, #8c2a2a 24%, var(--surface));
   --on-accent: #ffffff;
   --tile-bg: #16191d;
   --tile-ink: #f1e8d3;
@@ -51,6 +52,7 @@
     --accent: #6cc2de;
     --accent-soft: #1b4253;
     --locked-bg: color-mix(in srgb, #f5ce54 28%, var(--surface));
+  --old-bg: color-mix(in srgb, #8c2a2a 45%, var(--surface));
     --on-accent: #0b1a20;
     --tile-bg: #262b32;
     --lift: 0 1px 2px rgb(0 0 0 / 30%);
@@ -73,6 +75,7 @@
   --accent: #6cc2de;
   --accent-soft: #1b4253;
   --locked-bg: color-mix(in srgb, #f5ce54 28%, var(--surface));
+  --old-bg: color-mix(in srgb, #8c2a2a 45%, var(--surface));
   --on-accent: #0b1a20;
   --tile-bg: #262b32;
   --lift: 0 1px 2px rgb(0 0 0 / 30%);
@@ -793,6 +796,11 @@ button.cell:hover small b,
 .hits .cell.fan {
   background: var(--locked-bg);
 }
+/* deprecated glyphs: words the game dropped, shown with 显示弃用字形 */
+.cell.old,
+.hits .cell.old {
+  background: var(--old-bg);
+}
 button.cell:not(.sel):hover {
   background: var(--fill);
 }
@@ -850,6 +858,10 @@ button.cell:not(.sel):hover {
 .dcode.fan {
   background: var(--locked-bg);
   color: color-mix(in srgb, #f5ce54 55%, var(--ink));
+}
+.dcode.old {
+  background: var(--old-bg);
+  color: color-mix(in srgb, #8c2a2a 55%, var(--ink));
 }
 .dnav {
   display: flex;
@@ -1170,6 +1182,11 @@ button.part:hover {
   padding-top: 12px;
   border-top: 1px solid var(--hair);
   font-size: 12px;
+}
+.switches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
 }
 #help:popover-open {
   display: flex;

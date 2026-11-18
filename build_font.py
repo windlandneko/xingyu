@@ -6,9 +6,9 @@ English words into glyphs.
 
 Code points: F7000 numerals (8 per exponent, 5th place down to -5th), F7060 number words in rows of 8 (a digit sits in its column), F70D0
 words by the game's radicals in the game's order, similar words side by side, then internal tokens; F7A00 overflow.
-A character keeps its code point while it is in the game.
+A character keeps its code point for good; a word dropped from the game stays as a deprecated glyph.
 
-Inputs (source/): words.csv and glyphs.json from prepare.py; units.json, registry.csv, blocks.csv and extra.csv
+Inputs (source/): words.csv and glyphs.json from prepare.py; units.json, registry.csv, retired.json, blocks.csv and extra.csv
 (fan-made words) are kept by hand or by this script.
 Outputs (data/): Xingyu-VF.ttf, Xingyu-VF.woff2, xingyu.json, and Xingyu-QQ.ttf for QQ (alien glyphs only, under a
 family name QQ accepts).
@@ -37,10 +37,10 @@ from optimize_font import save_font
 HERE = Path(__file__).resolve().parent
 SOURCE = HERE / 'source'
 DATA = HERE / 'data'
-REGISTRY, BLOCKS, EXTRA = SOURCE / 'registry.csv', SOURCE / 'blocks.csv', SOURCE / 'extra.csv'
+REGISTRY, BLOCKS, EXTRA, RETIRED = (SOURCE / f for f in ('registry.csv', 'blocks.csv', 'extra.csv', 'retired.json'))
 UPM = 1000
 ASCENT, DESCENT = 1160, -288                         # CJK line box, as in Source Han Sans
-VERSION, REVISION = '1.3', 1.3                          # 1.0 was the first built from the released game
+VERSION, REVISION = '1.4', 1.4                          # 1.0 was the first built from the released game
 AUTHOR = 'windlandneko'
 
 # vertical design: alien glyphs sit in the CJK ideographic box (ink of 国 in Source Han Sans / HarmonyOS
@@ -665,9 +665,10 @@ def write_csv(path, header, rows):
 
 
 def allocate(rows, words):
-    '''word -> code point. Cells of words dropped from the game are freed. A new word never goes into another
-    group: it takes the first free cell in the block of the first of its categories that has a block, else in the
-    overflow. Moving it next to related words of its group is done by hand in registry.csv.'''
+    '''word -> code point. A word keeps its cell for good: a word dropped from the game stays as a deprecated glyph
+    (retired.json), so its cell is never given to another word. A new word never goes into another group: it takes
+    the first free cell in the block of the first of its categories that has a block, else in the overflow. Moving it
+    next to related words of its group is done by hand in registry.csv.'''
     chars = {r['word']: int(r['codepoint'][2:], 16) for r in read_csv(REGISTRY) if r['block'] == 'numeral' or r['word'] in words}
     blocks = [(r['block'], int(r['start'][2:], 16), int(r['end'][2:], 16)) for r in read_csv(BLOCKS)]
     span = {b: (lo, hi) for b, lo, hi in blocks}
@@ -683,7 +684,7 @@ def allocate(rows, words):
     return chars, blocks
 
 
-def write_table(path, shown, chars, blocks, by, units):
+def write_table(path, shown, chars, blocks, by, units, retired):
     '''The page's data: blocks, then every character with its dictionary entry.'''
     ref = lambda w: f'{chars[w]:X}'
     out_blocks = []
@@ -706,6 +707,8 @@ def write_table(path, shown, chars, blocks, by, units):
             e['def'] = [[x if x[0] == '~' else ref(x) for x in line] for line in definition(r['meaning'], by, units)]
         if w in fan:
             e['fan'] = True    # made for the font, not in the game
+        if w in retired:
+            e['old'] = True    # dropped from the game
         e = {k: v for k, v in e.items() if v != []}
         entries.append(e | {'name': w.lstrip(':'), 'meaning': r['meaning'] if r else ''})
     dump = lambda xs: ',\n'.join(json.dumps(x, ensure_ascii=False, separators=(',', ':')) for x in xs)
@@ -808,14 +811,15 @@ def build_qq(src, dst):
 
 
 def main():
-    rows = read_csv(SOURCE / 'words.csv')
+    retired = json.loads(RETIRED.read_text())       # words dropped from the game: kept, but ss02 no longer types them
+    rows = read_csv(SOURCE / 'words.csv') + [r['row'] for r in retired.values()]
     by = {r['word']: r for r in rows}
-    strokes = json.loads((SOURCE / 'glyphs.json').read_text())
+    strokes = json.loads((SOURCE / 'glyphs.json').read_text()) | {w: r['strokes'] for w, r in retired.items()}
     units = json.loads((SOURCE / 'units.json').read_text())
     # every word with a glyph of its own (numerals are drawn from the digits); ss02 types the alphanumeric ones
     # the "solid" token is the notebook's filled cursor block, not a character
     words = [r['word'] for r in rows if r['struct'] not in ('exp', 'solid') and not r['word'].isdigit()]
-    typed = lambda w: all(c in LATIN_CHARS and c.isalnum() for c in w)
+    typed = lambda w: all(c in LATIN_CHARS and c.isalnum() for c in w) and w not in retired
     chars, blocks = allocate(rows, set(words))
     numerals = {num_word(d, e): G(d, e) for d, e in NUMERALS}
 
@@ -842,7 +846,7 @@ def main():
     assert len(order) == len(set(order))
     build_vf('Xingyu', '兴语', order, outlines, advances, fits, clear, cmap, fea)
     build_qq(DATA / 'Xingyu-VF.ttf', DATA / 'Xingyu-QQ.ttf')
-    write_table(DATA / 'xingyu.json', set(glyph) & set(chars), chars, blocks, by, units)
+    write_table(DATA / 'xingyu.json', set(glyph) & set(chars), chars, blocks, by, units, set(retired))
     print(f'{len(order)} glyphs, {len(cmap)} characters')
 
 
