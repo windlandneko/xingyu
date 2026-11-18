@@ -222,7 +222,8 @@ reverse,do changeword,fb,do,,,changeword,reverse swap verb de prevword and nextw
 law,direction hand do,lr,direct,do,,noun,country de all person must do some action and must no do some action
 method,do to,lr,do,by,,noun,person do action by method
 purpose,do to,lr,do,for,,noun,person do action for purpose
-let,change do,lr,change,do,,verb,modify or start other person de action
+let,to hand do,lr,give,do,,verb,modify or start other person de action
+accept,to hand do,lr,take,do,,verb,take other person de let ness
 earth,earth,s,-2 -1 2 -1 2 1 -2 1 -2 -1,,,noun,land surface de soft part
 cave,spike earth,ud,pit,earth,,noun,down from seabed de empty space
 mountain,spike earth,ud,spike,earth,,noun,up from seabed de big rock
@@ -261,7 +262,7 @@ om,amount 1,lr,resistance,1,,noun,resistance de unit
 recharge,big hand elec,lr,enlarge,elec,,verb,enlarge battery de eenergy
 elecitem,elec to,lr,elec,to,,noun,circuit de part;elecitem modify eenergy into other energy
 circuit,elec loop,lr,elec,loop,,noun,loop de currentline with battery and elecitem
-currentline,elec symbol,ud,elec,line,,noun,metal string for transfer current
+currentline,elec symbol,ud,elec,line,,noun,metal needle for transfer current
 voltage,elec amount,ud,elec,amount,,noun,battery de strength
 v,elec amount 1,lr,voltage,1,,noun,voltage de unit
 capacitor,elec group,ud,elec,group,,noun,circuit de part;capacitor have charge;capacitor give or take charge by current
@@ -282,7 +283,7 @@ em,elec direction earth,lr,elec,magnet,,noun,create current by magnet field or m
 stove,elec place fire,lr,elec,fireplace,,noun,elecitem for heating food without fire
 eel,elec fish,lr,elec,fish,,noun,give current de fish
 battery,elec to,lr,elec,from,,noun,circuit de part;battery give voltage;battery give eenergy;current out battery move from battery de positive polar to negative polar
-shock,elec head,lr,elec,head,,verb,eel attack victim by current;or small chance event modify person de emotion
+shock,elec head,lr,elec,head,,verb,eel attack victim by current
 phone,elec head loop,lr,elec,communicate,,noun,elecitem for communicate other person
 fridge,elec ice,lr,elec,ice,,noun,elecitem for maintain food by cooling
 motor,elec move,lr,elec,move,,noun,elecitem;move through motor de current give kinetic
@@ -510,17 +511,16 @@ head,head,s,-2 -1 2 -1 0 1 -2 -1,,,noun,person de up part
 headback,head direction,lr,head,back,,noun,head de back
 face,head direction,lr,head,front,,noun,head de front
 emotion,head de surface,lr,head,color,,noun,face de color;or person de opinion
-happy,head branch,lr,head,branch,,adj,emotion from good event
-sad,head fire,lr,head,fire,,adj,emotion from bad event
-angry,head weed,lr,head,weed,,adj,want destroy or attack de emotion
-lovely,head sky god,lr,head,sun,,adj,love de emotion
-exciting,head,lr,head,colorful,,adj,with more emotion
-calm,head ice,lr,head,ice,,adj,without emotion
-scared,head yes light,lr,head,dark,,adj,emotion from tragedy or reverse attack
 funny,head yes light,lr,head,bright,,adj,emotion from comedy
+sad,head yes light,lr,head,dark,,adj,emotion from bad event
+scared,head air earth,lr,head,vent,,adj,emotion from reverse attack and without protect ness
+shocked,head sky god,lr,head,sun,,adj,emotion from small chance de randomevent
+happy,head branch,lr,head,branch,,adj,emotion from good event
+confused,head fire,lr,head,fire,,adj,emotion from unknow ness;emotion from difficult puzzle or question
+painful,head water,lr,head,water,,adj,emotion from ill ness;emotion from major fail ness
+angry,head weed,lr,head,weed,,adj,want destroy or attack de emotion
+calm,head ice,lr,head,ice,,adj,without emotion
 makelaugh,head hand,ud,funny,hand,,verb,good comedy modify audience into funny
-confused,head water,lr,head,water,,adj,emotion from unknow ness;emotion from difficult puzzle or question
-jealous,head air earth,lr,head,vent,,adj,bad emotion from other person de good event
 intrigue,yes head,oi,no,head,,adj,no honest;tohide self;prevent other person understand self
 honest,yes head,oi,yes,head,,adj,talk real idea;unlock self;help other person understand self
 apologize,head anti,ud,head,anti,,verb,realize self be bad and talk for self de bad action
@@ -639,7 +639,7 @@ appear,yes object change,lr,exist,change,,verb,change from inexist to exist
 disappear,yes object change,lr,inexist,change,,verb,change from exist to inexist
 rich,yes change 2,oi,yes,swap,,adj,have many money and property
 poor,yes change 2,oi,no,swap,,adj,no have money and property
-e,big change amount,ud,log,amount,,noun,e exponent x de integral be e exponent x plus constant;e be irrational and constant
+e,big change amount,ud,log,amount,,noun,e exponent x de differential func be e exponent x;e be irrational and constant
 fromnumber,direction symbol amount,lr,left,number,,noun,arithmetic verb de prevword
 tonumber,direction symbol amount,lr,right,number,,noun,arithmetic verb de nextword
 mostlyequal,eq same 2,oi,eq,similar,,verb,prevword and nextword de amount be similar
@@ -726,7 +726,7 @@ fall,move direction,ud,hand,down,,verb,down move
 stand,move yes,ud,hand,no,,verb,no move
 accelerate,change move,lr,change,move,,verb,speed change
 movearound,move loop,ud,hand,loop,,verb,single loop move in orbit
-control,move person,ud,hand,person,,verb,cannot reverse disagree de command
+control,move person,ud,hand,person,,verb,cannot no accept de command
 ride,move fish,ud,hand,fish,,verb,stand on horse de headback and move by horse move
 enter,move in,ud,hand,in,,verb,move to place
 gate,place move in,oi,place,enter,,noun,person enter and leave place through gate
@@ -937,8 +937,7 @@ same,same,s,-1 0 0 0 0 1 1 1,,,adj,plural object with 1 type
 different,same,flr,same,,,adj,no same object
 uniqueobject,same object,lr,different,object,,noun,place de unique object
 similar,same 2,ud,same,2,,adj,be less different
-agree,yes hand,oi,yes,support,,verb,support other person de idea
-disagree,yes hand,oi,no,support,,verb,no support other person de idea
+disagree,1 earth anti,ud,pillar,anti,,verb,destroy building de support pillar;no support other person de idea
 normal,yes same,oi,no,different,,adj,be common object
 unique,yes same,oi,yes,different,,adj,benot common object
 perfect,yes same,oi,yes,same,,adj,most fit
@@ -954,9 +953,9 @@ element,change scale,lr,unchange,scale,,noun,atom de group;atom with same proton
 isotope,change scale,lr,change,scale,,noun,element de variant with same proton amount and different neutron amount
 atomenergy,scale do amount,lr,scale,energy,,noun,energy by nuke
 quark,big scale,lr,least,scale,,noun,proton and neutron de basic part;universe de quark type amount be 6
-S,air earth scale,lr,vent,scale,,noun,16 th element
+S,fire earth scale,lr,volcano,scale,,noun,16 th element
 C,fire to scale,lr,fuel,scale,,noun,6 th element
-P,fire earth scale,lr,volcano,scale,,noun,15 th element
+P,air earth scale,lr,vent,scale,,noun,15 th element
 particle,scale,lr,scale,scale,,noun,more small de basic object
 heavyparticle,yes scale,oi,yes,scale,,noun,particle with mass
 lightparticle,yes scale,oi,no,scale,,noun,particle without mass
@@ -1036,7 +1035,7 @@ star,sky loop,oi,sky,loop,,noun,give light de skyobject
 skyobject,sky object,oi,sky,object,,noun,more more mass object in universe
 transit,sky,oi,sky,sky,,verb,transit mean inplanet . homeplanet and sun be in same straightline;inplanet be between sun and homeplanet;inplanet most enlarge while transit
 horizon,sky,ud,sky,ht,,noun,sky and sea de join line in person de eyesight
-t1df,sky anti hand,oi,sky,welcome,,noun,water planet transit while ice planet out transit
+t1df,sky anti hand,oi,sky,welcome,,noun,water planet transit while earth planet out transit
 radiation,light yes snake,lr,light,poison,,noun,more big speed particle from sun or from nuke;radiation random modify genre;take big radiation de person change into ill
 thunder,sky branch,oi,sky,branch,,noun,sky de branch light with more small dt;thunder be more small dt de more big current
 meteorite,sky big earth,ud,sky,rock,,noun,rock fall from solarsystem
@@ -1271,7 +1270,7 @@ rotate,water loop hand,ud,whirlpool,hand,,verb,modify object de direction
 whirlpool,water loop,lr,water,loop,,noun,spin de watercurrent
 purify,yes hand,ud,pure,hand,,verb,modify object into pure object
 unpurify,yes hand,ud,unpure,hand,,verb,modify object into unpure object
-spin,move water loop,ud,hand,whirlpool,,verb,direction change while place unchange
+spin,move water loop,ud,hand,whirlpool,,verb,direction change while position unchange
 swim,move water,ud,hand,water,,verb,move in water
 rivertosea,place,oi,place,mirturl,,noun,connect river and sea de place
 river,yes water road,lr,freshwater,road,,noun,move de freshwater
@@ -1293,7 +1292,8 @@ shake,wave hand,ud,wave,hand,,verb,loop forward and backward locate object
 weed,weed,s,1 -2 -1 -2;0 -2 1 -1 -1 1 0 2,,,noun,big length de plants up from seabed
 seedling,big weed,lr,small,weed,,noun,new grow from spore de weed
 bigweed,big weed,lr,big,weed,,noun,more grow de weed
-string,symbol weed,lr,line,weed,,noun,line object;person use string for connect pair object or create web
+string,symbol weed,lr,line,weed,,noun,soft line object;person use string for connect pair object or create web
+needle,symbol metal,lr,line,metal,,noun,hard line object;needle common be metal
 algae,scale weed,lr,scale,weed,,noun,more small weed
 splitweed,join weed,lr,split,weed,,noun,can split de weed;mankind de food
 kelp,surface weed,lr,surface,weed,,noun,big length . no small width and kelptaste weed;mankind de food
@@ -1369,7 +1369,7 @@ traditional,yes time,oi,yes,past,,adj,like old method morethan new method
 futurist,yes time,oi,no,past,,adj,like new method morethan old method
 nonsense,yes word,oi,no,word,,adj,cannot reverse read de more bad write ness;or no sentence de random word sequence
 comedy,yes light symbol,lr,bright,art,,noun,funny show
-tragedy,yes light symbol,lr,dark,art,,noun,scared show
+tragedy,yes light symbol,lr,dark,art,,noun,sad show
 artist,yes symbol person,lr,art,person,,noun,create or perform art de person
 audience,yes symbol to,lr,art,to,,noun,see art de person
 novel,place symbol yes,lr,paper,art,,noun,story de book;novel common be fake
@@ -1416,7 +1416,7 @@ fish,fish,s,-1 -2 -1 2 1 2 1 -2 -1 -2;0 -2 1 -3 -1 -3 0 -2;-1 0 1 0,,,noun,water
 fin,fin,s,1 -1 -1 -1 -1 1 1 -1,,,noun,fish de part for swim
 shellfish,shell group,ud,shell,group,,noun,animal in shellfishshell;shellfish cannot move
 skin,surface object,lr,surface,object,,noun,soft surface part on animal
-notaword,token,s,0 0 0 1 1 0 1 1,,,token,if you see this . talk artless game by this wrong word
+notaword,token,s,0 0 0 1 1 0 1 1,,,token,this be reverse destroy de word from old game or reverse wrong write de word;if you see this out page for write . talk artless game by this wrong word
 notebookcursor,token,solid,0 0,,,token,in page for write . this be write new word de position
 fourth,to 4,lr,from,4,,adj,4 th
 fifth,to 5,lr,from,5,,adj,5 th

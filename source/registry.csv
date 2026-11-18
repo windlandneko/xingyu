@@ -190,6 +190,8 @@ U+F70E0,bignumber,big
 U+F70E1,smallnumber,big
 U+F70E2,bigweed,big
 U+F70E3,seedling,big
+U+F70E4,thick,big
+U+F70E5,thin,big
 U+F70E6,shellfishoffspring,big
 U+F70E7,morethan,big
 U+F70E8,lessthan,big
@@ -329,6 +331,7 @@ U+F71AF,smithing,change
 U+F71B0,appear,change
 U+F71B1,disappear,change
 U+F71B2,remain,change
+U+F71B3,startas,change
 U+F71B4,variant,change
 U+F71B5,vanilla,change
 U+F71B6,multiply,change
@@ -862,12 +865,15 @@ U+F74C7,intrigue,head
 U+F74C8,honestperson,head
 U+F74C9,liar,head
 U+F74CA,helmet,head
+U+F74CB,shocked,head
+U+F74CC,painful,head
 U+F74E0,brain,brain
 U+F74E1,forget,brain
 U+F74E2,realize,brain
 U+F74E3,nerve,brain
 U+F74E4,smart,brain
 U+F74E5,stupid,brain
+U+F74E6,handbrain,brain
 U+F74E7,know,brain
 U+F74E8,unknow,brain
 U+F74E9,understand,brain
@@ -1019,6 +1025,7 @@ U+F75CE,show,symbol
 U+F75CF,dance,symbol
 U+F75D0,video,symbol
 U+F75D1,monument,symbol
+U+F75D2,needle,symbol
 U+F75E0,surface,surface
 U+F75E1,hair,surface
 U+F75E2,dskin,surface
@@ -1097,6 +1104,7 @@ U+F764F,because,to
 U+F7650,otherwise,to
 U+F7651,ifthen,to
 U+F7652,relation,to
+U+F7653,accept,to
 U+F7660,whether,whether
 U+F7661,what,whether
 U+F7662,who,whether
@@ -1243,6 +1251,7 @@ U+F776D,random,shell
 U+F776E,dice,shell
 U+F776F,hard,shell
 U+F7770,soft,shell
+U+F7771,leg,shell
 U+F7772,payment,shell
 U+F7773,income,shell
 U+F7774,cost,shell
